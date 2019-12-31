@@ -49,6 +49,7 @@ public enum Buildings {
 	RATHAUS ("Rathaus", GameSet.BASIS, "1 Siegpunkt für jedes beigefarbene Gebäude",
 			"Ende: +1 SP für jedes beigefarb. Gebäude", 10, 4, 1, 2);
 	
+	
 	private final String name;
 	private final GameSet set;
 	private final String description;
