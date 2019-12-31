@@ -1,3 +1,4 @@
+package com.github.koshamo.puri.setup;
 import javafx.scene.paint.Color;
 
 public enum PrColors {
