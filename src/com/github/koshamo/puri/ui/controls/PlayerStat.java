@@ -41,7 +41,7 @@ public class PlayerStat extends Region {
 	Label lblSugar;
 	Label lblTobacco;
 	Label lblCoffee;
-	Label lblcolonists;
+	Label lblColonists;
 	
 	public PlayerStat(String name, PrColors color) {
 		this.name = name;
@@ -86,12 +86,12 @@ public class PlayerStat extends Region {
 		
 		Font counterFont = Font.font(defaultFont.getFamily(), FontWeight.BOLD, defaultFont.getSize());
 		
-		lblVictoryPoints = new Label();
+		lblVictoryPoints = new Label("0");
 		lblVictoryPoints.setTextFill(color);
 		lblVictoryPoints.setFont(counterFont);
 		grid.add(lblVictoryPoints, 2, 0);
 		
-		lblGulden = new Label();
+		lblGulden = new Label("0");
 		lblGulden.setTextFill(color);
 		lblGulden.setFont(counterFont);
 		grid.add(lblGulden, 2, 1);
@@ -121,10 +121,10 @@ public class PlayerStat extends Region {
 		lblCoffee.setBackground(new Background(new BackgroundFill(PrColors.COFFEE.getColor(), null, null)));
 		grid.add(lblCoffee, 2, 6);
 		
-		lblcolonists = new Label("0");
-		lblcolonists.setTextFill(PrColors.COLONIST_TXT.getColor());
-		lblcolonists.setBackground(new Background(new BackgroundFill(PrColors.COLONIST.getColor(), null, null)));
-		grid.add(lblcolonists, 2, 7);
+		lblColonists = new Label("0");
+		lblColonists.setTextFill(PrColors.COLONIST_TXT.getColor());
+		lblColonists.setBackground(new Background(new BackgroundFill(PrColors.COLONIST.getColor(), null, null)));
+		grid.add(lblColonists, 2, 7);
 
 		victoryPoints.addListener(new ChangeListener<Number>() {
 			@Override
@@ -133,14 +133,54 @@ public class PlayerStat extends Region {
 			}
 		});
 		
-//		gulden
-//
-//		corn.add
-//		indigo
-//		sugar
-//		tobacco
-//		coffee
-//		colonists
+		gulden.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				lblGulden.setText(newValue.toString());				
+			}
+		});
+
+		corn.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				lblCorn.setText(newValue.toString());				
+			}
+		});
+		
+		indigo.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				lblIndigo.setText(newValue.toString());				
+			}
+		});
+		
+		sugar.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				lblSugar.setText(newValue.toString());				
+			}
+		});
+		
+		tobacco.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				lblTobacco.setText(newValue.toString());				
+			}
+		});
+		
+		coffee.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				lblCoffee.setText(newValue.toString());				
+			}
+		});
+		
+		colonists.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				lblColonists.setText(newValue.toString());				
+			}
+		});
 
 		return grid;
 	}
