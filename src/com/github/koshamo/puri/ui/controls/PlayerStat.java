@@ -34,14 +34,15 @@ public class PlayerStat extends Region {
 	private Label lblGouvernor;
 	private Label lblActive;
 	
-	Label lblVictoryPoints;
-	Label lblGulden;
-	Label lblCorn;
-	Label lblIndigo;
-	Label lblSugar;
-	Label lblTobacco;
-	Label lblCoffee;
-	Label lblColonists;
+	/*private*/ Label lblVictoryPoints;
+	/*private*/ Label lblGulden;
+	/*private*/ Label lblCorn;
+	/*private*/ Label lblIndigo;
+	/*private*/ Label lblSugar;
+	/*private*/ Label lblTobacco;
+	/*private*/ Label lblCoffee;
+	/*private*/ Label lblColonists;
+	
 	private Font defaultFont;
 	
 	public PlayerStat(String name, PrColors color) {
@@ -51,6 +52,62 @@ public class PlayerStat extends Region {
 		this.getChildren().add(drawComponent());
 	}
 
+	public void addVictoryPoints(int num) {
+		victoryPoints.set(victoryPoints.get() + num);
+	}
+	
+	public void addGulden(int num) {
+		gulden.set(gulden.get() + num);
+	}
+
+	public void subGulden(int num) {
+		gulden.set(gulden.get() - num);
+	}
+
+	public void addCorn(int num) {
+		corn.set(corn.get() + num);
+	}
+
+	public void subCorn(int num) {
+		corn.set(corn.get() - num);
+	}
+	public void addIndigo(int num) {
+		indigo.set(indigo.get() + num);
+	}
+
+	public void subIndigo(int num) {
+		indigo.set(indigo.get() - num);
+	}
+	public void addSugar(int num) {
+		sugar.set(sugar.get() + num);
+	}
+
+	public void subSugar(int num) {
+		sugar.set(sugar.get() - num);
+	}
+	public void addTobacco(int num) {
+		tobacco.set(tobacco.get() + num);
+	}
+
+	public void subTobacco(int num) {
+		tobacco.set(tobacco.get() - num);
+	}
+	public void addCoffee(int num) {
+		coffee.set(coffee.get() + num);
+	}
+
+	public void subCoffee(int num) {
+		coffee.set(coffee.get() - num);
+	}
+	public void addColonists(int num) {
+		colonists.set(colonists.get() + num);
+	}
+
+	public void subColonists(int num) {
+		colonists.set(colonists.get() - num);
+	}
+
+	
 	private Node drawComponent() {
 		GridPane grid = new GridPane();
 		grid.setHgap(15.0);
