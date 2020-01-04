@@ -36,12 +36,12 @@ public class PlayerStat extends Region {
 	
 	/*private*/ Label lblVictoryPoints;
 	/*private*/ Label lblGulden;
-	/*private*/ Label lblCorn;
-	/*private*/ Label lblIndigo;
-	/*private*/ Label lblSugar;
-	/*private*/ Label lblTobacco;
-	/*private*/ Label lblCoffee;
-	/*private*/ Label lblColonists;
+	/*private*/ QuantityBar qbCorn;
+	/*private*/ QuantityBar qbIndigo;
+	/*private*/ QuantityBar qbSugar;
+	/*private*/ QuantityBar qbTobacco;
+	/*private*/ QuantityBar qbCoffee;
+	/*private*/ QuantityBar qbColonists;
 	
 	private Font defaultFont;
 	
@@ -208,85 +208,78 @@ public class PlayerStat extends Region {
 	}
 
 	private void buildCornDisplay(GridPane grid) {
-		lblCorn = new Label("0");
-		lblCorn.setTextFill(PrColors.CORN_TXT.getColor());
-		lblCorn.setBackground(new Background(new BackgroundFill(PrColors.CORN.getColor(), null, null)));
-		grid.add(lblCorn, 2, 2);
+		qbCorn = new QuantityBar(11, PrColors.CORN.getColor());
+		qbCorn.setTextColor(PrColors.CORN_TXT.getColor());
+		grid.add(qbCorn, 2, 2);
 
 		corn.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				lblCorn.setText(newValue.toString());				
+				qbCorn.changeQuantity(newValue.intValue());				
 			}
 		});
 	}
 
 	private void buildIndigoDisplay(GridPane grid) {
-		lblIndigo = new Label("0");
-		lblIndigo.setTextFill(PrColors.INDIGO_TXT.getColor());
-		lblIndigo.setBackground(new Background(new BackgroundFill(PrColors.INDIGO.getColor(), null, null)));
-		grid.add(lblIndigo, 2, 3);
+		qbIndigo = new QuantityBar(11, PrColors.INDIGO.getColor());
+		qbIndigo.setTextColor(PrColors.INDIGO_TXT.getColor());
+		grid.add(qbIndigo, 2, 3);
 		
 		indigo.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				lblIndigo.setText(newValue.toString());				
+				qbIndigo.changeQuantity(newValue.intValue());				
 			}
 		});	
 	}
 
 	private void buildSugarDisplay(GridPane grid) {
-		lblSugar = new Label("0");
-		lblSugar.setTextFill(PrColors.SUGAR_TXT.getColor());
-		lblSugar.setBackground(new Background(new BackgroundFill(PrColors.SUGAR.getColor(), null, null)));
-		grid.add(lblSugar, 2, 4);
+		qbSugar = new QuantityBar(11, PrColors.SUGAR.getColor());
+		qbSugar.setTextColor(PrColors.SUGAR_TXT.getColor());
+		grid.add(qbSugar, 2, 4);
 		
 		sugar.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				lblSugar.setText(newValue.toString());				
+				qbSugar.changeQuantity(newValue.intValue());				
 			}
 		});
 	}
 
 	private void buildTobaccoDisplay(GridPane grid) {
-		lblTobacco = new Label("0");
-		lblTobacco.setTextFill(PrColors.TOBACCO_TXT.getColor());
-		lblTobacco.setBackground(new Background(new BackgroundFill(PrColors.TOBACCO.getColor(), null, null)));
-		grid.add(lblTobacco, 2, 5);
+		qbTobacco = new QuantityBar(11, PrColors.TOBACCO.getColor());
+		qbTobacco.setTextColor(PrColors.TOBACCO_TXT.getColor());
+		grid.add(qbTobacco, 2, 5);
 		
 		tobacco.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				lblTobacco.setText(newValue.toString());				
+				qbTobacco.changeQuantity(newValue.intValue());				
 			}
 		});
 	}
 
 	private void buildCoffeeDisplay(GridPane grid) {
-		lblCoffee = new Label("0");
-		lblCoffee.setTextFill(PrColors.COFFEE_TXT.getColor());
-		lblCoffee.setBackground(new Background(new BackgroundFill(PrColors.COFFEE.getColor(), null, null)));
-		grid.add(lblCoffee, 2, 6);
+		qbCoffee = new QuantityBar(11, PrColors.COFFEE.getColor());
+		qbCoffee.setTextColor(PrColors.COFFEE_TXT.getColor());
+		grid.add(qbCoffee, 2, 6);
 		
 		coffee.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				lblCoffee.setText(newValue.toString());				
+				qbCoffee.changeQuantity(newValue.intValue());				
 			}
 		});
 	}
 
 	private void buildColonistsDisplay(GridPane grid) {
-		lblColonists = new Label("0");
-		lblColonists.setTextFill(PrColors.COLONIST_TXT.getColor());
-		lblColonists.setBackground(new Background(new BackgroundFill(PrColors.COLONIST.getColor(), null, null)));
-		grid.add(lblColonists, 2, 7);
-		
+		qbColonists = new QuantityBar(11, PrColors.COLONIST.getColor());
+		qbColonists.setTextColor(PrColors.COLONIST_TXT.getColor());
+		grid.add(qbColonists, 2, 7);
 		colonists.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				lblColonists.setText(newValue.toString());				
+				qbColonists.changeQuantity(newValue.intValue());				
 			}
 		});
 	}
