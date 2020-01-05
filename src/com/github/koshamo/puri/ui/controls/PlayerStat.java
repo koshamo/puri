@@ -56,6 +56,10 @@ public class PlayerStat extends Region {
 		victoryPoints.set(victoryPoints.get() + num);
 	}
 	
+	public int currentGulden() {
+		return gulden.get();
+	}
+	
 	public void addGulden(int num) {
 		gulden.set(gulden.get() + num);
 	}
@@ -71,6 +75,7 @@ public class PlayerStat extends Region {
 	public void subCorn(int num) {
 		corn.set(corn.get() - num);
 	}
+	
 	public void addIndigo(int num) {
 		indigo.set(indigo.get() + num);
 	}
@@ -78,6 +83,7 @@ public class PlayerStat extends Region {
 	public void subIndigo(int num) {
 		indigo.set(indigo.get() - num);
 	}
+	
 	public void addSugar(int num) {
 		sugar.set(sugar.get() + num);
 	}
@@ -85,6 +91,7 @@ public class PlayerStat extends Region {
 	public void subSugar(int num) {
 		sugar.set(sugar.get() - num);
 	}
+	
 	public void addTobacco(int num) {
 		tobacco.set(tobacco.get() + num);
 	}
@@ -92,6 +99,7 @@ public class PlayerStat extends Region {
 	public void subTobacco(int num) {
 		tobacco.set(tobacco.get() - num);
 	}
+	
 	public void addCoffee(int num) {
 		coffee.set(coffee.get() + num);
 	}
@@ -99,6 +107,7 @@ public class PlayerStat extends Region {
 	public void subCoffee(int num) {
 		coffee.set(coffee.get() - num);
 	}
+	
 	public void addColonists(int num) {
 		colonists.set(colonists.get() + num);
 	}
