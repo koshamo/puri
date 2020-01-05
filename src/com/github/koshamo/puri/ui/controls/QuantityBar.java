@@ -24,7 +24,7 @@ public class QuantityBar extends Control {
 			throw new IllegalArgumentException("Quantity out of bounds");
 		
 		this.quantity = quantity;
-		skin.drawComponent(quantity);
+		update();
 	}
 	
 	public void setTextColor(Color color) {
