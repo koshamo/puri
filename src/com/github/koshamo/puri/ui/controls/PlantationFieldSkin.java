@@ -22,7 +22,7 @@ public class PlantationFieldSkin extends SkinBase<PlantationField> {
 		Color colColor = selectColonistColor(state);
 		Pane pane = new Pane();
 		
-		Rectangle border = new Rectangle(57, 57, colColor.BLACK);
+		Rectangle border = new Rectangle(57, 57, Color.BLACK);
 		Rectangle rect = new Rectangle(55, 55, bgColor);
 		rect.relocate(1, 1);
 		pane.getChildren().addAll(border, rect);
