@@ -18,6 +18,8 @@ public class PlantationFieldSkin extends SkinBase<PlantationField> {
 	}
 
 	public void drawComponent(PlantationType type, State state) {
+		this.getChildren().clear();
+		
 		Color bgColor = selectFieldColor(type);
 		Color colColor = selectColonistColor(state);
 		Pane pane = new Pane();
@@ -45,7 +47,7 @@ public class PlantationFieldSkin extends SkinBase<PlantationField> {
 		case SUGAR: color = PrColors.SUGAR.getColor(); break;
 		case TOBACCO: color = PrColors.TOBACCO.getColor(); break;
 		case COFFEE: color = PrColors.COFFEE.getColor(); break;
-		default: color = PrColors.EMPTY_FIELD.getColor();
+		default: color = PrColors.DEFAULT_BGD.getColor();
 		}
 		
 		return color;
@@ -54,7 +56,7 @@ public class PlantationFieldSkin extends SkinBase<PlantationField> {
 	private static Color selectColonistColor(State state) {
 		if (state == State.ACTIVE)
 			return PrColors.ACTIVE_BGD.getColor();
-		return PrColors.EMPTY_FIELD.getColor();
+		return PrColors.INACTIVE.getColor();
 	}
 
 }
