@@ -1,6 +1,6 @@
 package com.github.koshamo.puri.setup;
 
-public enum Buildings {
+public enum BuildingType {
 
 	KL_INDIGO ("kleine Indigoküperei", GameSet.BASIS, "kleine Indigoküperei", 
 			"kl. Indigoküperei", 1, 1, 1, 1),
@@ -47,7 +47,8 @@ public enum Buildings {
 	ZOLLHAUS ("Zollhaus", GameSet.BASIS, "1 Siegpunkt für je vier Siegpunkte (nur Chips!)\n(Spielende)",
 			"Ende: +1 SP für je 4 SP (nur Chips!)", 10, 4, 1, 2),
 	RATHAUS ("Rathaus", GameSet.BASIS, "1 Siegpunkt für jedes beigefarbene Gebäude",
-			"Ende: +1 SP für jedes beigefarb. Gebäude", 10, 4, 1, 2);
+			"Ende: +1 SP für jedes beigefarb. Gebäude", 10, 4, 1, 2),
+	NONE (null, GameSet.BASIS, null, null, 0, 0, 0, 1);
 	
 	
 	private final String name;
@@ -59,7 +60,7 @@ public enum Buildings {
 	private final int places;
 	private final int size;
 	
-	private Buildings(String name, GameSet set, String description, 
+	private BuildingType(String name, GameSet set, String description, 
 			String shortDescription, int cost, int victoryPoints, int places, 
 			int size) {
 		this.name = name;
