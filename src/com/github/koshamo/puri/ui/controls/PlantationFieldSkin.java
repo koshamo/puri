@@ -2,7 +2,7 @@ package com.github.koshamo.puri.ui.controls;
 
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
-import com.github.koshamo.puri.ui.controls.PlantationField.State;
+import com.github.koshamo.puri.setup.State;
 
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Pane;

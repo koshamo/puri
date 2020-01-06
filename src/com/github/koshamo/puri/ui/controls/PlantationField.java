@@ -1,14 +1,13 @@
 package com.github.koshamo.puri.ui.controls;
 
 import com.github.koshamo.puri.setup.PlantationType;
+import com.github.koshamo.puri.setup.State;
 
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
 public class PlantationField extends Control {
 
-	public enum State {ACTIVE, INACTIVE}
-	
 	private final PlantationFieldSkin skin;
 	private PlantationType type = PlantationType.NONE;
 	private State state = State.INACTIVE;
