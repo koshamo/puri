@@ -32,6 +32,14 @@ public class PlantationField extends Control {
 		state = State.INACTIVE;
 		update();
 	}
+	
+	public PlantationType type() {
+		return type;
+	}
+	
+	public State state() {
+		return state;
+	}
 
 	@Override
 	protected Skin<?> createDefaultSkin() {
