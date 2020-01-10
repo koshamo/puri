@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.github.koshamo.puri.setup.PlantationType;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -33,6 +34,7 @@ public class PlayerPlantation extends Region {
 	
 	private void initGui() {
 		VBox vbox = new VBox(3);
+		vbox.setPadding(new Insets(2, 0, 0, 0));
 		rowOne = new HBox(3);
 		rowTwo = new HBox(3);
 		rowThree = new HBox(3);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.github.koshamo.puri.setup.BuildingType;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -37,6 +38,7 @@ public class PlayerBuilding extends Region {
 	
 	private void initGui() {
 		VBox vbox = new VBox(3);
+		vbox.setPadding(new Insets(2, 0, 0, 2));
 		rowOne = new HBox(3);
 		rowTwo = new HBox(3);
 		vbox.getChildren().addAll(rowOne, rowTwo);
