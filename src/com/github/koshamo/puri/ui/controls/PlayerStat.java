@@ -143,6 +143,7 @@ public class PlayerStat extends Region {
 		Font nameFont = Font.font(defaultFont.getFamily(), FontWeight.BOLD, 1.5*defaultFont.getSize());
 		lblName.setFont(nameFont);
 		lblName.setTextFill(color);
+		lblName.setPrefWidth(130);
 				
 		grid.add(lblName, 0, 0, 1, 2);
 	}
@@ -192,6 +193,7 @@ public class PlayerStat extends Region {
 		lblVictoryPoints = new Label("0");
 		lblVictoryPoints.setTextFill(color);
 		lblVictoryPoints.setFont(counterFont);
+		lblVictoryPoints.setPrefWidth(105);
 		grid.add(lblVictoryPoints, 2, 0);
 		
 		victoryPoints.addListener(new ChangeListener<Number>() {
