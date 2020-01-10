@@ -26,6 +26,10 @@ public class BuildingField extends Control {
 		return type;
 	}
 	
+	public int size() {
+		return type.getSize();
+	}
+	
 	public void addBuilding(BuildingType type) {
 		this.type = type;
 		places = type.getPlaces();
@@ -36,12 +40,14 @@ public class BuildingField extends Control {
 		if (colonists >= places)
 			throw new IllegalArgumentException("all places full");
 		colonists++;
+		update();
 	}
 	
 	public void removeColonist() {
 		if (colonists <= 0)
 			throw new IllegalArgumentException("no colonists here");
 		colonists--;
+		update();
 	}
 	
 	@Override
