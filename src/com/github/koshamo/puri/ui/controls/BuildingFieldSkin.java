@@ -11,7 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class BuildingFieldSkin extends SkinBase<BuildingField> {
+/*private*/ class BuildingFieldSkin extends SkinBase<BuildingField> {
 
 	private final static int HEIGHT = 85;
 	private final static int WIDTH = 80;

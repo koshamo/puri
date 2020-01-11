@@ -6,7 +6,7 @@ import com.github.koshamo.puri.setup.State;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-public class PlantationField extends Control {
+/*private*/ class PlantationField extends Control {
 
 	private final PlantationFieldSkin skin;
 	private PlantationType type = PlantationType.NONE;

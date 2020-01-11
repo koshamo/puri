@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-public class PlantationFieldSkin extends SkinBase<PlantationField> {
+/*private*/ class PlantationFieldSkin extends SkinBase<PlantationField> {
 
 	protected PlantationFieldSkin(PlantationField control, PlantationType type, State state) {
 		super(control);

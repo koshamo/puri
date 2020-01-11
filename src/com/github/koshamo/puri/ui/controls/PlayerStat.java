@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class PlayerStat extends Region {
+/*private*/ class PlayerStat extends Region {
 
 	private final String name;
 	private final Color color;

@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class QuantityBarSkin extends SkinBase<QuantityBar> {
+/*private*/ class QuantityBarSkin extends SkinBase<QuantityBar> {
 
 	private final int max;
 	private final Color fillColor;

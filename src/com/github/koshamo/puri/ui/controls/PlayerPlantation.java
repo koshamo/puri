@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-public class PlayerPlantation extends Region {
+/*private*/ class PlayerPlantation extends Region {
 
 	private List<PlantationField> plantations;
 	
