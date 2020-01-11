@@ -6,7 +6,6 @@ public final class StartupConstants {
 	public final int COLONISTS;
 	public final int MIN_COLONISTS;
 	public final int MIN_PLANTATION;
-	public final int QUARRIES = 8;
 	
 	public StartupConstants(int players) {
 		MIN_COLONISTS = players;
