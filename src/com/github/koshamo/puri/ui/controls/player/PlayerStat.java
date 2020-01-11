@@ -168,9 +168,9 @@ import javafx.scene.text.FontWeight;
 	private static void buildSecondColumn(GridPane grid) {
 		grid.add(new Label("Siegpunkte:"), 1, 0);
 		grid.add(new Label("Gulden:"), 1, 1);
-		grid.add(new Label("Mais:"), 1, 2);
-		grid.add(new Label("Indigo:"), 1, 3);
-		grid.add(new Label("Zucker:"), 1, 4);
+		grid.add(new Label("Indigo:"), 1, 2);
+		grid.add(new Label("Zucker:"), 1, 3);
+		grid.add(new Label("Mais:"), 1, 4);
 		grid.add(new Label("Tabak:"), 1, 5);
 		grid.add(new Label("Kaffee:"), 1, 6);
 		grid.add(new Label("Kolonisten:"), 1, 7);
@@ -182,9 +182,9 @@ import javafx.scene.text.FontWeight;
 		buildVictoryPointsDisplay(grid, counterFont);
 		buildGuldenDisplay(grid, counterFont);
 		
-		buildCornDisplay(grid);
 		buildIndigoDisplay(grid);
 		buildSugarDisplay(grid);
+		buildCornDisplay(grid);
 		buildTobaccoDisplay(grid);
 		buildCoffeeDisplay(grid);
 		buildColonistsDisplay(grid);
@@ -219,23 +219,10 @@ import javafx.scene.text.FontWeight;
 		});
 	}
 
-	private void buildCornDisplay(GridPane grid) {
-		qbCorn = new QuantityBar(12, PrColors.CORN.getColor());
-		qbCorn.setTextColor(PrColors.CORN_TXT.getColor());
-		grid.add(qbCorn, 2, 2);
-
-		corn.addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				qbCorn.changeQuantity(newValue.intValue());				
-			}
-		});
-	}
-
 	private void buildIndigoDisplay(GridPane grid) {
 		qbIndigo = new QuantityBar(12, PrColors.INDIGO.getColor());
 		qbIndigo.setTextColor(PrColors.INDIGO_TXT.getColor());
-		grid.add(qbIndigo, 2, 3);
+		grid.add(qbIndigo, 2, 2);
 		
 		indigo.addListener(new ChangeListener<Number>() {
 			@Override
@@ -248,12 +235,25 @@ import javafx.scene.text.FontWeight;
 	private void buildSugarDisplay(GridPane grid) {
 		qbSugar = new QuantityBar(12, PrColors.SUGAR.getColor());
 		qbSugar.setTextColor(PrColors.SUGAR_TXT.getColor());
-		grid.add(qbSugar, 2, 4);
+		grid.add(qbSugar, 2, 3);
 		
 		sugar.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				qbSugar.changeQuantity(newValue.intValue());				
+			}
+		});
+	}
+
+	private void buildCornDisplay(GridPane grid) {
+		qbCorn = new QuantityBar(12, PrColors.CORN.getColor());
+		qbCorn.setTextColor(PrColors.CORN_TXT.getColor());
+		grid.add(qbCorn, 2, 4);
+
+		corn.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				qbCorn.changeQuantity(newValue.intValue());				
 			}
 		});
 	}
