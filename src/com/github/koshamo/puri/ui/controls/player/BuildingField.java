@@ -1,4 +1,4 @@
-package com.github.koshamo.puri.ui.controls;
+package com.github.koshamo.puri.ui.controls.player;
 
 import com.github.koshamo.puri.setup.BuildingType;
 import com.github.koshamo.puri.setup.State;

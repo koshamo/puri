@@ -4,7 +4,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.paint.Color;
 
-/*private*/ class QuantityBar extends Control {
+public class QuantityBar extends Control {
 
 	private final int max;
 	private final QuantityBarSkin skin;

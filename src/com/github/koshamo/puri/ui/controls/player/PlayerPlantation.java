@@ -1,4 +1,4 @@
-package com.github.koshamo.puri.ui.controls;
+package com.github.koshamo.puri.ui.controls.player;
 
 import java.util.ArrayList;
 import java.util.List;

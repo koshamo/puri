@@ -1,6 +1,7 @@
-package com.github.koshamo.puri.ui.controls;
+package com.github.koshamo.puri.ui.controls.player;
 
 import com.github.koshamo.puri.setup.PrColors;
+import com.github.koshamo.puri.ui.controls.QuantityBar;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
