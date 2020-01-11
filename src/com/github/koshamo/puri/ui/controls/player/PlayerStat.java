@@ -220,7 +220,7 @@ import javafx.scene.text.FontWeight;
 	}
 
 	private void buildCornDisplay(GridPane grid) {
-		qbCorn = new QuantityBar(11, PrColors.CORN.getColor());
+		qbCorn = new QuantityBar(12, PrColors.CORN.getColor());
 		qbCorn.setTextColor(PrColors.CORN_TXT.getColor());
 		grid.add(qbCorn, 2, 2);
 
@@ -233,7 +233,7 @@ import javafx.scene.text.FontWeight;
 	}
 
 	private void buildIndigoDisplay(GridPane grid) {
-		qbIndigo = new QuantityBar(11, PrColors.INDIGO.getColor());
+		qbIndigo = new QuantityBar(12, PrColors.INDIGO.getColor());
 		qbIndigo.setTextColor(PrColors.INDIGO_TXT.getColor());
 		grid.add(qbIndigo, 2, 3);
 		
@@ -246,7 +246,7 @@ import javafx.scene.text.FontWeight;
 	}
 
 	private void buildSugarDisplay(GridPane grid) {
-		qbSugar = new QuantityBar(11, PrColors.SUGAR.getColor());
+		qbSugar = new QuantityBar(12, PrColors.SUGAR.getColor());
 		qbSugar.setTextColor(PrColors.SUGAR_TXT.getColor());
 		grid.add(qbSugar, 2, 4);
 		
@@ -259,7 +259,7 @@ import javafx.scene.text.FontWeight;
 	}
 
 	private void buildTobaccoDisplay(GridPane grid) {
-		qbTobacco = new QuantityBar(11, PrColors.TOBACCO.getColor());
+		qbTobacco = new QuantityBar(12, PrColors.TOBACCO.getColor());
 		qbTobacco.setTextColor(PrColors.TOBACCO_TXT.getColor());
 		grid.add(qbTobacco, 2, 5);
 		
@@ -272,7 +272,7 @@ import javafx.scene.text.FontWeight;
 	}
 
 	private void buildCoffeeDisplay(GridPane grid) {
-		qbCoffee = new QuantityBar(11, PrColors.COFFEE.getColor());
+		qbCoffee = new QuantityBar(12, PrColors.COFFEE.getColor());
 		qbCoffee.setTextColor(PrColors.COFFEE_TXT.getColor());
 		grid.add(qbCoffee, 2, 6);
 		
@@ -285,7 +285,7 @@ import javafx.scene.text.FontWeight;
 	}
 
 	private void buildColonistsDisplay(GridPane grid) {
-		qbColonists = new QuantityBar(11, PrColors.COLONIST.getColor());
+		qbColonists = new QuantityBar(12, PrColors.COLONIST.getColor());
 		qbColonists.setTextColor(PrColors.COLONIST_TXT.getColor());
 		grid.add(qbColonists, 2, 7);
 		colonists.addListener(new ChangeListener<Number>() {
