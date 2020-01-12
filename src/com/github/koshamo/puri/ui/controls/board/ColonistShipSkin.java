@@ -57,8 +57,9 @@ public class ColonistShipSkin extends SkinBase<ColonistShip> {
 	private static void drawColonists(Pane pane, int colonists) {
 		double distance = 100 / (colonists-1);
 		for (int i = 0; i < colonists; i++) {
+			Circle border = new Circle(21+i*distance, 19, 11, Color.BLACK);
 			Circle circle = new Circle(21+i*distance, 19, 10, PrColors.COLONIST.getColor());
-			pane.getChildren().add(circle);
+			pane.getChildren().addAll(border, circle);
 		}
 	}
 }
