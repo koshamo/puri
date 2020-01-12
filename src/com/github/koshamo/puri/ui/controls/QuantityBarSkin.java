@@ -1,13 +1,11 @@
 package com.github.koshamo.puri.ui.controls;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class QuantityBarSkin extends SkinBase<QuantityBar> {
 
@@ -16,9 +14,9 @@ public class QuantityBarSkin extends SkinBase<QuantityBar> {
 	private final Color extColor = Color.BLACK;
 	private Color intColor = Color.BLACK;
 
-	private HBox hbox;
+	private Pane pane;
 	private StackPane stack;
-	private Label lblQuantity;
+	private Text txtQuantity;
 	private Rectangle borderRect;
 	private Rectangle fillRect;
 	private double height;
@@ -38,23 +36,22 @@ public class QuantityBarSkin extends SkinBase<QuantityBar> {
 	}
 
 	private void initComponents() {
-		lblQuantity = new Label("0");
-		lblQuantity.setAlignment(Pos.CENTER_RIGHT);
-		height = lblQuantity.getFont().getSize();
+		txtQuantity = new Text("0");
+		height = txtQuantity.getFont().getSize();
 		
 		borderRect = new Rectangle(5, height + 6);
 		fillRect = new Rectangle(3, height + 4, fillColor);
 		
-		hbox = new HBox(8);
+		pane = new Pane();
 		stack = new StackPane();
 		stack.getChildren().addAll(borderRect, fillRect);
-		hbox.getChildren().addAll(stack, lblQuantity);
+		pane.getChildren().addAll(stack, txtQuantity);
 
-		this.getChildren().add(hbox);
+		this.getChildren().add(pane);
 	}
 
 	public void drawComponent(int quantity) {
-		lblQuantity.setText(String.valueOf(quantity));
+		txtQuantity.setText(String.valueOf(quantity));
 		double width = 100 * quantity / max;
 		if (quantity == 0) {
 			borderRect.setWidth(5);
@@ -63,13 +60,12 @@ public class QuantityBarSkin extends SkinBase<QuantityBar> {
 			borderRect.setWidth(width + 2);
 			fillRect.setWidth(width);
 		}
-		((Pane)lblQuantity.getParent()).getChildren().remove(lblQuantity);
 		if (width > 15) {
-			stack.getChildren().add(lblQuantity);
-			lblQuantity.setTextFill(intColor);
+			txtQuantity.setFill(intColor);
+			txtQuantity.relocate(width-10, height/4);
 		} else {
-			hbox.getChildren().add(lblQuantity);
-			lblQuantity.setTextFill(extColor);
+			txtQuantity.setFill(extColor);
+			txtQuantity.relocate(width+8, height/4);
 		}
 	}
 
