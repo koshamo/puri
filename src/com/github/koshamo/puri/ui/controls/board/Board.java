@@ -6,6 +6,7 @@ import com.github.koshamo.puri.setup.StartupConstants;
 import com.github.koshamo.puri.ui.controls.QuantityBar;
 
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -41,7 +42,8 @@ public class Board extends Region {
 		
 		vbox.getChildren().addAll(
 				initColonistsAndVictoryPoints(),
-				initGoodsShipsAndProducts());
+				initGoodsShipsAndProducts(),
+				initBuildings());
 		
 		this.getChildren().add(vbox);
 	}
@@ -153,4 +155,11 @@ public class Board extends Region {
 		grid.add(availCoffee, 1, 5);
 		return grid;
 	}
+	
+	private Node initBuildings() {
+		Button btnBuilding = new Button("Gebäude kaufen / ansehen");
+		return btnBuilding;
+	}
+
+
 }
