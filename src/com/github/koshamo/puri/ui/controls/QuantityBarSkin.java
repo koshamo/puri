@@ -62,7 +62,7 @@ public class QuantityBarSkin extends SkinBase<QuantityBar> {
 		}
 		if (width > 15) {
 			txtQuantity.setFill(intColor);
-			txtQuantity.relocate(width-10, height/4);
+			txtQuantity.relocate(width/2, height/4);
 		} else {
 			txtQuantity.setFill(extColor);
 			txtQuantity.relocate(width+8, height/4);

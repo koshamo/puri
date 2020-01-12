@@ -27,6 +27,10 @@ public class QuantityBar extends Control {
 		update();
 	}
 	
+	public int quantity() {
+		return quantity;
+	}
+	
 	public void setTextColor(Color color) {
 		skin.setInsettingTextColor(color);
 	}
