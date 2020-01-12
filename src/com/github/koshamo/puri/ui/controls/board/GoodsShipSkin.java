@@ -101,7 +101,7 @@ public class GoodsShipSkin extends SkinBase<GoodsShip> {
 		}
 	}
 
-	private Color selectColor(PlantationType product) {
+	private static Color selectColor(PlantationType product) {
 		Color color;
 		switch (product) {
 		case INDIGO: color = PrColors.INDIGO.getColor(); break;
