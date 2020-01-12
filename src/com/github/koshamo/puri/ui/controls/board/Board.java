@@ -15,7 +15,6 @@ import javafx.scene.paint.Color;
 
 public class Board extends Region {
 
-	private final int numPlayers;
 	private final StartupConstants gameConstants;
 
 	private QuantityBar availVictoryPoints;
@@ -30,9 +29,9 @@ public class Board extends Region {
 	private GoodsShip smallGoodsShip;
 	private GoodsShip mediumGoodsShip;
 	private GoodsShip largeGoodsShip;
+	private Market market;
 
 	public Board(int numPlayers) {
-		this.numPlayers = numPlayers;
 		gameConstants = new StartupConstants(numPlayers);
 		init();
 	}
@@ -84,7 +83,7 @@ public class Board extends Region {
 
 	private Node initGoodsShipsAndProducts() {
 		HBox hbox = new HBox(10);
-		hbox.getChildren().addAll(initGoodsShips(), initProducts());
+		hbox.getChildren().addAll(initGoodsShips(), initProductsAndMarket());
 		return hbox;
 	}
 
@@ -98,6 +97,23 @@ public class Board extends Region {
 		vbox.getChildren().addAll(
 				lblGoods, smallGoodsShip, mediumGoodsShip, largeGoodsShip);
 		
+		return vbox;
+	}
+
+	private Node initProductsAndMarket() {
+		VBox vbox = new VBox(3);
+		
+		vbox.getChildren().addAll(initProducts(), initMarket());
+		return vbox;
+	}
+
+	private Node initMarket() {
+		VBox vbox = new VBox(3);
+		
+		Label lblMarekt = new Label("Handelshaus");
+		market = new Market();
+		
+		vbox.getChildren().addAll(lblMarekt, market);
 		return vbox;
 	}
 
