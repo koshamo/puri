@@ -5,7 +5,7 @@ import com.github.koshamo.puri.setup.RoleType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-public class RoleCard extends Control {
+/*private*/ class RoleCard extends Control {
 
 	private final RoleCardSkin skin;
 	private final RoleType type;
