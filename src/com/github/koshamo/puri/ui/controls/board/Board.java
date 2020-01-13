@@ -58,7 +58,7 @@ public class Board extends Region {
 	}
 
 	private Node initColonistsAndVictoryPoints() {
-		HBox hbox = new HBox(10);
+		HBox hbox = new HBox(20);
 		
 		hbox.getChildren().addAll(initVpColBars(), initColShip());
 		return hbox;
@@ -103,7 +103,7 @@ public class Board extends Region {
 	}
 
 	private Node initGoodsShips() {
-		VBox vbox = new VBox();
+		VBox vbox = new VBox(5);
 		vbox.setPadding(new Insets(5));
 		
 		Label lblGoods = new Label("Lieferungen");
