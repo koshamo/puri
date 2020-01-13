@@ -1,6 +1,7 @@
 package com.github.koshamo.puri.ui.controls.player;
 
 import com.github.koshamo.puri.setup.BuildingType;
+import com.github.koshamo.puri.setup.PrColorUtils;
 import com.github.koshamo.puri.setup.PrColors;
 
 import javafx.scene.control.SkinBase;
@@ -34,7 +35,7 @@ import javafx.scene.text.Text;
 	}
 
 	private static void addTitle(BuildingType type, Pane pane) {
-		Color txtColor = selectTextColor(type);
+		Color txtColor = PrColorUtils.selectTextColor(type);
 
 		Text title = new Text(type.getName());
 		title.setFill(txtColor);
@@ -44,7 +45,7 @@ import javafx.scene.text.Text;
 	}
 
 	private static void addField(BuildingType type, Pane pane) {
-		Color bColor = selectBuildingColor(type);
+		Color bColor = PrColorUtils.selectBuildingColor(type);
 
 		int width = type.getSize() * WIDTH;
 		Rectangle border = new Rectangle(width + 2, HEIGHT + 2, Color.BLACK);
@@ -66,35 +67,6 @@ import javafx.scene.text.Text;
 			circle.relocate(5 + p * 25, 60);
 			pane.getChildren().add(circle);
 		}
-	}
-
-	private static Color selectTextColor(BuildingType type) {
-		Color color;
-		switch (type) {
-		case KL_INDIGO:	/*fall through*/
-		case GR_INDIGO: color = PrColors.INDIGO_TXT.getColor(); break;
-		case KL_ZUCKER:	/*fall through*/
-		case GR_ZUCKER: color = PrColors.SUGAR_TXT.getColor(); break;
-		case TABAK: color = PrColors.TOBACCO_TXT.getColor(); break;
-		case KAFFEE: color = PrColors.COFFEE_TXT.getColor(); break;
-		default: color = Color.BLACK;
-		}
-		return color;
-	}
-
-	private static Color selectBuildingColor(BuildingType type) {
-		Color color;
-		switch (type) {
-		case KL_INDIGO:	/*fall through*/
-		case GR_INDIGO: color = PrColors.INDIGO.getColor(); break;
-		case KL_ZUCKER:	/*fall through*/
-		case GR_ZUCKER: color = PrColors.SUGAR.getColor(); break;
-		case TABAK: color = PrColors.TOBACCO.getColor(); break;
-		case KAFFEE: color = PrColors.COFFEE.getColor(); break;
-		case NONE: color = PrColors.DEFAULT_BGD.getColor(); break;
-		default: color = PrColors.BUILDING.getColor();
-		}
-		return color;
 	}
 
 }

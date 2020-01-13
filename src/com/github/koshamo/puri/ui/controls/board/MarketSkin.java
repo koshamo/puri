@@ -1,7 +1,7 @@
 package com.github.koshamo.puri.ui.controls.board;
 
 import com.github.koshamo.puri.setup.PlantationType;
-import com.github.koshamo.puri.setup.PrColors;
+import com.github.koshamo.puri.setup.PrColorUtils;
 
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.Tooltip;
@@ -47,26 +47,13 @@ public class MarketSkin extends SkinBase<Market> {
 	private static void drawProducts(Pane pane, PlantationType[] products) {
 		for (int i = 0; i < products.length; i++) {
 			Rectangle border = new Rectangle(42, 42, Color.BLACK);
-			Rectangle rect = new Rectangle(40, 40, selectColor(products[i]));
+			Rectangle rect = new Rectangle(40, 40, PrColorUtils.selectGoodsColor(products[i]));
 			int posX = i / 2;
 			int posY = i % 2;
 			border.relocate(4 + posX * 45, 4 + posY * 45);
 			rect.relocate(5 + posX * 45, 5 + posY * 45);
 			pane.getChildren().addAll(border, rect);
 		}
-	}
-
-	private static Color selectColor(PlantationType product) {
-		Color color;
-		switch (product) {
-		case INDIGO: color = PrColors.INDIGO.getColor(); break;
-		case SUGAR: color = PrColors.SUGAR.getColor(); break;
-		case CORN: color = PrColors.CORN.getColor(); break;
-		case TOBACCO: color = PrColors.TOBACCO.getColor(); break;
-		case COFFEE: color = PrColors.COFFEE.getColor(); break;
-		default: color = PrColors.DEFAULT_BGD.getColor();
-		}
-		return color;
 	}
 
 }

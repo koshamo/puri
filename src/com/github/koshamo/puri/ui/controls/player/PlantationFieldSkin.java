@@ -1,6 +1,7 @@
 package com.github.koshamo.puri.ui.controls.player;
 
 import com.github.koshamo.puri.setup.PlantationType;
+import com.github.koshamo.puri.setup.PrColorUtils;
 import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.State;
 
@@ -20,7 +21,7 @@ import javafx.scene.shape.Rectangle;
 	public void drawComponent(PlantationType type, State state) {
 		this.getChildren().clear();
 		
-		Color bgColor = selectFieldColor(type);
+		Color bgColor = PrColorUtils.selectFieldColor(type);
 		Color colColor = selectColonistColor(state);
 		Pane pane = new Pane();
 		
@@ -37,22 +38,6 @@ import javafx.scene.shape.Rectangle;
 		this.getChildren().add(pane);
 	}
 	
-	private static Color selectFieldColor(PlantationType type) {
-		Color color;
-		
-		switch (type) {
-		case QUARRY: color = PrColors.QUARRY.getColor(); break;
-		case CORN: color = PrColors.CORN.getColor(); break;
-		case INDIGO: color = PrColors.INDIGO.getColor(); break;
-		case SUGAR: color = PrColors.SUGAR.getColor(); break;
-		case TOBACCO: color = PrColors.TOBACCO.getColor(); break;
-		case COFFEE: color = PrColors.COFFEE.getColor(); break;
-		default: color = PrColors.DEFAULT_BGD.getColor();
-		}
-		
-		return color;
-	}
-
 	private static Color selectColonistColor(State state) {
 		if (state == State.ACTIVE)
 			return PrColors.ACTIVE_BGD.getColor();

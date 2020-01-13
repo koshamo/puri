@@ -1,6 +1,7 @@
 package com.github.koshamo.puri.ui.controls.board;
 
 import com.github.koshamo.puri.setup.PlantationType;
+import com.github.koshamo.puri.setup.PrColorUtils;
 import com.github.koshamo.puri.setup.PrColors;
 
 import javafx.scene.control.SkinBase;
@@ -71,7 +72,7 @@ public class GoodsShipSkin extends SkinBase<GoodsShip> {
 	}
 	
 	private void drawGoods(Pane pane, PlantationType product, int amount) {
-		Color productColor = selectColor(product);
+		Color productColor = PrColorUtils.selectGoodsColor(product);
 		Color curColor;
 		double offset = (40 - upperRowCnt*20.0/2) * (lowerRowCnt-upperRowCnt);
 		double distance = 80 / (lowerRowCnt-1);
@@ -99,19 +100,6 @@ public class GoodsShipSkin extends SkinBase<GoodsShip> {
 			rect.relocate(22+offset+i*distance, 4);
 			pane.getChildren().addAll(border, rect);
 		}
-	}
-
-	private static Color selectColor(PlantationType product) {
-		Color color;
-		switch (product) {
-		case INDIGO: color = PrColors.INDIGO.getColor(); break;
-		case SUGAR: color = PrColors.SUGAR.getColor(); break;
-		case CORN: color = PrColors.CORN.getColor(); break;
-		case TOBACCO: color = PrColors.TOBACCO.getColor(); break;
-		case COFFEE: color = PrColors.COFFEE.getColor(); break;
-		default: color = PrColors.DEFAULT_BGD.getColor();
-		}
-		return color;
 	}
 
 }
