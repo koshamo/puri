@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class MarketSkin extends SkinBase<Market> {
+/*private*/ class MarketSkin extends SkinBase<Market> {
 
 	protected MarketSkin(Market control) {
 		super(control);

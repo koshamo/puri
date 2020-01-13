@@ -13,7 +13,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class GoodsShipSkin extends SkinBase<GoodsShip> {
+/*private*/ class GoodsShipSkin extends SkinBase<GoodsShip> {
 
 	private final int places;
 	private final int upperRowCnt;

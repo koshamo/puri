@@ -14,7 +14,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class BoardPlantationSkin extends SkinBase<BoardPlantation> {
+/*private*/ class BoardPlantationSkin extends SkinBase<BoardPlantation> {
 
 	private final int numFields;
 	

@@ -3,7 +3,7 @@ package com.github.koshamo.puri.ui.controls.board;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-public class ColonistShip extends Control {
+/*private*/ class ColonistShip extends Control {
 
 	private final ColonistShipSkin skin;
 	private final int minColonists;

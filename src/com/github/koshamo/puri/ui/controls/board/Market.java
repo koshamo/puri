@@ -8,7 +8,7 @@ import com.github.koshamo.puri.setup.PlantationType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-public class Market extends Control {
+/*private*/ class Market extends Control {
 
 	private final MarketSkin skin;
 	private List<PlantationType> products;

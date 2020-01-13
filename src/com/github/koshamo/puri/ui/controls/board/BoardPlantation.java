@@ -5,7 +5,7 @@ import com.github.koshamo.puri.setup.PlantationType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-public class BoardPlantation extends Control {
+/*private*/ class BoardPlantation extends Control {
 
 	private final BoardPlantationSkin skin;
 	

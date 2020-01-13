@@ -11,7 +11,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 
-public class ColonistShipSkin extends SkinBase<ColonistShip> {
+/*private*/ class ColonistShipSkin extends SkinBase<ColonistShip> {
 
 	protected ColonistShipSkin(ColonistShip control) {
 		super(control);

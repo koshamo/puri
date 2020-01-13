@@ -5,7 +5,7 @@ import com.github.koshamo.puri.setup.PlantationType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-public class GoodsShip extends Control {
+/*private*/ class GoodsShip extends Control {
 
 	private final GoodsShipSkin skin;
 	private final int places;
