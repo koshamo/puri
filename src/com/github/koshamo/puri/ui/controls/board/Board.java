@@ -7,7 +7,6 @@ import com.github.koshamo.puri.ui.controls.QuantityBar;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -51,8 +50,7 @@ public class Board extends Region {
 		vbox.getChildren().addAll(
 				initPlantations(),
 				initColonistsAndVictoryPoints(),
-				initGoodsShipsAndProducts(),
-				initBuildings());
+				initGoodsShipsAndProducts());
 		
 		this.getChildren().add(vbox);
 	}
@@ -120,8 +118,14 @@ public class Board extends Region {
 	private Node initProductsAndMarket() {
 		VBox vbox = new VBox(3);
 		
-		vbox.getChildren().addAll(initProducts(), initMarket());
+		vbox.getChildren().addAll(initProducts(), initMarketAndButton());
 		return vbox;
+	}
+
+	private Node initMarketAndButton() {
+		HBox hbox = new HBox(20);
+		hbox.getChildren().addAll(initMarket(), initBuildings());
+		return hbox;
 	}
 
 	private Node initMarket() {
@@ -174,13 +178,14 @@ public class Board extends Region {
 	}
 	
 	private Node initBuildings() {
-		HBox hbox = new HBox(3);
-		hbox.setPadding(new Insets(5));
+		VBox vbox = new VBox(3);
+		vbox.setPadding(new Insets(5));
 
-		Button btnBuilding = new Button("Gebäude kaufen / ansehen");
-		hbox.getChildren().add(btnBuilding);
+		Label lblBuildings = new Label("Gebäude");
+		BuildingsButton btnBuilding = new BuildingsButton();
+		vbox.getChildren().addAll(lblBuildings, btnBuilding);
 		
-		return hbox;
+		return vbox;
 	}
 
 	private Node initPlantations() {
