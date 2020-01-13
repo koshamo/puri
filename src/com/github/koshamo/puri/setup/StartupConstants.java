@@ -9,9 +9,11 @@ public final class StartupConstants {
 	public final int SMALL_SHIP_PLACES;
 	public final int MEDIUM_SHIP_PLACES;
 	public final int LARGE_SHIP_PLACES;
+	public final int NUM_PLAYERS;
 	
 	
 	public StartupConstants(int players) {
+		NUM_PLAYERS = players;
 		MIN_COLONISTS = players;
 		MIN_PLANTATION = players + 1;
 		
