@@ -31,6 +31,7 @@ public class Board extends Region {
 	private GoodsShip mediumGoodsShip;
 	private GoodsShip largeGoodsShip;
 	private Market market;
+	private BoardPlantation plantations;
 
 	public Board(int numPlayers) {
 		gameConstants = new StartupConstants(numPlayers);
@@ -43,7 +44,8 @@ public class Board extends Region {
 		vbox.getChildren().addAll(
 				initColonistsAndVictoryPoints(),
 				initGoodsShipsAndProducts(),
-				initBuildings());
+				initBuildings(),
+				initPlantations());
 		
 		this.getChildren().add(vbox);
 	}
@@ -159,6 +161,14 @@ public class Board extends Region {
 	private Node initBuildings() {
 		Button btnBuilding = new Button("Gebäude kaufen / ansehen");
 		return btnBuilding;
+	}
+
+	private Node initPlantations() {
+		VBox vbox = new VBox(3);
+		Label lblPlantations = new Label("Plantagen");
+		plantations = new BoardPlantation(gameConstants.NUM_PLAYERS);
+		vbox.getChildren().addAll(lblPlantations, plantations);
+		return vbox;
 	}
 
 
