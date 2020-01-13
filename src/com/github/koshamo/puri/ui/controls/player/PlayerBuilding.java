@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 	public PlayerBuilding() {
 		buildings = new ArrayList<>(12);
 		initGui();
-		initPlantations();
+		initBuildings();
 		update();
 	}
 
@@ -45,7 +45,7 @@ import javafx.scene.layout.VBox;
 		this.getChildren().add(vbox);
 	}
 
-	private void initPlantations() {
+	private void initBuildings() {
 		for (int i = 0; i < 12; i++)
 			buildings.add(new BuildingField());
 	}
