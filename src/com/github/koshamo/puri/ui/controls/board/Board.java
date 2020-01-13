@@ -5,9 +5,14 @@ import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.StartupConstants;
 import com.github.koshamo.puri.ui.controls.QuantityBar;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -40,12 +45,14 @@ public class Board extends Region {
 
 	private void init() {
 		VBox vbox = new VBox(3);
-		
+		vbox.setPadding(new Insets(5));
+		vbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.MEDIUM, new Insets(3))));
+	
 		vbox.getChildren().addAll(
+				initPlantations(),
 				initColonistsAndVictoryPoints(),
 				initGoodsShipsAndProducts(),
-				initBuildings(),
-				initPlantations());
+				initBuildings());
 		
 		this.getChildren().add(vbox);
 	}
@@ -59,6 +66,7 @@ public class Board extends Region {
 
 	private Node initVpColBars() {
 		GridPane grid = new GridPane();
+		grid.setPadding(new Insets(5));
 		grid.setHgap(15.0);
 		grid.setVgap(5.0);
 
@@ -78,6 +86,8 @@ public class Board extends Region {
 
 	private Node initColShip() {
 		VBox vbox = new VBox();
+		vbox.setPadding(new Insets(5));
+		
 		Label lblCol = new Label("Kolonisten");
 		colonistShip = new ColonistShip(gameConstants.MIN_COLONISTS);
 
@@ -86,13 +96,16 @@ public class Board extends Region {
 	}
 
 	private Node initGoodsShipsAndProducts() {
-		HBox hbox = new HBox(10);
+		HBox hbox = new HBox(20);
+
 		hbox.getChildren().addAll(initGoodsShips(), initProductsAndMarket());
 		return hbox;
 	}
 
 	private Node initGoodsShips() {
 		VBox vbox = new VBox();
+		vbox.setPadding(new Insets(5));
+		
 		Label lblGoods = new Label("Lieferungen");
 		smallGoodsShip = new GoodsShip(gameConstants.SMALL_SHIP_PLACES);
 		mediumGoodsShip = new GoodsShip(gameConstants.MEDIUM_SHIP_PLACES);
@@ -113,7 +126,8 @@ public class Board extends Region {
 
 	private Node initMarket() {
 		VBox vbox = new VBox(3);
-		
+		vbox.setPadding(new Insets(5));
+	
 		Label lblMarekt = new Label("Handelshaus");
 		market = new Market();
 		
@@ -123,6 +137,7 @@ public class Board extends Region {
 
 	private Node initProducts() {
 		GridPane grid = new GridPane();
+		grid.setPadding(new Insets(5));
 		grid.setHgap(15.0);
 		grid.setVgap(5.0);
 
@@ -159,12 +174,19 @@ public class Board extends Region {
 	}
 	
 	private Node initBuildings() {
+		HBox hbox = new HBox(3);
+		hbox.setPadding(new Insets(5));
+
 		Button btnBuilding = new Button("Gebäude kaufen / ansehen");
-		return btnBuilding;
+		hbox.getChildren().add(btnBuilding);
+		
+		return hbox;
 	}
 
 	private Node initPlantations() {
 		VBox vbox = new VBox(3);
+		vbox.setPadding(new Insets(5));
+
 		Label lblPlantations = new Label("Plantagen");
 		plantations = new BoardPlantation(gameConstants.NUM_PLAYERS);
 		vbox.getChildren().addAll(lblPlantations, plantations);
