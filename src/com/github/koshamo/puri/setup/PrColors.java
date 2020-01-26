@@ -41,4 +41,17 @@ public enum PrColors {
 	public Color getColor() {
 		return color;
 	}
+	
+	public static PrColors getPlayerColor(int i) {
+		if (i == 1)
+			return PLAYER_1;
+		else if (i ==2)
+			return PLAYER_2;
+		else if (i == 3)
+			return PLAYER_3;
+		else if (i == 4)
+			return PLAYER_4;
+		else
+			return PLAYER_5;
+	}
 }
