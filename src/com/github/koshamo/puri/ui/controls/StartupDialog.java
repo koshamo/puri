@@ -1,6 +1,6 @@
 package com.github.koshamo.puri.ui.controls;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.github.koshamo.puri.gamedata.PlayerSetup;
@@ -124,7 +124,7 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 		this.setResultConverter(c -> {
 			if (c.getButtonData().isCancelButton())
 				return null;
-			List<PlayerSetup> setup = new ArrayList<>();
+			List<PlayerSetup> setup = new LinkedList<>();
 			addPlayer1(setup);
 			addPlayer2(setup);
 			addPlayer3(setup);
