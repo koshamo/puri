@@ -72,7 +72,7 @@ public class Board extends Region {
 		availVictoryPoints.changeQuantity(gameConstants.VICTORY_POINTS);
 		availVictoryPoints.setPrefWidth(105);
 		availColonists = new QuantityBar(gameConstants.COLONISTS, PrColors.COLONIST.getColor());
-		availColonists.changeQuantity(gameConstants.COLONISTS);
+		availColonists.changeQuantity(gameConstants.COLONISTS - gameConstants.NUM_PLAYERS);
 		
 		grid.add(new Label("verbleibende\nSiegpunkte"), 0, 0);
 		grid.add(new Label("verbleibende\nKolonisten"), 0, 1);
