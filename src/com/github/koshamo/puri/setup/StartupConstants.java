@@ -10,6 +10,7 @@ public final class StartupConstants {
 	public final int MEDIUM_SHIP_PLACES;
 	public final int LARGE_SHIP_PLACES;
 	public final int NUM_PLAYERS;
+	public final PlantationType[] INITIAL_PLANTATIONS;
 	
 	
 	public StartupConstants(int players) {
@@ -24,14 +25,24 @@ public final class StartupConstants {
 		if (players == 3) {
 			VICTORY_POINTS = 75;
 			COLONISTS = 55;
+			INITIAL_PLANTATIONS = new PlantationType[] 
+					{PlantationType.INDIGO, PlantationType.INDIGO, 
+							PlantationType.CORN};
 		}
 		else if (players == 4) {
 			VICTORY_POINTS = 100;
 			COLONISTS = 75;
+			INITIAL_PLANTATIONS = new PlantationType[] 
+					{PlantationType.INDIGO, PlantationType.INDIGO, 
+							PlantationType.CORN, PlantationType.CORN};
 		}
 		else if (players == 5) {
 			VICTORY_POINTS = 126;
 			COLONISTS = 95;
+			INITIAL_PLANTATIONS = new PlantationType[] 
+					{PlantationType.INDIGO, PlantationType.INDIGO, 
+							PlantationType.INDIGO, PlantationType.CORN,
+							PlantationType.CORN};
 		}
 		else {
 			VICTORY_POINTS = 0;
