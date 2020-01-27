@@ -47,6 +47,7 @@ public final class StartupConstants {
 		else {
 			VICTORY_POINTS = 0;
 			COLONISTS = 0;
+			INITIAL_PLANTATIONS = null;
 		}
 	}
 }
