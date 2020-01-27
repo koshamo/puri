@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.github.koshamo.puri.gamedata.PlayerSetup;
+import com.github.koshamo.puri.setup.GameSet;
 import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.ui.controls.StartupDialog;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
+import com.github.koshamo.puri.utils.ListUtils;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -22,6 +24,7 @@ public class PuRiGui extends Application {
 	private Stage primaryStage;
 	private BorderPane mainPane;
 	private List<Player> players;
+	private GameSet gameSet;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -43,14 +46,12 @@ public class PuRiGui extends Application {
 	}
 
 	private void initPlayers(List<PlayerSetup> playerList) {
-		List<PlayerSetup> list = playerList;
+		List<PlayerSetup> list = ListUtils.generateRandomList(playerList);
 		players = new LinkedList<>();
-		int listSize = list.size();
+		gameSet = list.get(0).gameSet;
 		
-		for (int i = 0; i < listSize; i++) {
-			double d = Math.random() * list.size();
-			PlayerSetup ps = list.remove((int)d);
-			Player p = new Player(ps.name, PrColors.getPlayerColor(i));
+		for (int i = 0; i < list.size(); i++) {
+			Player p = new Player(list.get(i).name, PrColors.getPlayerColor(i));
 			players.add(p);
 		}
 	}
