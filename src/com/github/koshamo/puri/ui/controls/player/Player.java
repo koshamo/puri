@@ -1,5 +1,6 @@
 package com.github.koshamo.puri.ui.controls.player;
 
+import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
 
 import javafx.geometry.Insets;
@@ -34,5 +35,9 @@ public class Player extends Region {
 		
 		hbox.getChildren().addAll(stats, plantations, buildings);
 		this.getChildren().add(hbox);
+	}
+	
+	public void addPlantation(PlantationType type) {
+		plantations.addPlantation(type);
 	}
 }

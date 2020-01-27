@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.github.koshamo.puri.gamedata.PlayerSetup;
 import com.github.koshamo.puri.setup.GameSet;
 import com.github.koshamo.puri.setup.PrColors;
+import com.github.koshamo.puri.setup.StartupConstants;
 import com.github.koshamo.puri.ui.controls.StartupDialog;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.player.Player;
@@ -23,8 +24,10 @@ public class PuRiGui extends Application {
 
 	private Stage primaryStage;
 	private BorderPane mainPane;
+	
 	private List<Player> players;
 	private GameSet gameSet;
+	private StartupConstants constants;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -41,6 +44,7 @@ public class PuRiGui extends Application {
 		if (!players.isPresent())
 			System.exit(0);
 		
+		constants = new StartupConstants(players.get().size());
 		initPlayers(players.get());
 		buildGui();
 	}
@@ -52,6 +56,7 @@ public class PuRiGui extends Application {
 		
 		for (int i = 0; i < list.size(); i++) {
 			Player p = new Player(list.get(i).name, PrColors.getPlayerColor(i));
+			p.addPlantation(constants.INITIAL_PLANTATIONS[i]);
 			players.add(p);
 		}
 	}
