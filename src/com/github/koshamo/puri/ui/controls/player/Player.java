@@ -2,6 +2,7 @@ package com.github.koshamo.puri.ui.controls.player;
 
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
+import com.github.koshamo.puri.setup.RoleType;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.Border;
@@ -37,6 +38,34 @@ public class Player extends Region {
 		this.getChildren().add(hbox);
 	}
 	
+	public void activateGouvernor() {
+		stats.activateGouvernor();
+	}
+	
+	public void deactivateGouvernor() {
+		stats.deactivateGouvernor();
+	}
+	
+	public void activateRole() {
+		stats.activateRole();
+	}
+	
+	public void chooseRole(RoleType type) {
+		stats.chooseRole(type);
+	}
+	
+	public void deactivateRole() {
+		stats.deactivateRole();
+	}
+	
+	public void activatePlayer() {
+		stats.activatePlayer();
+	}
+	
+	public void deactivatePlayer() {
+		stats.deactivatePlayer();
+	}
+
 	public void addPlantation(PlantationType type) {
 		plantations.addPlantation(type);
 	}
