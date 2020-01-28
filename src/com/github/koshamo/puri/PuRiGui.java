@@ -29,12 +29,16 @@ public class PuRiGui extends Application {
 	private GameSet gameSet;
 	private StartupConstants constants;
 	
+	private boolean gameEnd = false;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
 		
 		initGui();
 		runPlayerSetup();
+		
+		mainGameLoop();
 	}
 
 	private void runPlayerSetup() {
@@ -90,6 +94,23 @@ public class PuRiGui extends Application {
 				new Board(numPlayers), new RoleBoard(numPlayers));
 		
 		mainPane.setCenter(gameBox);
+	}
+
+	private void mainGameLoop() {
+		while (!gameEnd) {
+			turnLoop();
+		}
+		// TODO: add game results here
+	}
+
+	private void turnLoop() {
+		for (Player p : players) {
+			// TODO: activate player -> choose Role -> all player turns -> deactivate player
+		}
+		
+		players.get(0).deactivateGouvernor();
+		players.add(players.remove(0));
+		players.get(0).activateGouvernor();
 	}
 
 }
