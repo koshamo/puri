@@ -1,6 +1,7 @@
 package com.github.koshamo.puri.ui.controls.player;
 
 import com.github.koshamo.puri.setup.PrColors;
+import com.github.koshamo.puri.setup.RoleType;
 import com.github.koshamo.puri.ui.controls.QuantityBar;
 
 import javafx.beans.property.IntegerProperty;
@@ -33,6 +34,7 @@ import javafx.scene.text.FontWeight;
 	private IntegerProperty colonists = new SimpleIntegerProperty(0);
 
 	private Label lblGouvernor;
+	private Label lblRole;
 	private Label lblActive;
 	
 	/*private*/ Label lblVictoryPoints;
@@ -45,6 +47,7 @@ import javafx.scene.text.FontWeight;
 	/*private*/ QuantityBar qbColonists;
 	
 	private Font defaultFont;
+	private final String roleDefaultText = "Rolle wählen";
 	
 	public PlayerStat(String name, PrColors color) {
 		this.name = name;
@@ -117,6 +120,34 @@ import javafx.scene.text.FontWeight;
 		colonists.set(colonists.get() - num);
 	}
 
+	public void activateGouvernor() {
+		lblGouvernor.setVisible(true);
+	}
+	
+	public void deactivateGouvernor() {
+		lblGouvernor.setVisible(false);
+	}
+	
+	public void activateRole() {
+		lblRole.setVisible(true);
+	}
+	
+	public void chooseRole(RoleType type) {
+		lblRole.setText(type.toString());
+	}
+	
+	public void deactivateRole() {
+		lblRole.setText(roleDefaultText);
+		lblRole.setVisible(false);
+	}
+	
+	public void activatePlayer() {
+		lblActive.setVisible(true);
+	}
+	
+	public void deactivatePlayer() {
+		lblActive.setVisible(false);
+	}
 	
 	private Node drawComponent() {
 		GridPane grid = new GridPane();
@@ -134,7 +165,7 @@ import javafx.scene.text.FontWeight;
 		buildPlayerLabel(grid);
 		
 		buildGouvernorLabel(grid);
-		
+		buildRoleLabel(grid);
 		buildActiveLabel(grid);
 	}
 
@@ -155,14 +186,25 @@ import javafx.scene.text.FontWeight;
 		lblGouvernor.setBackground(new Background(new BackgroundFill(PrColors.GOUVERNOR_BGD.getColor(), null, null)));
 
 		grid.add(lblGouvernor, 0, 2, 1, 3);
+		lblGouvernor.setVisible(false);
+	}
+
+	private void buildRoleLabel(GridPane grid) {
+		lblRole = new Label(roleDefaultText );
+		lblRole.setTextFill(PrColors.ACTIVE_TXT.getColor());
+		lblRole.setBackground(new Background(new BackgroundFill(PrColors.ACTIVE_BGD.getColor(), null, null)));
+		
+		grid.add(lblRole, 0, 5);
+		lblRole.setVisible(false);
 	}
 
 	private void buildActiveLabel(GridPane grid) {
-		lblActive = new Label("aktiv");
+		lblActive = new Label("Aktion ausführen");
 		lblActive.setTextFill(PrColors.ACTIVE_TXT.getColor());
 		lblActive.setBackground(new Background(new BackgroundFill(PrColors.ACTIVE_BGD.getColor(), null, null)));
 		
-		grid.add(lblActive, 0, 5);
+		grid.add(lblActive, 0, 6);
+		lblActive.setVisible(false);
 	}
 
 	private static void buildSecondColumn(GridPane grid) {
