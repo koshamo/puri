@@ -17,6 +17,7 @@ import com.github.koshamo.puri.utils.ListUtils;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -76,6 +77,10 @@ public class PuRiGui extends Application {
 	}
 
 	private void buildGui() {
+		Button btnNext = new Button("Next");
+		btnNext.setOnAction(ev -> {controller.nextPlayerActive();});
+		mainPane.setTop(btnNext);
+		
 		buildPlayerPane();
 		buildBoardPane();
 		primaryStage.sizeToScene();
