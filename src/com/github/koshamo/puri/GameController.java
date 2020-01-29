@@ -50,11 +50,9 @@ public class GameController {
 	public void nextPlayerActive() {
 		players.get(activePlayerIndex).deactivatePlayer();
 		activePlayerCount++;
-		System.out.println("ActivePlayer:: playRoleIndex = " + playerRoleIndex + " activePlayerIndex = " + activePlayerIndex + " ActivePlayerCount = " + activePlayerCount);
 		if (activePlayerCount < NUM_PLAYERS) {
-			if (activePlayerIndex < NUM_PLAYERS - 1)
-				activePlayerIndex++;
-			else
+			activePlayerIndex++;
+			if (activePlayerIndex == NUM_PLAYERS)
 				activePlayerIndex = 0;
 			players.get(activePlayerIndex).activatePlayer();
 		} 
@@ -67,7 +65,6 @@ public class GameController {
 		playerRoleIndex++;
 		activePlayerCount = 0;
 		activePlayerIndex = playerRoleIndex;
-		System.out.println("PlayerRole:: playRoleIndex = " + playerRoleIndex + " activePlayerIndex = " + activePlayerIndex + " ActivePlayerCount = " + activePlayerCount);
 		if (playerRoleIndex < NUM_PLAYERS) {
 			players.get(playerRoleIndex).activateRole();
 			roleBoard.activate();
@@ -80,7 +77,6 @@ public class GameController {
 		tempTurnCount++;
 		if (tempTurnCount == 3)
 			gameEnd = true;
-		System.out.println("Turn:: playRoleIndex = " + playerRoleIndex + " activePlayerIndex = " + activePlayerIndex + " ActivePlayerCount = " + activePlayerCount);
 
 		if (gameEnd) {
 			// TODO: game is ended
