@@ -26,6 +26,8 @@ public class PuRiGui extends Application {
 	private BorderPane mainPane;
 	
 	private List<Player> players;
+	private Board gameBoard;
+	private RoleBoard roleBoard;
 	private GameSet gameSet;
 	private StartupConstants constants;
 	
@@ -90,8 +92,10 @@ public class PuRiGui extends Application {
 	private void buildBoardPane() {
 		VBox gameBox = new VBox();
 		int numPlayers = players.size();
+		gameBoard = new Board(numPlayers);
+		roleBoard = new RoleBoard(numPlayers); 
 		gameBox.getChildren().addAll(
-				new Board(numPlayers), new RoleBoard(numPlayers));
+				gameBoard, roleBoard);
 		
 		mainPane.setCenter(gameBox);
 	}
@@ -108,9 +112,14 @@ public class PuRiGui extends Application {
 			// TODO: activate player -> choose Role -> all player turns -> deactivate player
 		}
 		
+		endOfTurnAction();
+	}
+
+	private void endOfTurnAction() {
 		players.get(0).deactivateGouvernor();
 		players.add(players.remove(0));
 		players.get(0).activateGouvernor();
+		
 	}
 
 }

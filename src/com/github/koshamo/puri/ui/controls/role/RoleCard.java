@@ -20,13 +20,9 @@ import javafx.scene.control.Skin;
 		update();
 	}
 	
-	public void addGulden() {
-		gulden++;
-		update();
-	}
-	
-	public void clear() {
-		gulden = 0;
+	public void prepareNextTurn() {
+		if (used)
+			gulden++;
 		used = false;
 		update();
 	}

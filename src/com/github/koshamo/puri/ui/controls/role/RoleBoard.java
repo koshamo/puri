@@ -35,6 +35,19 @@ public class RoleBoard extends Region {
 		
 		drawComponent();
 	}
+	
+	public void prepareNextTurn() {
+		builder.prepareNextTurn();
+		settler.prepareNextTurn();
+		gouvernor.prepareNextTurn();
+		producer.prepareNextTurn();
+		captain.prepareNextTurn();
+		trader.prepareNextTurn();
+		if (goldfinder1 != null)
+			goldfinder1.prepareNextTurn();
+		if (goldfinder2 != null)
+			goldfinder2.prepareNextTurn();
+	}
 
 	private void drawComponent() {
 		VBox vbox = new VBox(5);
