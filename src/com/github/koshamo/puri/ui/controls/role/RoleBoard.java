@@ -1,5 +1,8 @@
 package com.github.koshamo.puri.ui.controls.role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.koshamo.puri.setup.RoleType;
 
 import javafx.geometry.Insets;
@@ -20,33 +23,19 @@ public class RoleBoard extends Region {
 	private HBox row1;
 	private HBox row2;
 	private HBox row3;
-	
-	private RoleCard builder;
-	private RoleCard settler;
-	private RoleCard gouvernor;
-	private RoleCard producer;
-	private RoleCard captain;
-	private RoleCard trader;
-	private RoleCard goldfinder1;
-	private RoleCard goldfinder2;
+
+	List<RoleCard> roleCards;
 	
 	public RoleBoard(int numPlayers) {
 		this.numPlayers = numPlayers;
+		roleCards = new ArrayList<>();
 		
 		drawComponent();
 	}
 	
 	public void prepareNextTurn() {
-		builder.prepareNextTurn();
-		settler.prepareNextTurn();
-		gouvernor.prepareNextTurn();
-		producer.prepareNextTurn();
-		captain.prepareNextTurn();
-		trader.prepareNextTurn();
-		if (goldfinder1 != null)
-			goldfinder1.prepareNextTurn();
-		if (goldfinder2 != null)
-			goldfinder2.prepareNextTurn();
+		for (RoleCard rc : roleCards)
+			rc.prepareNextTurn();
 	}
 
 	private void drawComponent() {
@@ -60,9 +49,12 @@ public class RoleBoard extends Region {
 
 	private Node initRow1() {
 		row1 = new HBox(5);
-		builder = new RoleCard(RoleType.BAUMEISTER); 
-		settler = new RoleCard(RoleType.SIEDLER);
-		gouvernor = new RoleCard(RoleType.BUERGERMEISTER);
+		RoleCard builder = new RoleCard(RoleType.BAUMEISTER); 
+		roleCards.add(builder);
+		RoleCard settler = new RoleCard(RoleType.SIEDLER);
+		roleCards.add(settler);
+		RoleCard gouvernor = new RoleCard(RoleType.BUERGERMEISTER);
+		roleCards.add(gouvernor);
 		
 		row1.getChildren().addAll(builder, settler, gouvernor);
 		return row1;
@@ -70,9 +62,12 @@ public class RoleBoard extends Region {
 
 	private Node initRow2() {
 		row2 = new HBox(5);
-		producer = new RoleCard(RoleType.AUFSEHER); 
-		captain = new RoleCard(RoleType.KAPITAEN); 
-		trader = new RoleCard(RoleType.HAENDLER);
+		RoleCard producer = new RoleCard(RoleType.AUFSEHER); 
+		roleCards.add(producer);
+		RoleCard captain = new RoleCard(RoleType.KAPITAEN); 
+		roleCards.add(captain);
+		RoleCard trader = new RoleCard(RoleType.HAENDLER);
+		roleCards.add(trader);
 
 		row2.getChildren().addAll(producer, captain, trader);
 		return row2;
@@ -81,11 +76,13 @@ public class RoleBoard extends Region {
 	private Node initRow3() {
 		row3 = new HBox(5);
 		if (numPlayers > 3) {
-			goldfinder1 = new RoleCard(RoleType.GOLDSUCHER);
+			RoleCard goldfinder1 = new RoleCard(RoleType.GOLDSUCHER);
+			roleCards.add(goldfinder1);
 			row3.getChildren().add(goldfinder1);
 		}
 		if (numPlayers > 4) {
-			goldfinder2 = new RoleCard(RoleType.GOLDSUCHER);
+			RoleCard goldfinder2 = new RoleCard(RoleType.GOLDSUCHER);
+			roleCards.add(goldfinder2);
 			row3.getChildren().add(goldfinder2);
 		}
 		return row3;
