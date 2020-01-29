@@ -120,6 +120,7 @@ public class PuRiGui extends Application {
 		players.add(players.remove(0));
 		players.get(0).activateGouvernor();
 		
+		roleBoard.prepareNextTurn();
 	}
 
 }
