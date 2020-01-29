@@ -40,6 +40,7 @@ public class Player extends Region {
 	
 	public void activateGouvernor() {
 		stats.activateGouvernor();
+		activateRole();
 	}
 	
 	public void deactivateGouvernor() {
@@ -48,6 +49,7 @@ public class Player extends Region {
 	
 	public void activateRole() {
 		stats.activateRole();
+		activatePlayer();
 	}
 	
 	public void chooseRole(RoleType type) {

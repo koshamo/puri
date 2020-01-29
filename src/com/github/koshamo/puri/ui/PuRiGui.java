@@ -1,9 +1,10 @@
-package com.github.koshamo.puri;
+package com.github.koshamo.puri.ui;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.gamedata.PlayerSetup;
 import com.github.koshamo.puri.setup.GameSet;
 import com.github.koshamo.puri.setup.PrColors;
@@ -28,10 +29,9 @@ public class PuRiGui extends Application {
 	private List<Player> players;
 	private Board gameBoard;
 	private RoleBoard roleBoard;
+	private GameController controller;
 	private GameSet gameSet;
 	private StartupConstants constants;
-	
-	private boolean gameEnd = false;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -40,7 +40,8 @@ public class PuRiGui extends Application {
 		initGui();
 		runPlayerSetup();
 		
-		mainGameLoop();
+		controller = new GameController(players, gameBoard, roleBoard);
+		controller.start();
 	}
 
 	private void runPlayerSetup() {
@@ -98,29 +99,6 @@ public class PuRiGui extends Application {
 				gameBoard, roleBoard);
 		
 		mainPane.setCenter(gameBox);
-	}
-
-	private void mainGameLoop() {
-		while (!gameEnd) {
-			turnLoop();
-		}
-		// TODO: add game results here
-	}
-
-	private void turnLoop() {
-		for (Player p : players) {
-			// TODO: activate player -> choose Role -> all player turns -> deactivate player
-		}
-		
-		endOfTurnAction();
-	}
-
-	private void endOfTurnAction() {
-		players.get(0).deactivateGouvernor();
-		players.add(players.remove(0));
-		players.get(0).activateGouvernor();
-		
-		roleBoard.prepareNextTurn();
 	}
 
 }
