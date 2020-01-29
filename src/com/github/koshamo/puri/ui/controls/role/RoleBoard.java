@@ -3,6 +3,7 @@ package com.github.koshamo.puri.ui.controls.role;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.setup.RoleType;
 
 import javafx.geometry.Insets;
@@ -19,7 +20,8 @@ import javafx.scene.paint.Color;
 public class RoleBoard extends Region {
 
 	private final int numPlayers;
-	
+	private GameController controller;
+
 	private HBox row1;
 	private HBox row2;
 	private HBox row3;
@@ -31,6 +33,24 @@ public class RoleBoard extends Region {
 		roleCards = new ArrayList<>();
 		
 		drawComponent();
+	}
+	
+	public void connectController(GameController controller) {
+		this.controller = controller;
+	}
+
+	public void activate() {
+		for (RoleCard rc : roleCards) {
+			if (!rc.isUsed())
+				rc.setOnMouseClicked(ev -> { handleRoleSelected(rc); });
+		}
+	}
+	
+	/*private*/ void handleRoleSelected(RoleCard card) {
+		for (RoleCard rc : roleCards)
+			rc.setOnMouseClicked(null);
+		
+		controller.chooseRole(card.type(), card.removeGulden());
 	}
 	
 	public void prepareNextTurn() {

@@ -20,8 +20,24 @@ import javafx.scene.control.Skin;
 		update();
 	}
 	
+	public boolean isUsed() {
+		return used;
+	}
+	
+	public RoleType type() {
+		return type;
+	}
+	
+	public int removeGulden() {
+		int gulden = this.gulden;
+		this.gulden = 0;
+		used = true;
+		update();
+		return gulden;
+	}
+	
 	public void prepareNextTurn() {
-		if (used)
+		if (!used)
 			gulden++;
 		used = false;
 		update();

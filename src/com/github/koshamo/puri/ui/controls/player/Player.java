@@ -68,6 +68,10 @@ public class Player extends Region {
 		stats.deactivatePlayer();
 	}
 
+	public void addGulden(int gulden) {
+		stats.addGulden(gulden);
+	}
+	
 	public void addPlantation(PlantationType type) {
 		plantations.addPlantation(type);
 	}

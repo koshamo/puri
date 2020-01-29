@@ -1,5 +1,6 @@
 package com.github.koshamo.puri.ui.controls.board;
 
+import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.StartupConstants;
@@ -21,6 +22,7 @@ import javafx.scene.paint.Color;
 public class Board extends Region {
 
 	private final StartupConstants gameConstants;
+	private GameController controller;
 
 	private QuantityBar availVictoryPoints;
 	private QuantityBar availColonists;
@@ -40,6 +42,10 @@ public class Board extends Region {
 	public Board(int numPlayers) {
 		gameConstants = new StartupConstants(numPlayers);
 		init();
+	}
+	
+	public void connectController(GameController controller) {
+		this.controller = controller;
 	}
 
 	private void init() {
