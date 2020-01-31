@@ -1,5 +1,8 @@
 package com.github.koshamo.puri.setup;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public final class StartupConstants {
 	
 	public final int VICTORY_POINTS;
@@ -11,6 +14,7 @@ public final class StartupConstants {
 	public final int LARGE_SHIP_PLACES;
 	public final int NUM_PLAYERS;
 	public final PlantationType[] INITIAL_PLANTATIONS;
+	public final ObservableList<BuildingsModel> availableBuildings;
 	
 	
 	public StartupConstants(int players) {
@@ -49,5 +53,41 @@ public final class StartupConstants {
 			COLONISTS = 0;
 			INITIAL_PLANTATIONS = null;
 		}
+		
+		availableBuildings = FXCollections.observableArrayList();
+		fillBuildingsList();
+	}
+
+
+	private void fillBuildingsList() {
+		BuildingTypeList[] buildingsList = BuildingTypeList.values();
+		
+		for (BuildingTypeList type : buildingsList) {
+			int avail = getNumOfObjects(type);
+
+			if (!type.equals(BuildingTypeList.NONE))
+				availableBuildings.add(new BuildingsModel(
+					type.getName(), 
+					type.getDescription(), 
+					type.getShortDescription(), 
+					type.getCost(), 
+					type.getVictoryPoints(), 
+					avail));
+		}
+	}
+
+
+	private int getNumOfObjects(BuildingTypeList type) {
+		int avail;
+
+		switch(type.getType()) {
+		case SMALL_PRODUCTION: avail = NUM_PLAYERS > 3 ? 4 : 3; break;
+		case PRODUCTION: avail = 3; break;
+		case BUILDING: avail = 2; break;
+		case LARGE_BUILDING: avail = 1; break;
+		default: avail = 0;
+		}
+		
+		return avail;
 	}
 }
