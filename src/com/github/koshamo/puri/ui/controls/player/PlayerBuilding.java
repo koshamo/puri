@@ -3,7 +3,7 @@ package com.github.koshamo.puri.ui.controls.player;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.koshamo.puri.setup.BuildingType;
+import com.github.koshamo.puri.setup.BuildingTypeList;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
@@ -24,10 +24,10 @@ import javafx.scene.layout.VBox;
 		update();
 	}
 
-	public void addBuilding(BuildingType type) {
+	public void addBuilding(BuildingTypeList type) {
 		int index = buildings.size() - type.getSize();
 		
-		if (!buildings.get(index).type().equals(BuildingType.NONE))
+		if (!buildings.get(index).type().equals(BuildingTypeList.NONE))
 			return;
 		
 		buildings.get(index).addBuilding(type);
@@ -70,7 +70,7 @@ import javafx.scene.layout.VBox;
 				rowOne.getChildren().add(building);
 				listIndex++;
 			} 
-			else if (buildings.get(buildings.size()-1).type().equals(BuildingType.NONE) ) {
+			else if (buildings.get(buildings.size()-1).type().equals(BuildingTypeList.NONE) ) {
 				rowOne.getChildren().add(buildings.get(buildings.size()-1));
 				endReduced++;
 			}

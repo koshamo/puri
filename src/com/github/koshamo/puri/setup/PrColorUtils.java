@@ -33,7 +33,7 @@ public class PrColorUtils {
 		return color;
 	}
 
-	public static Color selectTextColor(BuildingType type) {
+	public static Color selectTextColor(BuildingTypeList type) {
 		Color color;
 		switch (type) {
 		case KL_INDIGO:	/*fall through*/
@@ -47,7 +47,7 @@ public class PrColorUtils {
 		return color;
 	}
 
-	public static Color selectBuildingColor(BuildingType type) {
+	public static Color selectBuildingColor(BuildingTypeList type) {
 		Color color;
 		switch (type) {
 		case KL_INDIGO:	/*fall through*/

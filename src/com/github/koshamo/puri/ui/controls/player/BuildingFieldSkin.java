@@ -1,6 +1,6 @@
 package com.github.koshamo.puri.ui.controls.player;
 
-import com.github.koshamo.puri.setup.BuildingType;
+import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PrColorUtils;
 import com.github.koshamo.puri.setup.PrColors;
 
@@ -19,10 +19,10 @@ import javafx.scene.text.Text;
 	
 	protected BuildingFieldSkin(BuildingField control) {
 		super(control);
-		drawComponent(BuildingType.NONE, 0, 0);
+		drawComponent(BuildingTypeList.NONE, 0, 0);
 	}
 
-	public void drawComponent(BuildingType type, int places, int colonists) {
+	public void drawComponent(BuildingTypeList type, int places, int colonists) {
 		this.getChildren().clear();
 		
 		Pane pane = new Pane();
@@ -34,7 +34,7 @@ import javafx.scene.text.Text;
 		this.getChildren().add(pane);
 	}
 
-	private static void addTitle(BuildingType type, Pane pane) {
+	private static void addTitle(BuildingTypeList type, Pane pane) {
 		Color txtColor = PrColorUtils.selectTextColor(type);
 
 		Text title = new Text(type.getName());
@@ -44,7 +44,7 @@ import javafx.scene.text.Text;
 		pane.getChildren().addAll(title);
 	}
 
-	private static void addField(BuildingType type, Pane pane) {
+	private static void addField(BuildingTypeList type, Pane pane) {
 		Color bColor = PrColorUtils.selectBuildingColor(type);
 
 		int width = type.getSize() * WIDTH;

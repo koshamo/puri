@@ -1,6 +1,6 @@
 package com.github.koshamo.puri.setup;
 
-public enum BuildingType {
+public enum BuildingTypeList {
 
 	KL_INDIGO ("kleine\nIndigoküperei", GameSet.BASIS, "kleine Indigoküperei", 
 			"kl. Indigoküperei", 1, 1, 1, 1),
@@ -60,7 +60,7 @@ public enum BuildingType {
 	private final int places;
 	private final int size;
 	
-	private BuildingType(String name, GameSet set, String description, 
+	private BuildingTypeList(String name, GameSet set, String description, 
 			String shortDescription, int cost, int victoryPoints, int places, 
 			int size) {
 		this.name = name;

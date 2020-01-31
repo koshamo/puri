@@ -1,6 +1,6 @@
 package com.github.koshamo.puri.ui.controls.player;
 
-import com.github.koshamo.puri.setup.BuildingType;
+import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.State;
 
 import javafx.scene.control.Control;
@@ -10,7 +10,7 @@ import javafx.scene.control.Skin;
 
 	private final BuildingFieldSkin skin;
 	
-	private BuildingType type = BuildingType.NONE;
+	private BuildingTypeList type = BuildingTypeList.NONE;
 	private int places;
 	private int colonists;
 	
@@ -22,7 +22,7 @@ import javafx.scene.control.Skin;
 		return colonists > 0 ? State.ACTIVE : State.INACTIVE;
 	}
 	
-	public BuildingType type() {
+	public BuildingTypeList type() {
 		return type;
 	}
 	
@@ -30,7 +30,7 @@ import javafx.scene.control.Skin;
 		return type.getSize();
 	}
 	
-	public void addBuilding(BuildingType type) {
+	public void addBuilding(BuildingTypeList type) {
 		this.type = type;
 		places = type.getPlaces();
 		update();
