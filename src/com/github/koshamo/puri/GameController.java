@@ -18,6 +18,8 @@ public class GameController {
 	private int activePlayerIndex;
 	private int activePlayerCount;
 	
+	private RoleType activeRole;
+	
 	private boolean gameEnd = false;
 	
 	int tempTurnCount = 0;
@@ -43,8 +45,9 @@ public class GameController {
 		Player activePlayer = players.get(playerRoleIndex); 
 		activePlayer.addGulden(gulden);
 		activePlayer.chooseRole(type);
-		// TODO: role action
-		nextPlayerActive();
+		
+		activeRole = type;
+		handleRoleAction(true);
 	}
 	
 	public void nextPlayerActive() {
@@ -55,6 +58,7 @@ public class GameController {
 			if (activePlayerIndex == NUM_PLAYERS)
 				activePlayerIndex = 0;
 			players.get(activePlayerIndex).activatePlayer();
+			handleRoleAction(false);
 		} 
 		else
 			nextPlayerChooseRole();
@@ -92,6 +96,61 @@ public class GameController {
 			players.get(0).activateGouvernor();
 			roleBoard.activate();
 		}
+	}
+	
+	private void handleRoleAction(boolean privilege) {
+		switch (activeRole) {
+		case BAUMEISTER: handleBuilder(privilege); break;
+		case SIEDLER: handleSettler(privilege); break;
+		case BUERGERMEISTER: handleGouvernor(privilege); break;
+		case AUFSEHER: handleProducer(privilege); break;
+		case KAPITAEN: handleCaptain(privilege); break;
+		case HAENDLER: handleTrader(privilege); break;
+		case GOLDSUCHER: handleGoldfinder(); break;
+		default: throw new IllegalArgumentException("Role does not exist");
+		}
+	}
+
+	private void handleBuilder(boolean privilege) {
+		// TODO Auto-generated method stub
+		
+		nextPlayerActive();
+}
+
+	private void handleSettler(boolean privilege) {
+		// TODO Auto-generated method stub
+		
+		nextPlayerActive();
+	}
+
+	private void handleGouvernor(boolean privilege) {
+		// TODO Auto-generated method stub
+		
+		nextPlayerActive();
+	}
+
+	private void handleProducer(boolean privilege) {
+		// TODO Auto-generated method stub
+		
+		nextPlayerActive();
+	}
+
+	private void handleCaptain(boolean privilege) {
+		// TODO Auto-generated method stub
+		
+		nextPlayerActive();
+	}
+
+	private void handleTrader(boolean privilege) {
+		// TODO Auto-generated method stub
+		
+		nextPlayerActive();
+	}
+
+	private void handleGoldfinder() {
+		players.get(activePlayerIndex).addGulden(1);
+		
+		nextPlayerChooseRole();
 	}
 	
 }
