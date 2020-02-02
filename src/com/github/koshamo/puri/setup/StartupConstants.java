@@ -74,6 +74,17 @@ public final class StartupConstants {
 					type.getVictoryPoints(), 
 					avail));
 		}
+		sortBuildings();
+	}
+
+
+	private void sortBuildings() {
+		availableBuildings.sort((o1, o2) -> {
+			int vpComp = o1.getVictoryPoints().compareTo(o2.getVictoryPoints());
+			if (vpComp != 0)
+				return vpComp;
+			return o1.getCost().compareTo(o2.getCost());
+		});
 	}
 
 
