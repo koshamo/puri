@@ -31,6 +31,12 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 			addAll(ButtonType.OK, ButtonType.CANCEL);
 	}
 
+	/*
+	 * Suppress warning for generic definition safety warning
+	 * TableColumn<BuildingsModel,?> 
+	 * when adding Columns of different generic types to TableView
+	 */
+	@SuppressWarnings("unchecked")
 	private void drawContentPane() {
 		TableView<BuildingsModel> table = new TableView<>(); 
 		table.getColumns().addAll(
