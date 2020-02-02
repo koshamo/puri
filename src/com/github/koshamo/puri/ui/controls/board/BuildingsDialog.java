@@ -41,6 +41,7 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 				initiateLeftCol());
 
 		table.setItems(gameConstants.availableBuildings);
+		// TODO: calc size
 		table.setPrefWidth(700);
 		table.setPrefHeight(730);
 
