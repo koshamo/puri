@@ -32,16 +32,16 @@ public class BuildingsModel {
 		return shortDescription;
 	}
 
-	public Integer getCost() {
-		return Integer.valueOf(cost);
+	public String getCost() {
+		return String.valueOf(cost);
 	}
 
-	public Integer getVictoryPoints() {
-		return Integer.valueOf(victoryPoints);
+	public String getVictoryPoints() {
+		return String.valueOf(victoryPoints);
 	}
 
-	public Integer getLeft() {
-		return Integer.valueOf(left);
+	public String getLeft() {
+		return String.valueOf(left);
 	}
 
 }
