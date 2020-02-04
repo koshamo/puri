@@ -2,46 +2,41 @@ package com.github.koshamo.puri.setup;
 
 public class BuildingsModel {
 
-	private final String name;
-	private final String description;
-	private final String shortDescription;
-	private final int cost;
-	private final int victoryPoints;
-	private final int left;
+	private final BuildingTypeList type;
+	private int left;
 	
-	public BuildingsModel(String name, String description, String shortDescription, int cost, int victoryPoints,
-			int left) {
+	public BuildingsModel(BuildingTypeList type, int available) {
 		super();
-		this.name = name;
-		this.description = description;
-		this.shortDescription = shortDescription;
-		this.cost = cost;
-		this.victoryPoints = victoryPoints;
-		this.left = left;
+		this.type = type;
+		left = available;
 	}
 
 	public String getName() {
-		return name;
+		return type.getName();
 	}
 
 	public String getDescription() {
-		return description;
+		return type.getDescription();
 	}
 
 	public String getShortDescription() {
-		return shortDescription;
+		return type.getShortDescription();
 	}
 
 	public String getCost() {
-		return String.valueOf(cost);
+		return String.valueOf(type.getCost());
 	}
 
 	public String getVictoryPoints() {
-		return String.valueOf(victoryPoints);
+		return String.valueOf(type.getVictoryPoints());
 	}
 
 	public String getLeft() {
 		return String.valueOf(left);
 	}
 
+	public BuildingTypeList removeType() {
+		left--;
+		return type;
+	}
 }

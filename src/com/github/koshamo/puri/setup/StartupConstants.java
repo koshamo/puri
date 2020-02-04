@@ -66,13 +66,7 @@ public final class StartupConstants {
 			int avail = getNumOfObjects(type);
 
 			if (!type.equals(BuildingTypeList.NONE))
-				availableBuildings.add(new BuildingsModel(
-					type.getName(), 
-					type.getDescription(), 
-					type.getShortDescription(), 
-					type.getCost(), 
-					type.getVictoryPoints(), 
-					avail));
+				availableBuildings.add(new BuildingsModel(type, avail));
 		}
 		sortBuildings();
 	}
