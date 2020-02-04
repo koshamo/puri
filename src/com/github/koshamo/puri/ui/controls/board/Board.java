@@ -1,5 +1,7 @@
 package com.github.koshamo.puri.ui.controls.board;
 
+import java.util.LinkedList;
+
 import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
@@ -190,7 +192,7 @@ public class Board extends Region {
 		Label lblBuildings = new Label("Gebäude");
 		BuildingsButton btnBuilding = new BuildingsButton();
 		btnBuilding.setOnMouseClicked(ev -> {
-			BuildingsDialog dialog = new BuildingsDialog(gameConstants);
+			BuildingsDialog dialog = new BuildingsDialog(gameConstants, false, 10, new LinkedList<String>());
 			dialog.showAndWait();
 			});
 		vbox.getChildren().addAll(lblBuildings, btnBuilding);

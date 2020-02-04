@@ -3,12 +3,15 @@ package com.github.koshamo.puri;
 import java.util.List;
 
 import com.github.koshamo.puri.setup.RoleType;
+import com.github.koshamo.puri.setup.StartupConstants;
 import com.github.koshamo.puri.ui.controls.board.Board;
+import com.github.koshamo.puri.ui.controls.board.BuildingsDialog;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
 
 public class GameController {
 
+	private final StartupConstants gameConstants;
 	private final List<Player> players;
 	private final Board gameBoard;
 	private final RoleBoard roleBoard;
@@ -24,7 +27,8 @@ public class GameController {
 	
 	int tempTurnCount = 0;
 	
-	public GameController(List<Player> players, Board gameBoard, RoleBoard roleBoard) {
+	public GameController(StartupConstants gameConstants, List<Player> players, Board gameBoard, RoleBoard roleBoard) {
+		this.gameConstants = gameConstants;
 		this.players = players;
 		this.gameBoard = gameBoard;
 		gameBoard.connectController(this);
@@ -112,7 +116,13 @@ public class GameController {
 	}
 
 	private void handleBuilder(boolean privilege) {
-		// TODO Auto-generated method stub
+		Player currentPlayer = players.get(activePlayerIndex);
+		BuildingsDialog dialog = new BuildingsDialog(
+				gameConstants, 
+				privilege, 
+				currentPlayer.availableGulden(), 
+				currentPlayer.ownedBuildings());
+		dialog.showAndWait();
 		
 		nextPlayerActive();
 }

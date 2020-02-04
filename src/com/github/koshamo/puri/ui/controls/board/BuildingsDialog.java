@@ -1,5 +1,7 @@
 package com.github.koshamo.puri.ui.controls.board;
 
+import java.util.List;
+
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.BuildingsModel;
 import com.github.koshamo.puri.setup.StartupConstants;
@@ -18,10 +20,17 @@ import javafx.util.Callback;
 public class BuildingsDialog extends Dialog<BuildingTypeList> {
 
 	private final StartupConstants gameConstants;
+	/*private*/ final boolean privilege;
+	/*private*/ final int availableGulden;
+	/*private*/ final List<String> ownedBuildings;
 	private Callback<TableColumn<BuildingsModel,String>,TableCell<BuildingsModel,String>> cellFactory;
 	
-	public BuildingsDialog(StartupConstants gameConstants) {
+	public BuildingsDialog(StartupConstants gameConstants, boolean privilege, 
+			int availableGulden, List<String> ownedBuildings) {
 		this.gameConstants = gameConstants;
+		this.privilege = privilege;
+		this.availableGulden = availableGulden;
+		this.ownedBuildings = ownedBuildings;
 		drawDialog();
 		initResultConverter();
 	}
@@ -78,7 +87,14 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 								row.setTooltip(new Tooltip(row.getItem().getDescription()));
 								setText(item);
 								
-								if (row.getItem().getLeft().equals("0"))
+								BuildingsModel building = row.getItem();
+								int maxCost = privilege ? availableGulden + 1 : availableGulden;
+
+								if (Integer.valueOf(building.getCost()).intValue() > maxCost)
+									setTextFill(Color.LIGHTSALMON);
+								
+								if (building.getLeft().equals("0")
+										|| ownedBuildings.contains(building.getName()))
 									setTextFill(Color.LIGHTGREY);
 							}
 						}

@@ -40,7 +40,7 @@ public class PuRiGui extends Application {
 		initGui();
 		runPlayerSetup();
 		
-		controller = new GameController(players, gameBoard, roleBoard);
+		controller = new GameController(constants, players, gameBoard, roleBoard);
 		controller.start();
 	}
 
