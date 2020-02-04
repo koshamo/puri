@@ -1,6 +1,7 @@
 package com.github.koshamo.puri.ui.controls.player;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.github.koshamo.puri.setup.BuildingTypeList;
@@ -34,6 +35,14 @@ import javafx.scene.layout.VBox;
 		if (type.getSize() == 2)
 			buildings.remove(index + 1);
 		sort();
+	}
+	
+	public List<String> ownedBuildings() {
+		List<String> buildingList = new LinkedList<>();
+		for (BuildingField bf : buildings)
+			if (!bf.type().equals(BuildingTypeList.NONE))
+				buildingList.add(bf.type().getName());
+		return buildingList;
 	}
 	
 	private void initGui() {
