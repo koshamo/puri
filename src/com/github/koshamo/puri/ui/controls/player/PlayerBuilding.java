@@ -45,6 +45,16 @@ import javafx.scene.layout.VBox;
 		return buildingList;
 	}
 	
+	public boolean isBuildingSpaceFull() {
+		int occupied = 0;
+		for (BuildingField bf : buildings)
+			if (!bf.type().equals(BuildingTypeList.NONE))
+				occupied += bf.type().getSize();
+		if (occupied < 12)
+			return false;
+		return true;
+	}
+	
 	private void initGui() {
 		VBox vbox = new VBox(3);
 		vbox.setPadding(new Insets(2, 0, 0, 2));

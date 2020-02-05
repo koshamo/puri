@@ -86,4 +86,13 @@ public class Player extends Region {
 	public List<BuildingTypeList> ownedBuildings() {
 		return buildings.ownedBuildings();
 	}
+	
+	public void purchaseBuilding(BuildingTypeList type, int amount) {
+		buildings.addBuilding(type);
+		stats.subGulden(amount);
+	}
+	
+	public boolean isBuildingSpaceFull() {
+		return buildings.isBuildingSpaceFull();
+	}
 }

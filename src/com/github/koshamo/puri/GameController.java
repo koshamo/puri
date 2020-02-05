@@ -27,7 +27,7 @@ public class GameController {
 	
 	private boolean gameEnd = false;
 	
-	int tempTurnCount = 0;
+	int turnCount = 0;
 	
 	public GameController(StartupConstants gameConstants, List<Player> players, Board gameBoard, RoleBoard roleBoard) {
 		this.gameConstants = gameConstants;
@@ -84,9 +84,7 @@ public class GameController {
 	}
 
 	private void nextTurn() {
-		tempTurnCount++;
-		if (tempTurnCount == 3)
-			gameEnd = true;
+		turnCount++;
 
 		if (gameEnd) {
 			// TODO: game is ended
@@ -125,8 +123,14 @@ public class GameController {
 				currentPlayer.availableGulden(), 
 				currentPlayer.ownedBuildings());
 		Optional<BuildingTypeList> building = dialog.showAndWait();
-		if (building.isPresent())
-			System.out.println(building.get());
+		
+		if (building.isPresent()) {
+			BuildingTypeList type = building.get();
+			int cost = privilege ? type.getCost() - 1 : type.getCost();
+			currentPlayer.purchaseBuilding(type, cost);
+			if (currentPlayer.isBuildingSpaceFull())
+				gameEnd = true;
+		}
 		
 		nextPlayerActive();
 }
