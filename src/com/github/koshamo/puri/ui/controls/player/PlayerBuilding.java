@@ -37,11 +37,11 @@ import javafx.scene.layout.VBox;
 		sort();
 	}
 	
-	public List<String> ownedBuildings() {
-		List<String> buildingList = new LinkedList<>();
+	public List<BuildingTypeList> ownedBuildings() {
+		List<BuildingTypeList> buildingList = new LinkedList<>();
 		for (BuildingField bf : buildings)
 			if (!bf.type().equals(BuildingTypeList.NONE))
-				buildingList.add(bf.type().getName());
+				buildingList.add(bf.type());
 		return buildingList;
 	}
 	

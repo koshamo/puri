@@ -2,6 +2,7 @@ package com.github.koshamo.puri.ui.controls.player;
 
 import java.util.List;
 
+import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.RoleType;
@@ -82,7 +83,7 @@ public class Player extends Region {
 		return stats.currentGulden();
 	}
 	
-	public List<String> ownedBuildings() {
+	public List<BuildingTypeList> ownedBuildings() {
 		return buildings.ownedBuildings();
 	}
 }

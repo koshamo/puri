@@ -34,8 +34,12 @@ public class BuildingsModel {
 	public String getLeft() {
 		return String.valueOf(left);
 	}
+	
+	public BuildingTypeList type() {
+		return type;
+	}
 
-	public BuildingTypeList removeType() {
+	public BuildingTypeList removeBuilding() {
 		left--;
 		return type;
 	}

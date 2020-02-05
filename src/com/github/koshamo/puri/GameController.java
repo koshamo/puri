@@ -1,7 +1,9 @@
 package com.github.koshamo.puri;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.RoleType;
 import com.github.koshamo.puri.setup.StartupConstants;
 import com.github.koshamo.puri.ui.controls.board.Board;
@@ -122,7 +124,9 @@ public class GameController {
 				privilege, 
 				currentPlayer.availableGulden(), 
 				currentPlayer.ownedBuildings());
-		dialog.showAndWait();
+		Optional<BuildingTypeList> building = dialog.showAndWait();
+		if (building.isPresent())
+			System.out.println(building.get());
 		
 		nextPlayerActive();
 }

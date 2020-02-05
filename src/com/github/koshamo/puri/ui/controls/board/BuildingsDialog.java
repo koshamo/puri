@@ -23,12 +23,12 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 	private final StartupConstants gameConstants;
 	/*private*/ final boolean privilege;
 	/*private*/ final int availableGulden;
-	/*private*/ final List<String> ownedBuildings;
+	/*private*/ final List<BuildingTypeList> ownedBuildings;
 	/*private*/ TableView<BuildingsModel> table;
 	private Callback<TableColumn<BuildingsModel,String>,TableCell<BuildingsModel,String>> cellFactory;
 	
 	public BuildingsDialog(StartupConstants gameConstants, boolean privilege, 
-			int availableGulden, List<String> ownedBuildings) {
+			int availableGulden, List<BuildingTypeList> ownedBuildings) {
 		this.gameConstants = gameConstants;
 		this.privilege = privilege;
 		this.availableGulden = availableGulden;
@@ -84,7 +84,7 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 					System.out.println(observable + " " + oldValue + " " + newValue);
 					if (Integer.valueOf(building.getCost()).intValue() > maxCost
 							|| building.getLeft().equals("0")
-							|| ownedBuildings.contains(building.getName()))
+							|| ownedBuildings.contains(building.type()))
 						table.getSelectionModel().clearSelection();
 				}
 			});
@@ -114,7 +114,7 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 									setTextFill(Color.LIGHTSALMON);
 								
 								if (building.getLeft().equals("0")
-										|| ownedBuildings.contains(building.getName()))
+										|| ownedBuildings.contains(building.type()))
 									setTextFill(Color.LIGHTGREY);
 							}
 						}
@@ -177,7 +177,7 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 			BuildingsModel item = table.getSelectionModel().getSelectedItem();
 			if (item == null)
 				return null;
-			return item.removeType();
+			return item.removeBuilding();
 		});		
 	}
 }
