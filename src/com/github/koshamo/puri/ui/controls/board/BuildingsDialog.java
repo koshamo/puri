@@ -81,7 +81,6 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 				if (newValue.intValue() >= 0) {
 					BuildingsModel building = gameConstants.availableBuildings.get(newValue.intValue());
 					int maxCost = privilege ? availableGulden + 1 : availableGulden;
-					System.out.println(observable + " " + oldValue + " " + newValue);
 					if (Integer.valueOf(building.getCost()).intValue() > maxCost
 							|| building.getLeft().equals("0")
 							|| ownedBuildings.contains(building.type()))
