@@ -16,13 +16,18 @@ import javafx.scene.text.Text;
 
 /*private*/ class BoardPlantationSkin extends SkinBase<BoardPlantation> {
 
+	private final BoardPlantation control;
 	private final int numFields;
 	
-	protected BoardPlantationSkin(BoardPlantation control, int numPlayers) {
+	private boolean active = false;
+	private boolean privilege = false;
+	
+	public BoardPlantationSkin(BoardPlantation control, int numPlayers) {
 		super(control);
+		this.control = control;
 		this.numFields = numPlayers + 3;
 		PlantationType[] emptyPlantations = initPlantations(numPlayers);
-		drawComponent(50, 8, emptyPlantations);
+		drawComponent(50, 8, emptyPlantations, active, privilege);
 	}
 	
 	private static PlantationType[] initPlantations(int numPlayers) {
@@ -32,7 +37,10 @@ import javafx.scene.text.Text;
 		return plantations;
 	}
 
-	public void drawComponent(int cards, int quarries, PlantationType[] plantations) {
+	public void drawComponent(int cards, int quarries, PlantationType[] plantations, boolean active, boolean privilege) {
+		this.active = active;
+		this.privilege = privilege;
+		
 		this.getChildren().clear();
 		Pane pane = new Pane();
 		
@@ -77,22 +85,40 @@ import javafx.scene.text.Text;
 		return stack;
 	}
 
-	private static Node drawQuarry(int quarries) {
+	private Node drawQuarry(int quarries) {
 		StackPane stack = new StackPane();
 		Rectangle rect = new Rectangle(40, 40, PrColors.QUARRY.getColor());
 		Text text = new Text(String.valueOf(quarries));
 		stack.getChildren().addAll(rect, text);
+		
+		if (active && privilege) {
+			rect.setOnMouseClicked(ev -> {
+				control.selectPlantation(PlantationType.QUARRY);
+			});
+		} else
+			rect.setOnMouseClicked(null);
 		
 		Tooltip tooltip = new Tooltip("verfügbare Steinbrüche");
 		Tooltip.install(stack, tooltip);
 		return stack;
 	}
 
-	private static Node drawPlantation(PlantationType plantation) {
+	private Node drawPlantation(PlantationType plantation) {
 		if (plantation.equals(PlantationType.NONE)) {
 			return drawEmptyField();
 		} 
-		return new Rectangle(40, 40, PrColorUtils.selectFieldColor(plantation));
+		
+		Rectangle rect = new Rectangle(40, 40, PrColorUtils.selectFieldColor(plantation));
+		
+		if (active) {
+			rect.setOnMouseClicked(ev -> {
+				control.selectPlantation(plantation);
+			});
+		} else
+			rect.setOnMouseClicked(null);
+		
+
+		return rect;
 	}
 
 	private static Node drawEmptyField() {

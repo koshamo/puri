@@ -13,11 +13,16 @@ import javafx.scene.control.Skin;
 
 	private final BoardPlantationSkin skin;
 	
+	private final Board board;
 	private final int numPlayers;
 	private List<PlantationType> plantations;
 	private final int quarries;
 	
-	public BoardPlantation(int numPlayers) {
+	private boolean privilege; 
+	private boolean active;
+	
+	public BoardPlantation(Board board, int numPlayers) {
+		this.board = board;
 		this.numPlayers = numPlayers;
 		quarries = PlantationType.QUARRY.getMax();
 		skin = new BoardPlantationSkin(this, numPlayers);
@@ -25,6 +30,28 @@ import javafx.scene.control.Skin;
 		update();
 	}
 	
+	public void activate(boolean privilege) {
+		this.privilege = quarries > 0 ? privilege : false;
+		active = true;
+		update();
+	}
+
+	public void selectPlantation(PlantationType type) {
+		privilege = false;
+		active = false;
+		update();
+		
+		board.selectPlantation(type);
+	}
+	
+	public void update() {
+		PlantationType[] toDraw = new PlantationType[numPlayers + 1];
+		for (int i = 0; i < toDraw.length; i++) {
+			toDraw[i] = plantations.remove(0);
+		}
+		skin.drawComponent(plantations.size(), quarries, toDraw, active, privilege);
+	}
+
 	private void initPlantations() {
 		plantations = new LinkedList<>();
 		int usedCorn = numPlayers / 2;
@@ -47,13 +74,5 @@ import javafx.scene.control.Skin;
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return skin;
-	}
-	
-	public void update() {
-		PlantationType[] toDraw = new PlantationType[numPlayers + 1];
-		for (int i = 0; i < toDraw.length; i++) {
-			toDraw[i] = plantations.remove(0);
-		}
-		skin.drawComponent(plantations.size(), quarries, toDraw);
 	}
 }

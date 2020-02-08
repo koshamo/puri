@@ -50,6 +50,14 @@ public class Board extends Region {
 	public void connectController(GameController controller) {
 		this.controller = controller;
 	}
+	
+	public void activateSettler(boolean privilege) {
+		plantations.activate(privilege);
+	}
+	
+	public void selectPlantation(PlantationType type) {
+		controller.selectPlantation(type);
+	}
 
 	private void init() {
 		VBox vbox = new VBox(3);
@@ -206,7 +214,7 @@ public class Board extends Region {
 		vbox.setPadding(new Insets(5));
 
 		Label lblPlantations = new Label("Plantagen");
-		plantations = new BoardPlantation(gameConstants.NUM_PLAYERS);
+		plantations = new BoardPlantation(this, gameConstants.NUM_PLAYERS);
 		vbox.getChildren().addAll(lblPlantations, plantations);
 		return vbox;
 	}
