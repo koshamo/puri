@@ -16,7 +16,9 @@ import javafx.scene.control.Skin;
 	private final Board board;
 	private final int numPlayers;
 	private List<PlantationType> plantations;
-	private final int quarries;
+	private List<PlantationType> usedPlantations;
+	private int quarries;
+	private PlantationType[] toDraw;
 	
 	private boolean privilege; 
 	private boolean active;
@@ -27,6 +29,7 @@ import javafx.scene.control.Skin;
 		quarries = PlantationType.QUARRY.getMax();
 		skin = new BoardPlantationSkin(this, numPlayers);
 		initPlantations();
+		updatePlantations();
 		update();
 	}
 	
@@ -39,21 +42,56 @@ import javafx.scene.control.Skin;
 	public void selectPlantation(PlantationType type) {
 		privilege = false;
 		active = false;
+		removePlantation(type);
 		update();
 		
 		board.selectPlantation(type);
 	}
 	
 	public void update() {
-		PlantationType[] toDraw = new PlantationType[numPlayers + 1];
+		skin.drawComponent(plantations.size(), quarries, toDraw, active, privilege);
+	}
+	
+	public void refreshPlantations() {
+		for (PlantationType type : plantations) 
+			if (!type.equals(PlantationType.NONE))
+				usedPlantations.add(type);
+		updatePlantations();
+		update();
+	}
+	
+	private void updatePlantations() {
+		toDraw = new PlantationType[numPlayers + 1];
+		
 		for (int i = 0; i < toDraw.length; i++) {
+			if (plantations.size() == 0) {
+				if (usedPlantations.size() == 0)
+					return;
+				plantations.addAll(usedPlantations);
+				usedPlantations.clear();
+				ListUtils.generateRandomList(plantations);
+			}
 			toDraw[i] = plantations.remove(0);
 		}
-		skin.drawComponent(plantations.size(), quarries, toDraw, active, privilege);
+	}
+
+	private void removePlantation(PlantationType type) {
+		if (type.equals(PlantationType.QUARRY))
+			quarries--;
+		else {
+			for (int i = 0; i < toDraw.length; i++) {
+				if (toDraw[i].equals(type)) {
+					toDraw[i] = PlantationType.NONE;
+					break;	// no more plantations to remove!
+				}
+			}
+		}
 	}
 
 	private void initPlantations() {
 		plantations = new LinkedList<>();
+		usedPlantations = new LinkedList<>();
+		
 		int usedCorn = numPlayers / 2;
 		int usedIndigo = numPlayers - usedCorn;
 		

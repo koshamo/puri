@@ -58,6 +58,10 @@ public class Board extends Region {
 	public void selectPlantation(PlantationType type) {
 		controller.selectPlantation(type);
 	}
+	
+	public void refreshPlantations() {
+		plantations.refreshPlantations();
+	}
 
 	private void init() {
 		VBox vbox = new VBox(3);

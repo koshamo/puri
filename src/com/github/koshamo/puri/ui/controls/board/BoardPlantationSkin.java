@@ -109,11 +109,8 @@ import javafx.scene.text.Text;
 		} 
 		
 		Rectangle rect = new Rectangle(40, 40, PrColorUtils.selectFieldColor(plantation));
-		
 		if (active) {
-			rect.setOnMouseClicked(ev -> {
-				control.selectPlantation(plantation);
-			});
+			rect.setOnMouseClicked(ev -> {control.selectPlantation(plantation);});
 		} else
 			rect.setOnMouseClicked(null);
 		
