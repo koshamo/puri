@@ -54,6 +54,13 @@ import javafx.scene.layout.VBox;
 			return false;
 		return true;
 	}
+
+	public int calcEmptyPlaces() {
+		int emptyPlaces = 0;
+		for (BuildingField bf : buildings) 
+			emptyPlaces += bf.emptyPlaces();
+		return emptyPlaces;
+	}
 	
 	private void initGui() {
 		VBox vbox = new VBox(3);
@@ -105,4 +112,5 @@ import javafx.scene.layout.VBox;
 			return p1.type().compareTo(p2.type());
 		});
 		update();
-	}}
+	}
+}

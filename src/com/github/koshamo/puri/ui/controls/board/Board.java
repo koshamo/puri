@@ -68,6 +68,10 @@ public class Board extends Region {
 			availColonists.sub(1);
 		return colonistShip.discharge();
 	}
+	
+	public void refreshColonists(int emptyPlaces) {
+		colonistShip.charge(emptyPlaces);
+	}
 
 	private void init() {
 		VBox vbox = new VBox(3);

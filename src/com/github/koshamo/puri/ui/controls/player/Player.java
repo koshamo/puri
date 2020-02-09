@@ -99,4 +99,8 @@ public class Player extends Region {
 	public void addColonists(int num) {
 		stats.addColonists(num);
 	}
+
+	public int calcEmptyPlaces() {
+		return buildings.calcEmptyPlaces();
+	}
 }

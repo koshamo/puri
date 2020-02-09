@@ -50,6 +50,10 @@ import javafx.scene.control.Skin;
 		update();
 	}
 	
+	public int emptyPlaces() {
+		return places - colonists;
+	}
+	
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return skin;

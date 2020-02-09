@@ -153,7 +153,16 @@ public class GameController {
 		if (privilege) {
 			distributeColonistsToPlayers();
 		}
-		
+//		currentPlayer.distributeColonists();
+	}
+	
+	public void gouvernorDone() {
+		if (activePlayerIndex == NUM_PLAYERS - 1) {
+			int emptyPlaces = 0;
+			for (Player p : players)
+				emptyPlaces += p.calcEmptyPlaces();
+			gameBoard.refreshColonists(emptyPlaces);
+		}
 		nextPlayerActive();
 	}
 
