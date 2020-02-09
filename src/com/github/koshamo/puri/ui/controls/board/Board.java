@@ -62,6 +62,12 @@ public class Board extends Region {
 	public void refreshPlantations() {
 		plantations.refreshPlantations();
 	}
+	
+	public int dischargeColonists() {
+		if (availColonists.quantity() > 0)
+			availColonists.sub(1);
+		return colonistShip.discharge();
+	}
 
 	private void init() {
 		VBox vbox = new VBox(3);

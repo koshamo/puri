@@ -18,16 +18,25 @@ import javafx.scene.control.Skin;
 		update();
 	}
 	
-	public int getColonists() {
+	public int colonists() {
 		return colonists;
 	}
 	
-	public void setColonists(int colonists) {
+	public int discharge() {
+		int avail = colonists;
+		colonists = 0;
+		update();
+		return avail;
+	}
+	
+	public void charge(int colonists) {
 		if (colonists < minColonists)
 			this.colonists = minColonists;
 		else
 			this.colonists = colonists;
+		update();
 	}
+	
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return skin;

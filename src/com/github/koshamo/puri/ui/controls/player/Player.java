@@ -95,4 +95,8 @@ public class Player extends Region {
 	public boolean isBuildingSpaceFull() {
 		return buildings.isBuildingSpaceFull();
 	}
+	
+	public void addColonists(int num) {
+		stats.addColonists(num);
+	}
 }

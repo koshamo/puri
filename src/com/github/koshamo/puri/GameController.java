@@ -149,9 +149,31 @@ public class GameController {
 	}
 
 	private void handleGouvernor(boolean privilege) {
-		// TODO Auto-generated method stub
+		Player currentPlayer = players.get(activePlayerIndex);
+		if (privilege) {
+			distributeColonistsToPlayers();
+		}
 		
 		nextPlayerActive();
+	}
+
+	private void distributeColonistsToPlayers() {
+		int colonists = gameBoard.dischargeColonists();
+
+		int each = colonists / NUM_PLAYERS;
+		int remaining = colonists % NUM_PLAYERS;
+		
+		for (int playerCnt = 0, playerIndex = activePlayerIndex; 
+				playerCnt < NUM_PLAYERS; 
+				playerCnt++, remaining--, playerIndex++) {
+			
+			if (playerIndex == NUM_PLAYERS)
+				playerIndex = 0;
+			int curPlayerCols = remaining > 0 ? each + 1 : each;
+			if (playerIndex == activePlayerIndex)
+				curPlayerCols++;
+			players.get(playerIndex).addColonists(curPlayerCols);
+		}
 	}
 
 	private void handleProducer(boolean privilege) {
