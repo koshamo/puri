@@ -79,49 +79,55 @@ import javafx.scene.layout.VBox;
 	private void updateDragging() {
 		for (BuildingField field : buildings) {
 			if (field.type() != BuildingTypeList.NONE) {
-				if (field.state() == State.ACTIVE) {
-					field.setOnDragDetected(ev -> {
-						Dragboard db = field.startDragAndDrop(TransferMode.MOVE);
-						ClipboardContent cc = new ClipboardContent();
-						cc.putString("1");
-						db.setContent(cc);
-						ev.consume();
-					});
-					field.setOnDragDone(ev -> {
-						field.removeColonist();
-						player.distributeColonists();
-						ev.consume();
-					});
-				}
-				if (field.emptyPlaces() > 0){
-					field.setOnDragOver(ev -> {
-				        if (ev.getGestureSource() != field &&
-				                ev.getDragboard().hasString()) {
-				            ev.acceptTransferModes(TransferMode.MOVE);
-				        }
-				        ev.consume();
-					});
-					field.setOnDragEntered(ev -> {
-						// TODO: show drop possible
-						ev.consume();
-					});
-					field.setOnDragExited(ev -> {
-						// TODO: end show drop possible
-						ev.consume();
-					});
-					field.setOnDragDropped(ev -> {
-				        Dragboard db = ev.getDragboard();
-				        boolean success = false;
-				        if (db.hasString()) {
-				           field.addColonist();
-				           success = true;
-				        }
-				        ev.setDropCompleted(success);
-				        ev.consume();
-					});
-				}
+				if (field.state() == State.ACTIVE)
+					addColonistDragTarget(field);
+				if (field.emptyPlaces() > 0)
+					addColonistDropTarget(field);
 			}
 		}
+	}
+
+	private static void addColonistDropTarget(BuildingField field) {
+		field.setOnDragOver(ev -> {
+		    if (ev.getGestureSource() != field &&
+		            ev.getDragboard().hasString()) {
+		        ev.acceptTransferModes(TransferMode.MOVE);
+		    }
+		    ev.consume();
+		});
+		field.setOnDragEntered(ev -> {
+			// TODO: show drop possible
+			ev.consume();
+		});
+		field.setOnDragExited(ev -> {
+			// TODO: end show drop possible
+			ev.consume();
+		});
+		field.setOnDragDropped(ev -> {
+		    Dragboard db = ev.getDragboard();
+		    boolean success = false;
+		    if (db.hasString()) {
+		       field.addColonist();
+		       success = true;
+		    }
+		    ev.setDropCompleted(success);
+		    ev.consume();
+		});
+	}
+
+	private void addColonistDragTarget(BuildingField field) {
+		field.setOnDragDetected(ev -> {
+			Dragboard db = field.startDragAndDrop(TransferMode.MOVE);
+			ClipboardContent cc = new ClipboardContent();
+			cc.putString("1");
+			db.setContent(cc);
+			ev.consume();
+		});
+		field.setOnDragDone(ev -> {
+			field.removeColonist();
+			player.distributeColonists();
+			ev.consume();
+		});
 	}
 
 	private void cancelDragging() {
