@@ -111,9 +111,18 @@ public class Player extends Region {
 	}
 
 	public void distributeColonists() {
-		stats.activateColonistsDnD();
-		plantations.activateColonistsDnD();
-		buildings.activateColonistsDnD();
+		if (stats.colonists() < 
+				plantations.calcEmptyPlaces() + buildings.calcEmptyPlaces()) {
+			stats.activateColonistsDnD();
+			plantations.activateColonistsDnD();
+			buildings.activateColonistsDnD();
+		}
+		else {
+			int plCols = plantations.distributeColonists();
+			int buCols = buildings.distributeColonists();
+			stats.subColonists(plCols + buCols);
+			distributionDone();
+		}
 	}
 	
 	public void distributionDone() {
