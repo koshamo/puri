@@ -107,6 +107,7 @@ import javafx.scene.layout.VBox;
 	private void addColonistDragTarget(PlantationField field) {
 		field.setOnDragDetected(ev -> {
 			Dragboard db = field.startDragAndDrop(TransferMode.MOVE);
+			// TODO: db.setDragView(IMAGE);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putString("1");
 			db.setContent(cc);
