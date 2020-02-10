@@ -29,7 +29,7 @@ public class Player extends Region {
 		this.color = color.getColor();
 		stats = new PlayerStat(this, name, color);
 		plantations = new PlayerPlantation(this);
-		buildings = new PlayerBuilding();
+		buildings = new PlayerBuilding(this);
 		
 		drawComponent();
 	}

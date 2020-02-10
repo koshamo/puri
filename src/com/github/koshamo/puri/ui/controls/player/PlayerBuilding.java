@@ -13,12 +13,14 @@ import javafx.scene.layout.VBox;
 
 /*private*/ class PlayerBuilding extends Region {
 
+	private final Player player;
 	private List<BuildingField> buildings;
 	
 	private HBox rowOne;
 	private HBox rowTwo;
 
-	public PlayerBuilding() {
+	public PlayerBuilding(Player player) {
+		this.player = player;
 		buildings = new ArrayList<>(12);
 		initGui();
 		initBuildings();
