@@ -177,6 +177,14 @@ import javafx.scene.text.FontWeight;
 				db.setContent(cc);
 				ev.consume();
 			});
+			qbColonists.setOnDragDone(ev -> {
+				System.out.println("colonist bar: " + ev.getTransferMode());
+				if (ev.getTransferMode() == TransferMode.MOVE) {
+					qbColonists.sub(1);
+					player.distributeColonists();
+				}
+				ev.consume();
+			});
 		}
 		else
 			cancelColonistDragging();
