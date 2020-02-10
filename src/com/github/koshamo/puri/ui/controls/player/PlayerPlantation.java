@@ -37,6 +37,14 @@ import javafx.scene.layout.VBox;
 		plantations.get(11).addPlantation(type);
 		sort();
 	}
+	
+	public int calcEmptyPlaces() {
+		int emptyPlaces = 0;
+		for (PlantationField field : plantations)
+			if (field.type() != PlantationType.NONE && field.state() == State.INACTIVE)
+				emptyPlaces++;
+		return emptyPlaces;
+	}
 
 	public void activateColonistsDnD() {
 		updateDragging();
@@ -44,6 +52,17 @@ import javafx.scene.layout.VBox;
 
 	public void deactivateColonistsDnD() {
 		cancelDragging();
+	}
+
+	public int distributeColonists() {
+		int usedColonists = 0;
+		for (PlantationField field : plantations) {
+			if (field.type() != PlantationType.NONE && field.state() == State.INACTIVE) {
+				field.activate();
+				usedColonists++;
+			}
+		}
+		return usedColonists;
 	}
 	
 	private void updateDragging() {
