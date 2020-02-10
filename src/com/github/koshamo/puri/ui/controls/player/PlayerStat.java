@@ -126,6 +126,10 @@ import javafx.scene.text.FontWeight;
 	public void subColonists(int num) {
 		colonists.set(colonists.get() - num);
 	}
+	
+	public int colonists() {
+		return colonists.get();
+	}
 
 	public void activateGouvernor() {
 		lblGouvernor.setVisible(true);
