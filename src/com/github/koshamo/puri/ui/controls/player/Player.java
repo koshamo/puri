@@ -27,7 +27,7 @@ public class Player extends Region {
 	
 	public Player(String name, PrColors color) {
 		this.color = color.getColor();
-		stats = new PlayerStat(name, color);
+		stats = new PlayerStat(this, name, color);
 		plantations = new PlayerPlantation();
 		buildings = new PlayerBuilding();
 		
@@ -111,7 +111,9 @@ public class Player extends Region {
 	}
 
 	public void distributeColonists() {
+	}
+	
+	public void distributionDone() {
 		controller.gouvernorDone();
-		
 	}
 }

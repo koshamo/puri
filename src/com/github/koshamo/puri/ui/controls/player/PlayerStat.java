@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -20,6 +21,7 @@ import javafx.scene.text.FontWeight;
 
 /*private*/ class PlayerStat extends Region {
 
+	private final Player player;
 	private final String name;
 	private final Color color;
 	
@@ -48,8 +50,10 @@ import javafx.scene.text.FontWeight;
 	
 	private Font defaultFont;
 	private final String roleDefaultText = "Rolle wählen";
+	private Button btnDone;
 	
-	public PlayerStat(String name, PrColors color) {
+	public PlayerStat(Player player, String name, PrColors color) {
+		this.player = player;
 		this.name = name;
 		this.color = color.getColor();
 		
@@ -167,6 +171,7 @@ import javafx.scene.text.FontWeight;
 		buildGouvernorLabel(grid);
 		buildRoleLabel(grid);
 		buildActiveLabel(grid);
+		buildActionButton(grid);
 	}
 
 	private void buildPlayerLabel(GridPane grid) {
@@ -205,6 +210,14 @@ import javafx.scene.text.FontWeight;
 		
 		grid.add(lblActive, 0, 5);
 		lblActive.setVisible(false);
+	}
+	
+	private void buildActionButton(GridPane grid) {
+		btnDone = new Button("fertig");
+		btnDone.setOnAction(ev -> {player.distributionDone();});
+
+		grid.add(btnDone, 0, 7);
+		btnDone.setVisible(false);		
 	}
 
 	private static void buildSecondColumn(GridPane grid) {
