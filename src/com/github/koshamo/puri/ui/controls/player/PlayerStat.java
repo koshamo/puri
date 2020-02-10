@@ -352,11 +352,13 @@ import javafx.scene.text.FontWeight;
 	}
 
 	public void activateColonistsDnD() {
+		btnDone.setVisible(true);
 		// TODO Auto-generated method stub
 		
 	}
 
 	public void deactivateColonistsDnD() {
+		btnDone.setVisible(false);
 		// TODO Auto-generated method stub
 		
 	}
