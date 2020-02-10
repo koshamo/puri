@@ -76,6 +76,20 @@ import javafx.scene.layout.VBox;
 		cancelDragging();
 	}
 	
+	public int distributeColonists() {
+		int usedColonists = 0;
+		for (BuildingField field : buildings) {
+			int empty = field.emptyPlaces();
+			if (field.type() != BuildingTypeList.NONE && empty > 0) {
+				for (int i = 0; i < empty; i++) {
+					field.addColonist();
+					usedColonists++;
+				}
+			}
+		}
+		return usedColonists;
+	}
+
 	private void updateDragging() {
 		for (BuildingField field : buildings) {
 			if (field.type() != BuildingTypeList.NONE) {
