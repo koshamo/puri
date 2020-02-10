@@ -4,21 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.koshamo.puri.setup.PlantationType;
+import com.github.koshamo.puri.setup.State;
 
 import javafx.geometry.Insets;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /*private*/ class PlayerPlantation extends Region {
 
+	private final Player player;
 	private List<PlantationField> plantations;
 	
 	private HBox rowOne;
 	private HBox rowTwo;
 	private HBox rowThree;
 	
-	public PlayerPlantation() {
+	public PlayerPlantation(Player player) {
+		this.player = player;
 		plantations = new ArrayList<>(12);
 		initGui();
 		initPlantations();
@@ -33,15 +39,73 @@ import javafx.scene.layout.VBox;
 	}
 
 	public void activateColonistsDnD() {
-		// TODO Auto-generated method stub
-		
+		updateDragging();
 	}
 
 	public void deactivateColonistsDnD() {
-		// TODO Auto-generated method stub
-		
+		cancelDragging();
 	}
 	
+	private void updateDragging() {
+		for (PlantationField field : plantations) {
+			if (field.type() != PlantationType.NONE) {
+				if (field.state() == State.ACTIVE) {
+					field.setOnDragDetected(ev -> {
+						Dragboard db = field.startDragAndDrop(TransferMode.MOVE);
+						ClipboardContent cc = new ClipboardContent();
+						cc.putString("1");
+						db.setContent(cc);
+						ev.consume();
+					});
+					field.setOnDragDone(ev -> {
+						field.deactivate();
+						player.distributeColonists();
+						ev.consume();
+					});
+				}
+				else {
+					field.setOnDragOver(ev -> {
+				        if (ev.getGestureSource() != field &&
+				                ev.getDragboard().hasString()) {
+				            ev.acceptTransferModes(TransferMode.MOVE);
+				        }
+				        ev.consume();
+					});
+					field.setOnDragEntered(ev -> {
+						// TODO: show drop possible
+						ev.consume();
+					});
+					field.setOnDragExited(ev -> {
+						// TODO: end show drop possible
+						ev.consume();
+					});
+					field.setOnDragDropped(ev -> {
+				        Dragboard db = ev.getDragboard();
+				        boolean success = false;
+				        if (db.hasString()) {
+				           field.activate();
+				           success = true;
+				        }
+				        ev.setDropCompleted(success);
+				        ev.consume();
+					});
+				}
+			}
+		}
+	}
+
+	private void cancelDragging() {
+		for (PlantationField field : plantations) {
+			if (field.type() != PlantationType.NONE) {
+				field.setOnDragDetected(null);
+				field.setOnDragDone(null);
+				field.setOnDragEntered(null);
+				field.setOnDragExited(null);
+				field.setOnDragDropped(null);
+			}
+		}
+	}
+
 	private void initGui() {
 		VBox vbox = new VBox(3);
 		vbox.setPadding(new Insets(2, 0, 0, 0));

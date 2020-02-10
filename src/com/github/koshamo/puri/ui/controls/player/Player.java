@@ -28,7 +28,7 @@ public class Player extends Region {
 	public Player(String name, PrColors color) {
 		this.color = color.getColor();
 		stats = new PlayerStat(this, name, color);
-		plantations = new PlayerPlantation();
+		plantations = new PlayerPlantation(this);
 		buildings = new PlayerBuilding();
 		
 		drawComponent();
