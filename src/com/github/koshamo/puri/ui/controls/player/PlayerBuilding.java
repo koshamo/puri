@@ -113,4 +113,14 @@ import javafx.scene.layout.VBox;
 		});
 		update();
 	}
+
+	public void activateColonistsDnD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deactivateColonistsDnD() {
+		// TODO Auto-generated method stub
+		
+	}
 }

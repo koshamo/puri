@@ -351,4 +351,14 @@ import javafx.scene.text.FontWeight;
 		});
 	}
 
+	public void activateColonistsDnD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deactivateColonistsDnD() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

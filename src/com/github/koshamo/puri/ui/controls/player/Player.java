@@ -111,9 +111,16 @@ public class Player extends Region {
 	}
 
 	public void distributeColonists() {
+		stats.activateColonistsDnD();
+		plantations.activateColonistsDnD();
+		buildings.activateColonistsDnD();
 	}
 	
 	public void distributionDone() {
+		stats.deactivateColonistsDnD();
+		plantations.deactivateColonistsDnD();
+		buildings.deactivateColonistsDnD();
+		
 		controller.gouvernorDone();
 	}
 }
