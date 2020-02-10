@@ -49,49 +49,55 @@ import javafx.scene.layout.VBox;
 	private void updateDragging() {
 		for (PlantationField field : plantations) {
 			if (field.type() != PlantationType.NONE) {
-				if (field.state() == State.ACTIVE) {
-					field.setOnDragDetected(ev -> {
-						Dragboard db = field.startDragAndDrop(TransferMode.MOVE);
-						ClipboardContent cc = new ClipboardContent();
-						cc.putString("1");
-						db.setContent(cc);
-						ev.consume();
-					});
-					field.setOnDragDone(ev -> {
-						field.deactivate();
-						player.distributeColonists();
-						ev.consume();
-					});
-				}
-				else {
-					field.setOnDragOver(ev -> {
-				        if (ev.getGestureSource() != field &&
-				                ev.getDragboard().hasString()) {
-				            ev.acceptTransferModes(TransferMode.MOVE);
-				        }
-				        ev.consume();
-					});
-					field.setOnDragEntered(ev -> {
-						// TODO: show drop possible
-						ev.consume();
-					});
-					field.setOnDragExited(ev -> {
-						// TODO: end show drop possible
-						ev.consume();
-					});
-					field.setOnDragDropped(ev -> {
-				        Dragboard db = ev.getDragboard();
-				        boolean success = false;
-				        if (db.hasString()) {
-				           field.activate();
-				           success = true;
-				        }
-				        ev.setDropCompleted(success);
-				        ev.consume();
-					});
-				}
+				if (field.state() == State.ACTIVE)
+					addColonistDragTarget(field);
+				else
+					addColonistDropTarget(field);
 			}
 		}
+	}
+
+	private void addColonistDropTarget(PlantationField field) {
+		field.setOnDragOver(ev -> {
+		    if (ev.getGestureSource() != field &&
+		            ev.getDragboard().hasString()) {
+		        ev.acceptTransferModes(TransferMode.MOVE);
+		    }
+		    ev.consume();
+		});
+		field.setOnDragEntered(ev -> {
+			// TODO: show drop possible
+			ev.consume();
+		});
+		field.setOnDragExited(ev -> {
+			// TODO: end show drop possible
+			ev.consume();
+		});
+		field.setOnDragDropped(ev -> {
+		    Dragboard db = ev.getDragboard();
+		    boolean success = false;
+		    if (db.hasString()) {
+		       field.activate();
+		       success = true;
+		    }
+		    ev.setDropCompleted(success);
+		    ev.consume();
+		});
+	}
+
+	private void addColonistDragTarget(PlantationField field) {
+		field.setOnDragDetected(ev -> {
+			Dragboard db = field.startDragAndDrop(TransferMode.MOVE);
+			ClipboardContent cc = new ClipboardContent();
+			cc.putString("1");
+			db.setContent(cc);
+			ev.consume();
+		});
+		field.setOnDragDone(ev -> {
+			field.deactivate();
+			player.distributeColonists();
+			ev.consume();
+		});
 	}
 
 	private void cancelDragging() {
