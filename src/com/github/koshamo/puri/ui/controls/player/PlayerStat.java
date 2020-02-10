@@ -31,13 +31,6 @@ import javafx.scene.text.FontWeight;
 	private IntegerProperty victoryPoints = new SimpleIntegerProperty(0);
 	private IntegerProperty gulden = new SimpleIntegerProperty(0);
 
-	private IntegerProperty corn = new SimpleIntegerProperty(0);
-	private IntegerProperty indigo = new SimpleIntegerProperty(0);
-	private IntegerProperty sugar = new SimpleIntegerProperty(0);
-	private IntegerProperty tobacco = new SimpleIntegerProperty(0);
-	private IntegerProperty coffee = new SimpleIntegerProperty(0);
-	private IntegerProperty colonists = new SimpleIntegerProperty(0);
-
 	private Label lblGouvernor;
 	private Label lblRole;
 	private Label lblActive;
@@ -80,55 +73,55 @@ import javafx.scene.text.FontWeight;
 	}
 
 	public void addCorn(int num) {
-		corn.set(corn.get() + num);
+		qbCorn.add(num);
 	}
 
 	public void subCorn(int num) {
-		corn.set(corn.get() - num);
+		qbCorn.sub(num);
 	}
 	
 	public void addIndigo(int num) {
-		indigo.set(indigo.get() + num);
+		qbIndigo.add(num);
 	}
 
 	public void subIndigo(int num) {
-		indigo.set(indigo.get() - num);
+		qbIndigo.sub(num);
 	}
 	
 	public void addSugar(int num) {
-		sugar.set(sugar.get() + num);
+		qbSugar.add(num);
 	}
 
 	public void subSugar(int num) {
-		sugar.set(sugar.get() - num);
+		qbSugar.sub(num);
 	}
 	
 	public void addTobacco(int num) {
-		tobacco.set(tobacco.get() + num);
+		qbTobacco.add(num);
 	}
 
 	public void subTobacco(int num) {
-		tobacco.set(tobacco.get() - num);
+		qbTobacco.sub(num);
 	}
 	
 	public void addCoffee(int num) {
-		coffee.set(coffee.get() + num);
+		qbCoffee.add(num);
 	}
 
 	public void subCoffee(int num) {
-		coffee.set(coffee.get() - num);
+		qbCoffee.sub(num);
 	}
 	
 	public void addColonists(int num) {
-		colonists.set(colonists.get() + num);
+		qbColonists.add(num);
 	}
 
 	public void subColonists(int num) {
-		colonists.set(colonists.get() - num);
+		qbColonists.sub(num);
 	}
 	
 	public int colonists() {
-		return colonists.get();
+		return qbCoffee.quantity();
 	}
 
 	public void activateGouvernor() {
@@ -161,7 +154,8 @@ import javafx.scene.text.FontWeight;
 	}
 
 	public void activateColonistsDnD() {
-		btnDone.setVisible(true);
+		if (qbColonists.quantity() == 0)
+			btnDone.setVisible(true);
 
 		updateColonistDragging();
 	}
@@ -322,77 +316,36 @@ import javafx.scene.text.FontWeight;
 		qbIndigo = new QuantityBar(12, PrColors.INDIGO.getColor());
 		qbIndigo.setTextColor(PrColors.INDIGO_TXT.getColor());
 		grid.add(qbIndigo, 2, 2);
-		
-		indigo.addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				qbIndigo.changeQuantity(newValue.intValue());				
-			}
-		});	
 	}
 
 	private void buildSugarDisplay(GridPane grid) {
 		qbSugar = new QuantityBar(12, PrColors.SUGAR.getColor());
 		qbSugar.setTextColor(PrColors.SUGAR_TXT.getColor());
 		grid.add(qbSugar, 2, 3);
-		
-		sugar.addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				qbSugar.changeQuantity(newValue.intValue());				
-			}
-		});
 	}
 
 	private void buildCornDisplay(GridPane grid) {
 		qbCorn = new QuantityBar(12, PrColors.CORN.getColor());
 		qbCorn.setTextColor(PrColors.CORN_TXT.getColor());
 		grid.add(qbCorn, 2, 4);
-
-		corn.addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				qbCorn.changeQuantity(newValue.intValue());				
-			}
-		});
 	}
 
 	private void buildTobaccoDisplay(GridPane grid) {
 		qbTobacco = new QuantityBar(12, PrColors.TOBACCO.getColor());
 		qbTobacco.setTextColor(PrColors.TOBACCO_TXT.getColor());
 		grid.add(qbTobacco, 2, 5);
-		
-		tobacco.addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				qbTobacco.changeQuantity(newValue.intValue());				
-			}
-		});
 	}
 
 	private void buildCoffeeDisplay(GridPane grid) {
 		qbCoffee = new QuantityBar(12, PrColors.COFFEE.getColor());
 		qbCoffee.setTextColor(PrColors.COFFEE_TXT.getColor());
 		grid.add(qbCoffee, 2, 6);
-		
-		coffee.addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				qbCoffee.changeQuantity(newValue.intValue());				
-			}
-		});
 	}
 
 	private void buildColonistsDisplay(GridPane grid) {
 		qbColonists = new QuantityBar(12, PrColors.COLONIST.getColor());
 		qbColonists.setTextColor(PrColors.COLONIST_TXT.getColor());
 		grid.add(qbColonists, 2, 7);
-		colonists.addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				qbColonists.changeQuantity(newValue.intValue());				
-			}
-		});
 	}
 
 }
