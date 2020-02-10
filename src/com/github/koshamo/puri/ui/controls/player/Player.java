@@ -19,14 +19,13 @@ import javafx.scene.paint.Color;
 
 public class Player extends Region {
 
-	private final GameController controller;
+	private GameController controller;
 	private final PlayerStat stats;
 	private final PlayerPlantation plantations;
 	private final PlayerBuilding buildings;
 	private final Color color;
 	
-	public Player(GameController controller, String name, PrColors color) {
-		this.controller = controller;
+	public Player(String name, PrColors color) {
 		this.color = color.getColor();
 		stats = new PlayerStat(name, color);
 		plantations = new PlayerPlantation();
@@ -42,6 +41,10 @@ public class Player extends Region {
 		
 		hbox.getChildren().addAll(stats, plantations, buildings);
 		this.getChildren().add(hbox);
+	}
+	
+	public void connectController(GameController controller) {
+		this.controller = controller;
 	}
 	
 	public void activateGouvernor() {

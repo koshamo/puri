@@ -38,6 +38,8 @@ public class GameController {
 		this.roleBoard = roleBoard;
 		roleBoard.connectController(this);
 		NUM_PLAYERS = players.size();
+		for (Player p : players)
+			p.connectController(this);
 	}
 	
 	public void start() {

@@ -62,7 +62,7 @@ public class PuRiGui extends Application {
 		gameSet = list.get(0).gameSet;
 		
 		for (int i = 0; i < list.size(); i++) {
-			Player p = new Player(controller, list.get(i).name, PrColors.getPlayerColor(i));
+			Player p = new Player(list.get(i).name, PrColors.getPlayerColor(i));
 			p.addPlantation(constants.INITIAL_PLANTATIONS[i]);
 			players.add(p);
 		}
