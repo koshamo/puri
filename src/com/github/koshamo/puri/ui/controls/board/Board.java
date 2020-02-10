@@ -69,8 +69,13 @@ public class Board extends Region {
 		return colonistShip.discharge();
 	}
 	
-	public void refreshColonists(int emptyPlaces) {
-		colonistShip.charge(emptyPlaces);
+	public int refreshColonists(int emptyPlaces) {
+		int colonists = colonistShip.charge(emptyPlaces);
+		if (colonists < availColonists.quantity())
+			availColonists.sub(colonists);
+		else 
+			availColonists.changeQuantity(0);
+		return availColonists.quantity();
 	}
 
 	private void init() {
