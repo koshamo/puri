@@ -145,7 +145,7 @@ public class GameController {
 	public void selectPlantation(PlantationType type ) {
 		Player currentPlayer = players.get(activePlayerIndex);
 		currentPlayer.addPlantation(type);
-		if (activePlayerIndex == NUM_PLAYERS - 1)
+		if (activePlayerCount == NUM_PLAYERS - 1)
 			gameBoard.refreshPlantations();
 		nextPlayerActive();
 	}
