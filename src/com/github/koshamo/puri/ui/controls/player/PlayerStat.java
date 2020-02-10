@@ -11,6 +11,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -155,14 +158,32 @@ import javafx.scene.text.FontWeight;
 
 	public void activateColonistsDnD() {
 		btnDone.setVisible(true);
-		// TODO Auto-generated method stub
-		
+
+		updateColonistDragging();
 	}
 
 	public void deactivateColonistsDnD() {
 		btnDone.setVisible(false);
-		// TODO Auto-generated method stub
-		
+
+		cancelColonistDragging();
+	}
+	
+	private void updateColonistDragging() {
+		if (qbColonists.quantity() > 0) {
+			qbColonists.setOnDragDetected(ev -> {
+				Dragboard db = qbColonists.startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent cc = new ClipboardContent();
+				cc.putString("1");
+				db.setContent(cc);
+				ev.consume();
+			});
+		}
+		else
+			cancelColonistDragging();
+	}
+	
+	private void cancelColonistDragging() {
+		qbColonists.setOnDragDetected(null);
 	}
 
 	private Node drawComponent() {
