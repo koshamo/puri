@@ -163,7 +163,9 @@ public class GameController {
 			int emptyPlaces = 0;
 			for (Player p : players)
 				emptyPlaces += p.calcEmptyPlaces();
-			gameBoard.refreshColonists(emptyPlaces);
+			int left = gameBoard.refreshColonists(emptyPlaces);
+			if (left == 0)
+				gameEnd = true;
 		}
 		nextPlayerActive();
 	}
