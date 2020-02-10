@@ -121,7 +121,7 @@ import javafx.scene.text.FontWeight;
 	}
 	
 	public int colonists() {
-		return qbCoffee.quantity();
+		return qbColonists.quantity();
 	}
 
 	public void activateGouvernor() {
