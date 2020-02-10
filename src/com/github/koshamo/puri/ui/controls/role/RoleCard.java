@@ -12,8 +12,6 @@ import javafx.scene.control.Skin;
 	private int gulden = 0;
 	private boolean used = false;
 
-	// TODO: use used
-	
 	public RoleCard(RoleType type) {
 		skin = new RoleCardSkin(this, type);
 		this.type = type;
