@@ -31,12 +31,14 @@ public class QuantityBar extends Control {
 		if (quantity + num > max)
 			throw new IllegalArgumentException("Quantity to high");
 		quantity += num;
+		update();
 	}
 	
 	public void sub (int num) {
 		if (quantity - num < 0)
 			throw new IllegalArgumentException("Quantity to low");
 		quantity -= num;
+		update();
 	}
 	
 	public int quantity() {
