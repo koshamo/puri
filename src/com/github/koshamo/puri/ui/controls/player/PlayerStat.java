@@ -178,7 +178,6 @@ import javafx.scene.text.FontWeight;
 				ev.consume();
 			});
 			qbColonists.setOnDragDone(ev -> {
-				System.out.println("colonist bar: " + ev.getTransferMode());
 				if (ev.getTransferMode() == TransferMode.MOVE) {
 					qbColonists.sub(1);
 					player.distributeColonists();
