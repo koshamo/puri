@@ -57,7 +57,7 @@ import javafx.scene.layout.VBox;
 		}
 	}
 
-	private void addColonistDropTarget(PlantationField field) {
+	private static void addColonistDropTarget(PlantationField field) {
 		field.setOnDragOver(ev -> {
 		    if (ev.getGestureSource() != field &&
 		            ev.getDragboard().hasString()) {
