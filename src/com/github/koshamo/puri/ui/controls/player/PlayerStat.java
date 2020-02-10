@@ -185,7 +185,7 @@ import javafx.scene.text.FontWeight;
 		lblGouvernor.setTextFill(PrColors.GOUVERNOR_TXT.getColor());
 		lblGouvernor.setBackground(new Background(new BackgroundFill(PrColors.GOUVERNOR_BGD.getColor(), null, null)));
 
-		grid.add(lblGouvernor, 0, 2, 1, 3);
+		grid.add(lblGouvernor, 0, 2, 1, 2);
 		lblGouvernor.setVisible(false);
 	}
 
@@ -194,7 +194,7 @@ import javafx.scene.text.FontWeight;
 		lblRole.setTextFill(PrColors.ACTIVE_TXT.getColor());
 		lblRole.setBackground(new Background(new BackgroundFill(PrColors.ACTIVE_BGD.getColor(), null, null)));
 		
-		grid.add(lblRole, 0, 5);
+		grid.add(lblRole, 0, 4);
 		lblRole.setVisible(false);
 	}
 
@@ -203,7 +203,7 @@ import javafx.scene.text.FontWeight;
 		lblActive.setTextFill(PrColors.ACTIVE_TXT.getColor());
 		lblActive.setBackground(new Background(new BackgroundFill(PrColors.ACTIVE_BGD.getColor(), null, null)));
 		
-		grid.add(lblActive, 0, 6);
+		grid.add(lblActive, 0, 5);
 		lblActive.setVisible(false);
 	}
 
