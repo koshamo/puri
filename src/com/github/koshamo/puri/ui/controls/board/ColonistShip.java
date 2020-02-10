@@ -29,12 +29,13 @@ import javafx.scene.control.Skin;
 		return avail;
 	}
 	
-	public void charge(int colonists) {
+	public int charge(int colonists) {
 		if (colonists < minColonists)
 			this.colonists = minColonists;
 		else
 			this.colonists = colonists;
 		update();
+		return this.colonists;
 	}
 	
 	@Override
