@@ -31,6 +31,16 @@ import javafx.scene.layout.VBox;
 		plantations.get(11).addPlantation(type);
 		sort();
 	}
+
+	public void activateColonistsDnD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deactivateColonistsDnD() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	private void initGui() {
 		VBox vbox = new VBox(3);
@@ -67,16 +77,6 @@ import javafx.scene.layout.VBox;
 			return comp;
 		});
 		update();
-	}
-
-	public void activateColonistsDnD() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void deactivateColonistsDnD() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

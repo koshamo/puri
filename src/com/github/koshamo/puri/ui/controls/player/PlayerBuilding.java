@@ -61,7 +61,17 @@ import javafx.scene.layout.VBox;
 			emptyPlaces += bf.emptyPlaces();
 		return emptyPlaces;
 	}
-	
+
+	public void activateColonistsDnD() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deactivateColonistsDnD() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void initGui() {
 		VBox vbox = new VBox(3);
 		vbox.setPadding(new Insets(2, 0, 0, 2));
@@ -112,15 +122,5 @@ import javafx.scene.layout.VBox;
 			return p1.type().compareTo(p2.type());
 		});
 		update();
-	}
-
-	public void activateColonistsDnD() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void deactivateColonistsDnD() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -152,7 +152,19 @@ import javafx.scene.text.FontWeight;
 	public void deactivatePlayer() {
 		lblActive.setVisible(false);
 	}
-	
+
+	public void activateColonistsDnD() {
+		btnDone.setVisible(true);
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deactivateColonistsDnD() {
+		btnDone.setVisible(false);
+		// TODO Auto-generated method stub
+		
+	}
+
 	private Node drawComponent() {
 		GridPane grid = new GridPane();
 		grid.setHgap(15.0);
@@ -349,18 +361,6 @@ import javafx.scene.text.FontWeight;
 				qbColonists.changeQuantity(newValue.intValue());				
 			}
 		});
-	}
-
-	public void activateColonistsDnD() {
-		btnDone.setVisible(true);
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void deactivateColonistsDnD() {
-		btnDone.setVisible(false);
-		// TODO Auto-generated method stub
-		
 	}
 
 }
