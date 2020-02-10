@@ -2,6 +2,7 @@ package com.github.koshamo.puri.ui.controls.player;
 
 import java.util.List;
 
+import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
@@ -18,12 +19,14 @@ import javafx.scene.paint.Color;
 
 public class Player extends Region {
 
+	private final GameController controller;
 	private final PlayerStat stats;
 	private final PlayerPlantation plantations;
 	private final PlayerBuilding buildings;
 	private final Color color;
 	
-	public Player(String name, PrColors color) {
+	public Player(GameController controller, String name, PrColors color) {
+		this.controller = controller;
 		this.color = color.getColor();
 		stats = new PlayerStat(name, color);
 		plantations = new PlayerPlantation();
@@ -102,5 +105,10 @@ public class Player extends Region {
 
 	public int calcEmptyPlaces() {
 		return buildings.calcEmptyPlaces();
+	}
+
+	public void distributeColonists() {
+		controller.gouvernorDone();
+		
 	}
 }

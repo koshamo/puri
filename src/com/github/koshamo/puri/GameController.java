@@ -153,7 +153,7 @@ public class GameController {
 		if (privilege) {
 			distributeColonistsToPlayers();
 		}
-//		currentPlayer.distributeColonists();
+		currentPlayer.distributeColonists();
 	}
 	
 	public void gouvernorDone() {
