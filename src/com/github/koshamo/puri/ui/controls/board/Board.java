@@ -79,18 +79,30 @@ public class Board extends Region {
 	}
 	
 	public int availableProduct(PlantationType type) {
-		int amount = 0;
-		
-		switch (type) {
-		case INDIGO: amount = availIndigo.quantity(); break;
-		case SUGAR: amount = availSugar.quantity(); break;
-		case CORN: amount = availCorn.quantity(); break;
-		case TOBACCO: amount = availTobacco.quantity(); break;
-		case COFFEE: amount = availCoffee.quantity(); break;
-		default:
-		}
+		QuantityBar bar = selectProductComponent(type);
+		int amount = bar.quantity();
 		
 		return amount;
+	}
+	
+	public void removeProduction(PlantationType type, int amount) {
+		QuantityBar bar = selectProductComponent(type);
+		bar.sub(amount);
+	}
+	
+	private QuantityBar selectProductComponent(PlantationType type ) {
+		QuantityBar bar;
+		
+		switch (type) {
+		case INDIGO: bar = availIndigo; break;
+		case SUGAR: bar = availSugar; break;
+		case CORN: bar = availCorn; break;
+		case TOBACCO: bar = availTobacco; break;
+		case COFFEE: bar = availCoffee; break;
+		default: bar = null;
+		}
+
+		return bar;
 	}
 
 	private void init() {
