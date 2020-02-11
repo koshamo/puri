@@ -121,6 +121,10 @@ public class Player extends Region {
 		
 		return products;
 	}
+	
+	public void addProduction(PlantationType type, int amount) {
+		stats.addProduct(type, amount);
+	}
 
 	public void distributeColonists() {
 		if (stats.colonists() < 
