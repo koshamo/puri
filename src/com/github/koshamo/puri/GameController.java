@@ -195,18 +195,25 @@ public class GameController {
 		produce(production);
 		
 		if (privilege) {
-			boolean[] extraProduct = calcPrivilegeProduct(production);
+			boolean[] possibleExtras = calcPrivilegeProduct(production);
+			int availableExtras = calcAvailableExtraProducts(possibleExtras);
 			
-			ExtraProductDialog dialog = new ExtraProductDialog(extraProduct);
-			Optional<PlantationType> product = dialog.showAndWait();
-			
-			if (product.isPresent()) {
-				players.get(activePlayerIndex).addProduction(product.get(), 1);
-				gameBoard.removeProduction(product.get(), 1);
+			if (availableExtras == 1) {
+				PlantationType type = availableExtraProduct(possibleExtras);
+				players.get(activePlayerIndex).addProduction(type, 1);
+				gameBoard.removeProduction(type, 1);
 			}
-}
+			else if (availableExtras > 1) {
+				ExtraProductDialog dialog = new ExtraProductDialog(possibleExtras);
+				Optional<PlantationType> product = dialog.showAndWait();
+				if (product.isPresent()) {
+					players.get(activePlayerIndex).addProduction(product.get(), 1);
+					gameBoard.removeProduction(product.get(), 1);
+				}
+			}
+		}
 		
-		nextPlayerActive();
+ 		nextPlayerActive();
 	}
 	
 	private int[] calcActualProduction() {
@@ -261,6 +268,27 @@ public class GameController {
 				
 		return extraProct;
 	}
+
+	private static int calcAvailableExtraProducts(boolean[] production) {
+		int cnt = 0;
+		for (boolean b : production)
+			if (b)
+				cnt++;
+		return cnt;
+	}
+
+	private static PlantationType availableExtraProduct(boolean[] extraProduct) {
+		if (extraProduct[0])
+			return PlantationType.INDIGO;
+		else if (extraProduct[1])
+			return PlantationType.SUGAR;
+		else if (extraProduct[2])
+			return PlantationType.CORN;
+		else if (extraProduct[3])
+			return PlantationType.TOBACCO;
+		else
+			return PlantationType.COFFEE;
+ 	}
 
 	private void handleCaptain(boolean privilege) {
 		// TODO Auto-generated method stub
