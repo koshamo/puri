@@ -77,6 +77,21 @@ public class Board extends Region {
 			availColonists.changeQuantity(0);
 		return availColonists.quantity();
 	}
+	
+	public int availableProduct(PlantationType type) {
+		int amount = 0;
+		
+		switch (type) {
+		case INDIGO: amount = availIndigo.quantity(); break;
+		case SUGAR: amount = availSugar.quantity(); break;
+		case CORN: amount = availCorn.quantity(); break;
+		case TOBACCO: amount = availTobacco.quantity(); break;
+		case COFFEE: amount = availCoffee.quantity(); break;
+		default:
+		}
+		
+		return amount;
+	}
 
 	private void init() {
 		VBox vbox = new VBox(3);
