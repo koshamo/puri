@@ -190,9 +190,42 @@ public class GameController {
 	}
 
 	private void handleProducer(boolean privilege) {
-		// TODO Auto-generated method stub
+		int[] production = calcActualProduction();
+		produce(production);
 		
 		nextPlayerActive();
+	}
+	
+	private int[] calcActualProduction() {
+		int[] production = players.get(activePlayerIndex).calcProduction();
+		int[] realProduction = new int[5];
+		
+		realProduction[0] = Math.min(production[0], gameBoard.availableProduct(PlantationType.INDIGO));
+		realProduction[1] = Math.min(production[1], gameBoard.availableProduct(PlantationType.SUGAR));
+		realProduction[2] = Math.min(production[2], gameBoard.availableProduct(PlantationType.TOBACCO));
+		realProduction[3] = Math.min(production[3], gameBoard.availableProduct(PlantationType.COFFEE));
+		realProduction[4] = Math.min(production[4], gameBoard.availableProduct(PlantationType.CORN));
+
+		return realProduction;
+	}
+	
+	private void produce(int[] production) {
+		Player currentPlayer = players.get(activePlayerIndex);
+		
+		currentPlayer.addProduction(PlantationType.INDIGO, production[0]);
+		gameBoard.removeProduction(PlantationType.INDIGO, production[0]);
+		
+		currentPlayer.addProduction(PlantationType.SUGAR, production[1]);
+		gameBoard.removeProduction(PlantationType.SUGAR, production[1]);
+		
+		currentPlayer.addProduction(PlantationType.TOBACCO, production[2]);
+		gameBoard.removeProduction(PlantationType.TOBACCO, production[2]);
+		
+		currentPlayer.addProduction(PlantationType.COFFEE, production[3]);
+		gameBoard.removeProduction(PlantationType.COFFEE, production[3]);
+		
+		currentPlayer.addProduction(PlantationType.CORN, production[4]);
+		gameBoard.removeProduction(PlantationType.CORN, production[4]);
 	}
 
 	private void handleCaptain(boolean privilege) {
