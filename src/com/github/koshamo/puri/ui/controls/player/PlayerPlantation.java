@@ -45,6 +45,21 @@ import javafx.scene.layout.VBox;
 				emptyPlaces++;
 		return emptyPlaces;
 	}
+	
+	/*
+	 * reordered Products in Array: corn is last!
+	 */
+	public int[] calcProducedMaterials() {
+		int[] materials = new int[5];
+		
+		materials[0] = calcActivePlantations(PlantationType.INDIGO);
+		materials[1] = calcActivePlantations(PlantationType.SUGAR);
+		materials[2] = calcActivePlantations(PlantationType.TOBACCO);
+		materials[3] = calcActivePlantations(PlantationType.COFFEE);
+		materials[4] = calcActivePlantations(PlantationType.CORN);
+		
+		return materials;
+	}
 
 	public void activateColonistsDnD() {
 		updateDragging();
@@ -130,6 +145,15 @@ import javafx.scene.layout.VBox;
 				field.setOnDragDropped(null);
 			}
 		}
+	}
+	
+	private int calcActivePlantations(PlantationType type) {
+		int active = 0;
+		for (PlantationField field : plantations) {
+			if (field.type() == type && field.state() == State.ACTIVE)
+				active++;
+		}
+		return active;
 	}
 
 	private void initGui() {
