@@ -1,5 +1,6 @@
 package com.github.koshamo.puri.ui.controls.player;
 
+import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.RoleType;
 import com.github.koshamo.puri.ui.controls.QuantityBar;
@@ -72,44 +73,14 @@ import javafx.scene.text.FontWeight;
 		gulden.set(gulden.get() - num);
 	}
 
-	public void addCorn(int num) {
-		qbCorn.add(num);
-	}
-
-	public void subCorn(int num) {
-		qbCorn.sub(num);
+	public void addProduct(PlantationType type, int amount) {
+		QuantityBar bar = selectProductComponent(type);
+		bar.add(amount);
 	}
 	
-	public void addIndigo(int num) {
-		qbIndigo.add(num);
-	}
-
-	public void subIndigo(int num) {
-		qbIndigo.sub(num);
-	}
-	
-	public void addSugar(int num) {
-		qbSugar.add(num);
-	}
-
-	public void subSugar(int num) {
-		qbSugar.sub(num);
-	}
-	
-	public void addTobacco(int num) {
-		qbTobacco.add(num);
-	}
-
-	public void subTobacco(int num) {
-		qbTobacco.sub(num);
-	}
-	
-	public void addCoffee(int num) {
-		qbCoffee.add(num);
-	}
-
-	public void subCoffee(int num) {
-		qbCoffee.sub(num);
+	public void subProduct(PlantationType type, int amount) {
+		QuantityBar bar = selectProductComponent(type);
+		bar.sub(amount);
 	}
 	
 	public void addColonists(int num) {
@@ -164,6 +135,21 @@ import javafx.scene.text.FontWeight;
 		btnDone.setVisible(false);
 
 		cancelColonistDragging();
+	}
+	
+	private QuantityBar selectProductComponent(PlantationType type ) {
+		QuantityBar bar;
+		
+		switch (type) {
+		case INDIGO: bar = qbIndigo; break;
+		case SUGAR: bar = qbSugar; break;
+		case CORN: bar = qbCorn; break;
+		case TOBACCO: bar = qbTobacco; break;
+		case COFFEE: bar = qbCoffee; break;
+		default: bar = null;
+		}
+
+		return bar;
 	}
 	
 	private void updateColonistDragging() {
