@@ -7,6 +7,7 @@ import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.RoleType;
 import com.github.koshamo.puri.setup.StartupConstants;
+import com.github.koshamo.puri.ui.controls.ExtraProductDialog;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.board.BuildingsDialog;
 import com.github.koshamo.puri.ui.controls.player.Player;
@@ -193,6 +194,18 @@ public class GameController {
 		int[] production = calcActualProduction();
 		produce(production);
 		
+		if (privilege) {
+			boolean[] extraProduct = calcPrivilegeProduct(production);
+			
+			ExtraProductDialog dialog = new ExtraProductDialog(extraProduct);
+			Optional<PlantationType> product = dialog.showAndWait();
+			
+			if (product.isPresent()) {
+				players.get(activePlayerIndex).addProduction(product.get(), 1);
+				gameBoard.removeProduction(product.get(), 1);
+			}
+}
+		
 		nextPlayerActive();
 	}
 	
@@ -226,6 +239,27 @@ public class GameController {
 		
 		currentPlayer.addProduction(PlantationType.CORN, production[4]);
 		gameBoard.removeProduction(PlantationType.CORN, production[4]);
+	}
+
+	/*
+	 * return value back in regular order!
+	 * Product order: indigo, sugar, corn, tobacco, coffee
+	 */
+	private boolean[] calcPrivilegeProduct(int[] production) {
+		boolean[] extraProct = new boolean[5];
+		
+		extraProct[0] = production[0] > 0 
+				&& gameBoard.availableProduct(PlantationType.INDIGO) > 0; 
+		extraProct[1] = production[1] > 0 
+				&& gameBoard.availableProduct(PlantationType.SUGAR) > 0; 
+		extraProct[2] = production[4] > 0 
+				&& gameBoard.availableProduct(PlantationType.CORN) > 0; 
+		extraProct[3] = production[2] > 0 
+				&& gameBoard.availableProduct(PlantationType.TOBACCO) > 0; 
+		extraProct[4] = production[3] > 0 
+				&& gameBoard.availableProduct(PlantationType.COFFEE) > 0;
+				
+		return extraProct;
 	}
 
 	private void handleCaptain(boolean privilege) {
