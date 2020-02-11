@@ -54,6 +54,10 @@ import javafx.scene.control.Skin;
 		return places - colonists;
 	}
 	
+	public int productionPlaces() {
+		return colonists;
+	}
+	
 	@Override
 	protected Skin<?> createDefaultSkin() {
 		return skin;
