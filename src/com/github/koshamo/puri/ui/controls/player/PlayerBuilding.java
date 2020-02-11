@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.github.koshamo.puri.setup.BuildingTypeList;
+import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.State;
 
 import javafx.geometry.Insets;
@@ -66,6 +67,17 @@ import javafx.scene.layout.VBox;
 		for (BuildingField bf : buildings) 
 			emptyPlaces += bf.emptyPlaces();
 		return emptyPlaces;
+	}
+	
+	public int[] calcProducableProducts() {
+		int[] products = new int[4];
+		
+		products[0] = calcActiveProductions(PlantationType.INDIGO);
+		products[1] = calcActiveProductions(PlantationType.SUGAR);
+		products[2] = calcActiveProductions(PlantationType.TOBACCO);
+		products[3] = calcActiveProductions(PlantationType.COFFEE);
+		
+		return products;
 	}
 
 	public void activateColonistsDnD() {
@@ -155,6 +167,33 @@ import javafx.scene.layout.VBox;
 				field.setOnDragDropped(null);
 			}
 		}
+	}
+	
+	private int calcActiveProductions(PlantationType type) {
+		int products = 0;
+		
+		switch (type) {
+		case INDIGO: products += lookupActiveProduction(BuildingTypeList.KL_INDIGO);
+					products += lookupActiveProduction(BuildingTypeList.GR_INDIGO);
+					break;
+		case SUGAR: products += lookupActiveProduction(BuildingTypeList.KL_ZUCKER);
+					products += lookupActiveProduction(BuildingTypeList.GR_ZUCKER);
+					break;
+		case TOBACCO: products += lookupActiveProduction(BuildingTypeList.TABAK);
+					break;
+		case COFFEE: products += lookupActiveProduction(BuildingTypeList.KAFFEE);
+					break;
+		default: 
+		}
+		
+		return products;
+	}
+	
+	private int lookupActiveProduction(BuildingTypeList type) {
+		for (BuildingField field : buildings)
+			if (field.type() == type)
+				return field.productionPlaces();
+		return 0;
 	}
 
 	private void initGui() {
