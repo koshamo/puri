@@ -109,6 +109,18 @@ public class Player extends Region {
 	public int calcEmptyPlaces() {
 		return buildings.calcEmptyPlaces();
 	}
+	
+	public int[] calcProduction() {
+		int[] materials = plantations.calcProducedMaterials();
+		int[] producable = buildings.calcProducableProducts();
+		int[] products = new int[5];
+		
+		for (int i = 0; i < 4; i++)
+			products[i] = Math.min(materials[i], producable[i]);
+		products[4] = materials[4];
+		
+		return products;
+	}
 
 	public void distributeColonists() {
 		if (stats.colonists() < 
