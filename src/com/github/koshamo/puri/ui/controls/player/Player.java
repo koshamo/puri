@@ -1,5 +1,6 @@
 package com.github.koshamo.puri.ui.controls.player;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.github.koshamo.puri.GameController;
@@ -125,6 +126,10 @@ public class Player extends Region {
 	public void addProduction(PlantationType type, int amount) {
 		stats.addProduct(type, amount);
 	}
+	
+	public void reduceProduct(PlantationType type, int amount) {
+		stats.subProduct(type, amount);
+	}
 
 	public void distributeColonists() {
 		if (stats.colonists() < 
@@ -147,5 +152,38 @@ public class Player extends Region {
 		buildings.deactivateColonistsDnD();
 		
 		controller.gouvernorDone();
+	}
+	
+	public void shipProducts() {
+		stats.activateProductDnD();
+	}
+	
+	public void shippingDone() {
+		stats.deactivateProductDnD();
+	}
+	
+	public List<PlantationType> listShippableProducts() {
+		List<PlantationType> products = new LinkedList<>();
+		
+		if (stats.hasProduct(PlantationType.INDIGO))
+			products.add(PlantationType.INDIGO);
+		if (stats.hasProduct(PlantationType.SUGAR))
+			products.add(PlantationType.SUGAR);
+		if (stats.hasProduct(PlantationType.CORN))
+			products.add(PlantationType.CORN);
+		if (stats.hasProduct(PlantationType.TOBACCO))
+			products.add(PlantationType.TOBACCO);
+		if (stats.hasProduct(PlantationType.COFFEE))
+			products.add(PlantationType.COFFEE);
+		
+		return products;
+	}
+	
+	public int availableProducts(PlantationType type) {
+		return stats.availableProducts(type);
+	}
+	
+	public void addVictoryPoints(int amount) {
+		stats.addVictoryPoints(amount);
 	}
 }
