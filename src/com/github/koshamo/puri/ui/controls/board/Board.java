@@ -12,6 +12,9 @@ import com.github.koshamo.puri.ui.controls.QuantityBar;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -90,6 +93,223 @@ public class Board extends Region {
 		bar.sub(amount);
 	}
 	
+	public void activateCaptainDnD() {
+		updateCaptainDropping();
+	}
+
+	public void deactivateCaptainDnD() {
+		cancelCaptainDropping();
+	}
+	
+	public boolean hasShip(PlantationType type) {
+		if (smallGoodsShip.type() == type)
+			return true;
+		if (mediumGoodsShip.type() == type)
+			return true;
+		if (largeGoodsShip.type() == type)
+			return true;
+		return false;
+	}
+	
+	public int numShipsWithNone() {
+		int num = 0;
+		if (smallGoodsShip.type() == PlantationType.NONE)
+			num++;
+		if (mediumGoodsShip.type() == PlantationType.NONE)
+			num++;
+		if (largeGoodsShip.type() == PlantationType.NONE)
+			num++;
+		return num;
+	}
+	
+	public int freePlacesOnShipWith(PlantationType type) {
+		if (smallGoodsShip.type() == type)
+			return smallGoodsShip.storageLeft();
+		if (mediumGoodsShip.type() == type)
+			return mediumGoodsShip.storageLeft();
+		if (largeGoodsShip.type() == type)
+			return largeGoodsShip.storageLeft();
+		return 0;
+	}
+	
+	public void autoShipProduct(PlantationType type, int amount) {
+		if (smallGoodsShip.type() == type)
+			smallGoodsShip.addGoods(type, amount);
+		if (mediumGoodsShip.type() == type)
+			mediumGoodsShip.addGoods(type, amount);
+		if (largeGoodsShip.type() == type)
+			largeGoodsShip.addGoods(type, amount);
+	}
+
+	public void reduceVictoryPoints(int amount) {
+		if (availVictoryPoints.quantity() > amount)
+			availVictoryPoints.sub(amount);
+		else
+			availVictoryPoints.changeQuantity(0);
+	}
+
+	private void updateCaptainDropping() {
+		updateSmallShipDropping();
+		updateMediumShipDropping();
+		updateLargeShipDropping();
+	}
+
+	private void updateSmallShipDropping() {
+		smallGoodsShip.setOnDragOver(ev -> {
+		    if (ev.getGestureSource() != smallGoodsShip 
+		    		&& ev.getDragboard().hasString()
+		    		&& smallGoodsShip.storageLeft() > 0) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	if (smallGoodsShip.type() == PlantationType.NONE
+		    			|| smallGoodsShip.type().toString().equals(product[0]))
+		    		ev.acceptTransferModes(TransferMode.MOVE);
+		    }
+		    ev.consume();
+		});
+		smallGoodsShip.setOnDragEntered(ev -> {
+			// TODO: show drop possible
+			ev.consume();
+		});
+		smallGoodsShip.setOnDragExited(ev -> {
+			// TODO: end show drop possible
+			ev.consume();
+		});
+		smallGoodsShip.setOnDragDropped(ev -> {
+		    Dragboard db = ev.getDragboard();
+		    boolean success = false;
+		    if (db.hasString()) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	int playerAmount = Integer.valueOf(product[2]).intValue();
+		    	int shipAmount = smallGoodsShip.storageLeft();
+		    	int shipped = Math.min(playerAmount, shipAmount);
+		    	if (smallGoodsShip.type() == PlantationType.NONE) {
+		    		PlantationType type = PlantationType.getByString(product[0]);
+		    		smallGoodsShip.addGoods(type, shipped);
+		    	} else
+		    		smallGoodsShip.addGoods(shipped);
+		    	success = true;
+				ClipboardContent cc = new ClipboardContent();
+				cc.putString(String.valueOf(product[0] + " " + shipped));
+				db.setContent(cc);
+		    }
+		    ev.setDropCompleted(success);
+		    ev.consume();
+		});
+	}
+
+	private void updateMediumShipDropping() {
+		mediumGoodsShip.setOnDragOver(ev -> {
+		    if (ev.getGestureSource() != mediumGoodsShip 
+		    		&& ev.getDragboard().hasString()
+		    		&& mediumGoodsShip.storageLeft() > 0) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	if (mediumGoodsShip.type() == PlantationType.NONE
+		    			|| mediumGoodsShip.type().toString().equals(product[0]))
+		    		ev.acceptTransferModes(TransferMode.MOVE);
+		    }
+		    ev.consume();
+		});
+		mediumGoodsShip.setOnDragEntered(ev -> {
+			// TODO: show drop possible
+			ev.consume();
+		});
+		mediumGoodsShip.setOnDragExited(ev -> {
+			// TODO: end show drop possible
+			ev.consume();
+		});
+		mediumGoodsShip.setOnDragDropped(ev -> {
+		    Dragboard db = ev.getDragboard();
+		    boolean success = false;
+		    if (db.hasString()) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	int playerAmount = Integer.valueOf(product[2]).intValue();
+		    	int shipAmount = mediumGoodsShip.storageLeft();
+		    	int shipped = Math.min(playerAmount, shipAmount);
+		    	if (mediumGoodsShip.type() == PlantationType.NONE) {
+		    		PlantationType type = PlantationType.getByString(product[0]);
+		    		mediumGoodsShip.addGoods(type, shipped);
+		    	} else
+		    		mediumGoodsShip.addGoods(shipped);
+		    	success = true;
+				ClipboardContent cc = new ClipboardContent();
+				cc.putString(String.valueOf(product[0] + " " + shipped));
+				db.setContent(cc);
+		    }
+		    ev.setDropCompleted(success);
+		    ev.consume();
+		});
+	}
+
+	private void updateLargeShipDropping() {
+		largeGoodsShip.setOnDragOver(ev -> {
+		    if (ev.getGestureSource() != largeGoodsShip 
+		    		&& ev.getDragboard().hasString()
+		    		&& largeGoodsShip.storageLeft() > 0) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	if (largeGoodsShip.type() == PlantationType.NONE
+		    			|| largeGoodsShip.type().toString().equals(product[0]))
+		    		ev.acceptTransferModes(TransferMode.MOVE);
+		    }
+		    ev.consume();
+		});
+		largeGoodsShip.setOnDragEntered(ev -> {
+			// TODO: show drop possible
+			ev.consume();
+		});
+		largeGoodsShip.setOnDragExited(ev -> {
+			// TODO: end show drop possible
+			ev.consume();
+		});
+		largeGoodsShip.setOnDragDropped(ev -> {
+		    Dragboard db = ev.getDragboard();
+		    boolean success = false;
+		    if (db.hasString()) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	int playerAmount = Integer.valueOf(product[2]).intValue();
+		    	int shipAmount = largeGoodsShip.storageLeft();
+		    	int shipped = Math.min(playerAmount, shipAmount);
+		    	if (largeGoodsShip.type() == PlantationType.NONE) {
+		    		PlantationType type = PlantationType.getByString(product[0]);
+		    		largeGoodsShip.addGoods(type, shipped);
+		    	} else
+		    		largeGoodsShip.addGoods(shipped);
+		    	success = true;
+				ClipboardContent cc = new ClipboardContent();
+				cc.putString(String.valueOf(product[0] + " " + shipped));
+				db.setContent(cc);
+		    }
+		    ev.setDropCompleted(success);
+		    ev.consume();
+		});
+	}
+
+	private void cancelCaptainDropping() {
+		cancelSmallShipDropping();
+		cancelMediumShipDropping();
+		cancelLargeShipDropping();
+	}
+
+	private void cancelSmallShipDropping() {
+		smallGoodsShip.setOnDragOver(null);
+		smallGoodsShip.setOnDragEntered(null);
+		smallGoodsShip.setOnDragExited(null);
+		smallGoodsShip.setOnDragDropped(null);
+	}
+
+	private void cancelMediumShipDropping() {
+		mediumGoodsShip.setOnDragOver(null);
+		mediumGoodsShip.setOnDragEntered(null);
+		mediumGoodsShip.setOnDragExited(null);
+		mediumGoodsShip.setOnDragDropped(null);
+	}
+
+	private void cancelLargeShipDropping() {
+		largeGoodsShip.setOnDragOver(null);
+		largeGoodsShip.setOnDragEntered(null);
+		largeGoodsShip.setOnDragExited(null);
+		largeGoodsShip.setOnDragDropped(null);
+	}
+
 	private QuantityBar selectProductComponent(PlantationType type ) {
 		QuantityBar bar;
 		
