@@ -138,7 +138,15 @@ import javafx.scene.text.FontWeight;
 
 		cancelColonistDragging();
 	}
+
+	public void activateProductDnD() {
+		updateProductDragging();
+	}
 	
+	public void deactivateProductDnD() {
+		cancelProductDragging();
+	}
+
 	private QuantityBar selectProductComponent(PlantationType type ) {
 		QuantityBar bar;
 		
@@ -179,7 +187,47 @@ import javafx.scene.text.FontWeight;
 	private void cancelColonistDragging() {
 		qbColonists.setOnDragDetected(null);
 	}
+	
+	private void updateProductDragging() {
+		updateProductDraggingFor(PlantationType.INDIGO);
+		updateProductDraggingFor(PlantationType.SUGAR);
+		updateProductDraggingFor(PlantationType.CORN);
+		updateProductDraggingFor(PlantationType.TOBACCO);
+		updateProductDraggingFor(PlantationType.COFFEE);
+	}
+	
+	private void updateProductDraggingFor(PlantationType type) {
+		QuantityBar bar = selectProductComponent(type);
+		if (bar.quantity() > 0) {
+			bar.setOnDragDetected(ev -> {
+				Dragboard db = bar.startDragAndDrop(TransferMode.MOVE);
+				// TODO: db.setDragView(IMAGE);
+				ClipboardContent cc = new ClipboardContent();
+				cc.putString("1");
+				db.setContent(cc);
+				ev.consume();
+			});
+			bar.setOnDragDone(ev -> {
+				if (ev.getTransferMode() == TransferMode.MOVE) {
+					// TODO: remove correct amount from player
+					// TODO: add correct amount to ship
+					bar.sub(1);
+				}
+				ev.consume();
+			});
+		}
+		else
+			bar.setOnDragDetected(null);
+	}
 
+	private void cancelProductDragging() {
+		qbIndigo.setOnDragDetected(null);
+		qbSugar.setOnDragDetected(null);
+		qbCorn.setOnDragDetected(null);
+		qbTobacco.setOnDragDetected(null);
+		qbCoffee.setOnDragDetected(null);
+	}
+	
 	private Node drawComponent() {
 		GridPane grid = new GridPane();
 		grid.setHgap(15.0);
