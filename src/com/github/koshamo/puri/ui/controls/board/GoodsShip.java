@@ -24,6 +24,10 @@ import javafx.scene.control.Skin;
 		update();
 	}
 	
+	public void addGoods(int amount) {
+		addGoods(type, amount);
+	}
+
 	public PlantationType type() {
 		return type;
 	}
