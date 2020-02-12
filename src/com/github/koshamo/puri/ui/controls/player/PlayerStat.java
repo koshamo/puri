@@ -83,6 +83,15 @@ import javafx.scene.text.FontWeight;
 		bar.sub(amount);
 	}
 	
+	public int availableProducts(PlantationType type) {
+		QuantityBar bar = selectProductComponent(type);
+		return bar.quantity();
+	}
+	
+	public boolean hasProduct(PlantationType type) {
+		return availableProducts(type) > 0;
+	}
+	
 	public void addColonists(int num) {
 		qbColonists.add(num);
 	}
@@ -203,7 +212,7 @@ import javafx.scene.text.FontWeight;
 				Dragboard db = bar.startDragAndDrop(TransferMode.MOVE);
 				// TODO: db.setDragView(IMAGE);
 				ClipboardContent cc = new ClipboardContent();
-				cc.putString("1");
+				cc.putString(type.toString() + " " + bar.quantity());
 				db.setContent(cc);
 				ev.consume();
 			});
@@ -211,7 +220,8 @@ import javafx.scene.text.FontWeight;
 				if (ev.getTransferMode() == TransferMode.MOVE) {
 					// TODO: remove correct amount from player
 					// TODO: add correct amount to ship
-					bar.sub(1);
+					String[] shipped = ev.getDragboard().getString().split(" ");
+					bar.sub(Integer.valueOf(shipped[1]).intValue());
 				}
 				ev.consume();
 			});
