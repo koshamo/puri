@@ -19,4 +19,16 @@ public enum PlantationType {
 	public int getMax() {
 		return max;
 	}
+	
+	public static PlantationType getByString(String type) {
+		switch (type) {
+		case "QUARRY" : return QUARRY;
+		case "INDIGO" : return INDIGO;
+		case "SUGAR" : return SUGAR;
+		case "CORN" : return CORN;
+		case "TOBACCO" : return TOBACCO;
+		case "COFFEE" : return COFFEE;
+		default: return NONE;
+		}
+	}
 }
