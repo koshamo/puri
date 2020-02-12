@@ -125,8 +125,10 @@ import javafx.scene.text.FontWeight;
 	}
 
 	public void activateColonistsDnD() {
-		if (qbColonists.quantity() == 0)
+		if (qbColonists.quantity() == 0) {
 			btnDone.setVisible(true);
+			btnDone.setOnAction(ev -> {player.distributionDone();});
+		}
 
 		updateColonistDragging();
 	}
@@ -239,7 +241,6 @@ import javafx.scene.text.FontWeight;
 	
 	private void buildActionButton(GridPane grid) {
 		btnDone = new Button("fertig");
-		btnDone.setOnAction(ev -> {player.distributionDone();});
 
 		grid.add(btnDone, 0, 7);
 		btnDone.setVisible(false);		
