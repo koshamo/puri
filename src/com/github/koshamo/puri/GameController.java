@@ -112,7 +112,7 @@ public class GameController {
 		case SIEDLER: handleSettler(privilege); break;
 		case BUERGERMEISTER: handleGouvernor(privilege); break;
 		case AUFSEHER: handleProducer(privilege); break;
-		case KAPITAEN: handleCaptain(privilege); break;
+		case KAPITAEN: handleCaptain(); break;
 		case HAENDLER: handleTrader(privilege); break;
 		case GOLDSUCHER: handleGoldfinder(); break;
 		default: throw new IllegalArgumentException("Role does not exist");
@@ -290,10 +290,97 @@ public class GameController {
 			return PlantationType.COFFEE;
  	}
 
-	private void handleCaptain(boolean privilege) {
-		// TODO Auto-generated method stub
+	private void handleCaptain() {
+		boolean privileged = loopCaptain();
 		
-		nextPlayerActive();
+		if (privileged) {
+			players.get(activePlayerIndex).addVictoryPoints(1);
+			gameBoard.reduceVictoryPoints(1);
+		}
+		nextPlayerChooseRole();
+	}
+
+	private boolean loopCaptain() {
+		boolean privileged = false;
+		int captainIndex = activePlayerIndex;
+		int noSellCount = 0;
+		
+		while (noSellCount < NUM_PLAYERS) {
+			boolean shipped = shipProducts(captainIndex);
+			if (shipped) {
+				noSellCount = 0;
+				if (captainIndex == activePlayerIndex)
+					privileged = true;
+			}
+			else
+				noSellCount++;
+			
+			captainIndex++;
+			if (captainIndex == NUM_PLAYERS)
+				captainIndex = 0;
+		}
+		
+		return privileged;
+	}
+
+	private boolean shipProducts(int captainIndex) {
+		int shippableProducts = canShipProducts(captainIndex);
+		
+		if (shippableProducts == 1) {
+			autoShipProducts(captainIndex);
+			return true;
+		}
+		if (shippableProducts > 1) {
+			playerShipProducts(captainIndex);
+			return true;
+		}
+		return false;
+	}
+
+	private int canShipProducts(int captainIndex) {
+		List<PlantationType> availProducts = players.get(captainIndex).listShippableProducts();
+		
+		if (availProducts.size() == 0)
+			return 0;
+		
+		int shippable = 0;
+		for (PlantationType type : availProducts) {
+			if (gameBoard.hasShip(type)) {
+				if (gameBoard.freePlacesOnShipWith(type) > 0)
+					shippable++;
+			}
+			else if (gameBoard.hasShip(PlantationType.NONE))
+				shippable++;
+		}
+		
+		return shippable;
+	}
+
+	private void autoShipProducts(int captainIndex) {
+		Player player = players.get(captainIndex);
+		List<PlantationType> availProducts = player.listShippableProducts();
+
+		for (PlantationType type : availProducts) {
+			if (gameBoard.hasShip(type)) {
+				int places = gameBoard.freePlacesOnShipWith(type);
+				if (places > 0) {
+					int shippable = Math.min(player.availableProducts(type), places);
+					player.reduceProduct(type, shippable);
+					player.addVictoryPoints(shippable);
+					gameBoard.autoShipProduct(type, shippable);
+				}
+			}
+		}
+	}
+
+	private void playerShipProducts(int captainIndex) {
+		players.get(captainIndex).shipProducts();
+		gameBoard.activateCaptainDnD();
+		// TODO: how to wait here?
+	}
+	
+	public void shippingDone() {
+		gameBoard.deactivateCaptainDnD();
 	}
 
 	private void handleTrader(boolean privilege) {
