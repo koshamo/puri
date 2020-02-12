@@ -218,8 +218,8 @@ import javafx.scene.text.FontWeight;
 			});
 			bar.setOnDragDone(ev -> {
 				if (ev.getTransferMode() == TransferMode.MOVE) {
-					// TODO: remove correct amount from player
-					// TODO: add correct amount to ship
+					// TODO: deliver victory points
+					// TODO: add amount to ship
 					String[] shipped = ev.getDragboard().getString().split(" ");
 					bar.sub(Integer.valueOf(shipped[1]).intValue());
 				}
