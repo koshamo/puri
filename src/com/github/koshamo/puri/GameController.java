@@ -29,6 +29,9 @@ public class GameController {
 	
 	private boolean gameEnd = false;
 	
+	private int captainIndex;
+	private boolean captainPrivilege;
+	
 	int turnCount = 0;
 	
 	public GameController(StartupConstants gameConstants, List<Player> players, Board gameBoard, RoleBoard roleBoard) {
@@ -291,53 +294,40 @@ public class GameController {
  	}
 
 	private void handleCaptain() {
-		boolean privileged = loopCaptain();
-		
-		if (privileged) {
+		captainIndex = activePlayerIndex;
+		captainPrivilege = false;
+		loopCaptain(0);
+	}
+	
+	private void handleCaptainDone() {
+		if (captainPrivilege) {
 			players.get(activePlayerIndex).addVictoryPoints(1);
 			gameBoard.reduceVictoryPoints(1);
 		}
 		nextPlayerChooseRole();
 	}
 
-	private boolean loopCaptain() {
-		boolean privileged = false;
-		int captainIndex = activePlayerIndex;
-		int noSellCount = 0;
+	private void loopCaptain(int noSellCount) {
+		if (captainIndex == NUM_PLAYERS) 
+			captainIndex = 0;
+
+		if (noSellCount == 3)
+			handleCaptainDone();
 		
-		while (noSellCount < NUM_PLAYERS) {
-			boolean shipped = shipProducts(captainIndex);
-			if (shipped) {
-				noSellCount = 0;
-				if (captainIndex == activePlayerIndex)
-					privileged = true;
-			}
-			else
-				noSellCount++;
-			
-			captainIndex++;
-			if (captainIndex == NUM_PLAYERS)
-				captainIndex = 0;
-		}
-		
-		return privileged;
+		shipProducts(noSellCount);
 	}
 
-	private boolean shipProducts(int captainIndex) {
-		int shippableProducts = canShipProducts(captainIndex);
+	private void shipProducts(int noSellCount) {
+		int shippableProducts = canShipProducts();
 		
-		if (shippableProducts == 1) {
-			autoShipProducts(captainIndex);
-			return true;
-		}
-		if (shippableProducts > 1) {
-			playerShipProducts(captainIndex);
-			return true;
-		}
-		return false;
+		if (shippableProducts == 1) 
+			autoShipProducts();
+		if (shippableProducts > 1) 
+			playerShipProducts();
+		loopCaptain(noSellCount + 1);
 	}
 
-	private int canShipProducts(int captainIndex) {
+	private int canShipProducts() {
 		List<PlantationType> availProducts = players.get(captainIndex).listShippableProducts();
 		
 		if (availProducts.size() == 0)
@@ -356,9 +346,12 @@ public class GameController {
 		return shippable;
 	}
 
-	private void autoShipProducts(int captainIndex) {
+	private void autoShipProducts() {
 		Player player = players.get(captainIndex);
 		List<PlantationType> availProducts = player.listShippableProducts();
+		
+		if (captainIndex == activePlayerIndex)
+			captainPrivilege = true;
 
 		for (PlantationType type : availProducts) {
 			if (gameBoard.hasShip(type)) {
@@ -371,16 +364,21 @@ public class GameController {
 				}
 			}
 		}
+		loopCaptain(0);
 	}
 
-	private void playerShipProducts(int captainIndex) {
+	private void playerShipProducts() {
+		if (captainIndex == NUM_PLAYERS)
+			captainPrivilege = true;
+		
 		players.get(captainIndex).shipProducts();
 		gameBoard.activateCaptainDnD();
-		// TODO: how to wait here?
 	}
 	
 	public void shippingDone() {
+		captainIndex++;
 		gameBoard.deactivateCaptainDnD();
+		loopCaptain(0);
 	}
 
 	private void handleTrader(boolean privilege) {
