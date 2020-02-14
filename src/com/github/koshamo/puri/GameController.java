@@ -306,6 +306,8 @@ public class GameController {
 		}
 		gameBoard.clearShips();
 		// TODO: check storage capacity
+		if (gameBoard.leftVictoryPoints() < 1)
+			gameEnd = true;
 		nextPlayerChooseRole();
 	}
 

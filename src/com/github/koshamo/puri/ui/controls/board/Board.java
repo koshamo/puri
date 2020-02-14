@@ -147,6 +147,10 @@ public class Board extends Region {
 		else
 			availVictoryPoints.changeQuantity(0);
 	}
+	
+	public int leftVictoryPoints() {
+		return availVictoryPoints.quantity();
+	}
 
 	public void clearShips() {
 		clearShip(smallGoodsShip);
