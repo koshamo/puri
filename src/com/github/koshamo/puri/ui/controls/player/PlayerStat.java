@@ -218,10 +218,10 @@ import javafx.scene.text.FontWeight;
 			});
 			bar.setOnDragDone(ev -> {
 				if (ev.getTransferMode() == TransferMode.MOVE) {
-					// TODO: deliver victory points
-					// TODO: add amount to ship
 					String[] shipped = ev.getDragboard().getString().split(" ");
-					bar.sub(Integer.valueOf(shipped[1]).intValue());
+					int delivered = Integer.valueOf(shipped[1]).intValue(); 
+					bar.sub(delivered);
+					victoryPoints.set(victoryPoints.get() + delivered);
 				}
 				ev.consume();
 			});
