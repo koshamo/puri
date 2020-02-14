@@ -33,6 +33,10 @@ import javafx.scene.control.Skin;
 		return type;
 	}
 	
+	public int size() {
+		return places;
+	}
+	
 	public int storageLeft() {
 		return places - amount;
 	}

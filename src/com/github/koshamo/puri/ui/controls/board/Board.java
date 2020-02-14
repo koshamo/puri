@@ -148,6 +148,24 @@ public class Board extends Region {
 			availVictoryPoints.changeQuantity(0);
 	}
 
+	public void clearShips() {
+		clearShip(smallGoodsShip);
+		clearShip(mediumGoodsShip);
+		clearShip(largeGoodsShip);
+	}
+
+	private void clearShip(GoodsShip ship) {
+		if (ship.storageLeft() == 0) {
+			PlantationType type = ship.type();
+			int amount = ship.size();
+
+			QuantityBar bar = selectProductComponent(type);
+			bar.add(amount);
+			
+			ship.clear();
+		}
+	}
+
 	private void updateCaptainDropping() {
 		updateSmallShipDropping();
 		updateMediumShipDropping();

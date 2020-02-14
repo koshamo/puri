@@ -304,6 +304,8 @@ public class GameController {
 			players.get(activePlayerIndex).addVictoryPoints(1);
 			gameBoard.reduceVictoryPoints(1);
 		}
+		gameBoard.clearShips();
+		// TODO: check storage capacity
 		nextPlayerChooseRole();
 	}
 
