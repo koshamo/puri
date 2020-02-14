@@ -222,6 +222,7 @@ import javafx.scene.text.FontWeight;
 					int delivered = Integer.valueOf(shipped[1]).intValue(); 
 					bar.sub(delivered);
 					victoryPoints.set(victoryPoints.get() + delivered);
+					player.shippingDone();
 				}
 				ev.consume();
 			});

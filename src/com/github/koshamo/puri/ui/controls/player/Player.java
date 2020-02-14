@@ -160,6 +160,7 @@ public class Player extends Region {
 	
 	public void shippingDone() {
 		stats.deactivateProductDnD();
+		controller.shippingDone();
 	}
 	
 	public List<PlantationType> listShippableProducts() {
