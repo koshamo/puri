@@ -179,7 +179,7 @@ public class Board extends Region {
 		    boolean success = false;
 		    if (db.hasString()) {
 		    	String[] product = ev.getDragboard().getString().split(" ");
-		    	int playerAmount = Integer.valueOf(product[2]).intValue();
+		    	int playerAmount = Integer.valueOf(product[1]).intValue();
 		    	int shipAmount = smallGoodsShip.storageLeft();
 		    	int shipped = Math.min(playerAmount, shipAmount);
 		    	if (smallGoodsShip.type() == PlantationType.NONE) {
@@ -222,7 +222,7 @@ public class Board extends Region {
 		    boolean success = false;
 		    if (db.hasString()) {
 		    	String[] product = ev.getDragboard().getString().split(" ");
-		    	int playerAmount = Integer.valueOf(product[2]).intValue();
+		    	int playerAmount = Integer.valueOf(product[1]).intValue();
 		    	int shipAmount = mediumGoodsShip.storageLeft();
 		    	int shipped = Math.min(playerAmount, shipAmount);
 		    	if (mediumGoodsShip.type() == PlantationType.NONE) {
@@ -265,7 +265,7 @@ public class Board extends Region {
 		    boolean success = false;
 		    if (db.hasString()) {
 		    	String[] product = ev.getDragboard().getString().split(" ");
-		    	int playerAmount = Integer.valueOf(product[2]).intValue();
+		    	int playerAmount = Integer.valueOf(product[1]).intValue();
 		    	int shipAmount = largeGoodsShip.storageLeft();
 		    	int shipped = Math.min(playerAmount, shipAmount);
 		    	if (largeGoodsShip.type() == PlantationType.NONE) {
