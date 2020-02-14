@@ -320,11 +320,12 @@ public class GameController {
 	private void shipProducts(int noSellCount) {
 		int shippableProducts = canShipProducts();
 		
+		if (shippableProducts == 0)
+			loopCaptain(noSellCount + 1);
 		if (shippableProducts == 1) 
 			autoShipProducts();
 		if (shippableProducts > 1) 
 			playerShipProducts();
-		loopCaptain(noSellCount + 1);
 	}
 
 	private int canShipProducts() {
@@ -340,7 +341,7 @@ public class GameController {
 					shippable++;
 			}
 			else if (gameBoard.hasShip(PlantationType.NONE))
-				shippable++;
+				shippable += gameBoard.numShipsWithNone();
 		}
 		
 		return shippable;
