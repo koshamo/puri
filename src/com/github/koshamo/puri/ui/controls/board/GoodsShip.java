@@ -16,6 +16,7 @@ import javafx.scene.control.Skin;
 	public GoodsShip(int places) {
 		skin = new GoodsShipSkin(this, places);
 		this.places = places;
+		type = PlantationType.NONE;
 	}
 	
 	public void addGoods(PlantationType type, int amount) {
