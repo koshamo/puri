@@ -313,15 +313,17 @@ public class GameController {
 
 		if (noSellCount == 3)
 			handleCaptainDone();
-		
-		shipProducts(noSellCount);
+		else
+			shipProducts(noSellCount);
 	}
 
 	private void shipProducts(int noSellCount) {
 		int shippableProducts = canShipProducts();
 		
-		if (shippableProducts == 0)
+		if (shippableProducts == 0) {
+			captainIndex++;
 			loopCaptain(noSellCount + 1);
+		}
 		if (shippableProducts == 1) 
 			autoShipProducts();
 		if (shippableProducts > 1) 
@@ -365,11 +367,12 @@ public class GameController {
 				}
 			}
 		}
+		captainIndex++;
 		loopCaptain(0);
 	}
 
 	private void playerShipProducts() {
-		if (captainIndex == NUM_PLAYERS)
+		if (captainIndex == activePlayerIndex)
 			captainPrivilege = true;
 		
 		gameBoard.activateCaptainDnD();
