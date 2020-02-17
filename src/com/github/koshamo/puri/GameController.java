@@ -311,7 +311,7 @@ public class GameController {
 			gameBoard.reduceVictoryPoints(1);
 		}
 		gameBoard.clearShips();
-		// TODO: check storage capacity
+		checkPlayerStorage();
 		if (gameBoard.leftVictoryPoints() < 1)
 			gameEnd = true;
 		nextPlayerChooseRole();
@@ -394,6 +394,15 @@ public class GameController {
 		captainIndex++;
 		gameBoard.deactivateCaptainDnD();
 		loopCaptain(0);
+	}
+
+	private void checkPlayerStorage() {
+		for (int i = 0; i < NUM_PLAYERS; i++) {
+			players.get(captainIndex).checkProductStorage();
+			captainIndex++;
+			if (captainIndex == NUM_PLAYERS)
+				captainIndex = 0;
+		}
 	}
 
 	private void handleTrader(boolean privilege) {
