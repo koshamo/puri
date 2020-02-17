@@ -385,6 +385,7 @@ public class GameController {
 		if (captainIndex == activePlayerIndex)
 			captainPrivilege = true;
 		
+		players.get(captainIndex).activatePlayer();
 		gameBoard.activateCaptainDnD();
 		players.get(captainIndex).shipProducts();
 	}
