@@ -405,7 +405,9 @@ public class GameController {
 	private void checkPlayerStorage() {
 		captainIndex = activePlayerIndex;
 		for (int i = 0; i < NUM_PLAYERS; i++) {
-			players.get(captainIndex).checkProductStorage();
+			Player player = players.get(captainIndex); 
+			player.checkProductStorage();
+			player.deactivatePlayer();
 			captainIndex++;
 			if (captainIndex == NUM_PLAYERS)
 				captainIndex = 0;
