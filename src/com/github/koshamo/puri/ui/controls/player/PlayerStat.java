@@ -156,6 +156,44 @@ import javafx.scene.text.FontWeight;
 		cancelProductDragging();
 	}
 	
+	public void checkProductStorage() {
+		int cnt = countPossessedProducts();
+		
+		if (cnt == 0)
+			return;
+		if (cnt == 1) {
+			reduceProductsToCapacity();
+			return;
+		}
+		chooseProductsToKeep();
+	}
+	
+	private int countPossessedProducts() {
+		int cnt = 0;
+		if (qbIndigo.quantity() > 0)
+			cnt++;
+		if (qbSugar.quantity() > 0)
+			cnt++;
+		if (qbCorn.quantity() > 0)
+			cnt++;
+		if (qbTobacco.quantity() > 0)
+			cnt++;
+		if (qbCoffee.quantity() > 0)
+			cnt++;
+		
+		return cnt;
+	}
+	
+	private void reduceProductsToCapacity() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void chooseProductsToKeep() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private int[] possessedProducts() {
 		int[] products = new int[5];
 		
@@ -167,7 +205,7 @@ import javafx.scene.text.FontWeight;
 		
 		return products;
 	}
-
+	
 	private QuantityBar selectProductComponent(PlantationType type ) {
 		QuantityBar bar;
 		
