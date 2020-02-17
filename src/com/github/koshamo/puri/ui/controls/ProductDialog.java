@@ -53,60 +53,62 @@ public class ProductDialog extends Dialog<PlantationType> {
 	    
 	    addButtons(vbox);
 	    this.getDialogPane().setContent(vbox);
-
-	    // always select first button
-    	((RadioButton) vbox.getChildren().get(0)).setSelected(true);
 	}
 
 	private void addButtons(VBox vbox) {
 		if (products[0] > 0) {
 			RadioButton btnIndigo = new RadioButton("Indigo");
 			btnIndigo.setToggleGroup(group);
+			btnIndigo.setSelected(true);
 			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.INDIGO.getColor());
 
 			HBox hbox = new HBox(15);
 			hbox.getChildren().addAll(btnIndigo, rect);
-			vbox.getChildren().add(rect);
+			vbox.getChildren().add(hbox);
 		}
 
 		if (products[1] > 0) {
 			RadioButton btnSugar = new RadioButton("Zucker");
 			btnSugar.setToggleGroup(group);
-			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.SUGAR.getColor());
+			btnSugar.setSelected(true);
+			Rectangle rect = new Rectangle(15 * products[1], 15, PrColors.SUGAR.getColor());
 
 			HBox hbox = new HBox(15);
 			hbox.getChildren().addAll(btnSugar, rect);
-			vbox.getChildren().add(rect);
+			vbox.getChildren().add(hbox);
 		}
 
 		if (products[2] > 0) {
 			RadioButton btnCorn = new RadioButton("Mais");
 			btnCorn.setToggleGroup(group);
-			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.CORN.getColor());
+			btnCorn.setSelected(true);
+			Rectangle rect = new Rectangle(15 * products[2], 15, PrColors.CORN.getColor());
 
 			HBox hbox = new HBox(15);
 			hbox.getChildren().addAll(btnCorn, rect);
-			vbox.getChildren().add(rect);
+			vbox.getChildren().add(hbox);
 		}
 
 		if (products[3] > 0) {
 			RadioButton btnTobacco = new RadioButton("Tabak");
 			btnTobacco.setToggleGroup(group);
-			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.TOBACCO.getColor());
+			btnTobacco.setSelected(true);
+			Rectangle rect = new Rectangle(15 * products[3], 15, PrColors.TOBACCO.getColor());
 
 			HBox hbox = new HBox(15);
 			hbox.getChildren().addAll(btnTobacco, rect);
-			vbox.getChildren().add(rect);
+			vbox.getChildren().add(hbox);
 		}
 
 		if (products[4] > 0) {
 			RadioButton btnCoffee = new RadioButton("Kaffee");
 			btnCoffee.setToggleGroup(group);
-			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.COFFEE.getColor());
+			btnCoffee.setSelected(true);
+			Rectangle rect = new Rectangle(15 * products[4], 15, PrColors.COFFEE.getColor());
 
 			HBox hbox = new HBox(15);
 			hbox.getChildren().addAll(btnCoffee, rect);
-			vbox.getChildren().add(rect);
+			vbox.getChildren().add(hbox);
 		}
 		
 	}
