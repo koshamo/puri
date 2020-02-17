@@ -355,7 +355,7 @@ public class GameController {
 			else if (gameBoard.hasShip(PlantationType.NONE))
 				shippable += gameBoard.numShipsWithNone();
 		}
-		
+
 		return shippable;
 	}
 
@@ -385,18 +385,25 @@ public class GameController {
 		if (captainIndex == activePlayerIndex)
 			captainPrivilege = true;
 		
-		players.get(captainIndex).activatePlayer();
+		for (int i = 0; i < NUM_PLAYERS; i++) {
+			if (i == captainIndex)
+				players.get(i).activatePlayer();
+			else
+				players.get(i).deactivatePlayer();
+		}
+
 		gameBoard.activateCaptainDnD();
 		players.get(captainIndex).shipProducts();
 	}
 	
 	public void shippingDone() {
-		captainIndex++;
 		gameBoard.deactivateCaptainDnD();
+		captainIndex++;
 		loopCaptain(0);
 	}
 
 	private void checkPlayerStorage() {
+		captainIndex = activePlayerIndex;
 		for (int i = 0; i < NUM_PLAYERS; i++) {
 			players.get(captainIndex).checkProductStorage();
 			captainIndex++;
