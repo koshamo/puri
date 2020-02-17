@@ -155,6 +155,18 @@ import javafx.scene.text.FontWeight;
 	public void deactivateProductDnD() {
 		cancelProductDragging();
 	}
+	
+	private int[] possessedProducts() {
+		int[] products = new int[5];
+		
+		products[0] = qbIndigo.quantity();
+		products[1] = qbSugar.quantity();
+		products[2] = qbCorn.quantity();
+		products[3] = qbTobacco.quantity();
+		products[4] = qbCoffee.quantity();
+		
+		return products;
+	}
 
 	private QuantityBar selectProductComponent(PlantationType type ) {
 		QuantityBar bar;
