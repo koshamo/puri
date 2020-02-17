@@ -187,4 +187,8 @@ public class Player extends Region {
 	public void addVictoryPoints(int amount) {
 		stats.addVictoryPoints(amount);
 	}
+	
+	public void checkProductStorage() {
+		stats.checkProductStorage();
+	}
 }
