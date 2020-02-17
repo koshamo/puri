@@ -185,13 +185,22 @@ import javafx.scene.text.FontWeight;
 	}
 	
 	private void reduceProductsToCapacity() {
-		// TODO Auto-generated method stub
-		
+		if (qbIndigo.quantity() > 1)
+			qbIndigo.changeQuantity(1);
+		if (qbSugar.quantity() > 1)
+			qbSugar.changeQuantity(1);
+		if (qbCorn.quantity() > 1)
+			qbCorn.changeQuantity(1);
+		if (qbTobacco.quantity() > 1)
+			qbTobacco.changeQuantity(1);
+		if (qbCoffee.quantity() > 1)
+			qbCoffee.changeQuantity(1);
 	}
 
 	private void chooseProductsToKeep() {
-		// TODO Auto-generated method stub
+		int[] products = possessedProducts();
 		
+		// TODO: build Dialog to choose products to keep
 	}
 
 	private int[] possessedProducts() {
