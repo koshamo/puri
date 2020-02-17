@@ -198,7 +198,7 @@ public class GameController {
 		produce(production);
 		
 		if (privilege) {
-			boolean[] possibleExtras = calcPrivilegeProduct(production);
+			int[] possibleExtras = calcPrivilegeProduct(production);
 			int availableExtras = calcAvailableExtraProducts(possibleExtras);
 			
 			if (availableExtras == 1) {
@@ -277,22 +277,22 @@ public class GameController {
 		return extraProct;
 	}
 
-	private static int calcAvailableExtraProducts(boolean[] production) {
+	private static int calcAvailableExtraProducts(int[] production) {
 		int cnt = 0;
-		for (boolean b : production)
-			if (b)
+		for (int p : production)
+			if (p > 0)
 				cnt++;
 		return cnt;
 	}
 
-	private static PlantationType availableExtraProduct(boolean[] extraProduct) {
-		if (extraProduct[0])
+	private static PlantationType availableExtraProduct(int[] extraProduct) {
+		if (extraProduct[0] > 0)
 			return PlantationType.INDIGO;
-		else if (extraProduct[1])
+		else if (extraProduct[1] > 0)
 			return PlantationType.SUGAR;
-		else if (extraProduct[2])
+		else if (extraProduct[2] > 0)
 			return PlantationType.CORN;
-		else if (extraProduct[3])
+		else if (extraProduct[3] > 0)
 			return PlantationType.TOBACCO;
 		else
 			return PlantationType.COFFEE;
