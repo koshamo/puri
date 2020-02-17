@@ -7,7 +7,8 @@ import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.RoleType;
 import com.github.koshamo.puri.setup.StartupConstants;
-import com.github.koshamo.puri.ui.controls.ExtraProductDialog;
+import com.github.koshamo.puri.ui.controls.ProductDialog;
+import com.github.koshamo.puri.ui.controls.ProductDialog.State;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.board.BuildingsDialog;
 import com.github.koshamo.puri.ui.controls.player.Player;
@@ -207,7 +208,7 @@ public class GameController {
 				gameBoard.removeProduction(type, 1);
 			}
 			else if (availableExtras > 1) {
-				ExtraProductDialog dialog = new ExtraProductDialog(possibleExtras);
+				ProductDialog dialog = new ProductDialog(possibleExtras, State.PRODUCTION);
 				Optional<PlantationType> product = dialog.showAndWait();
 				if (product.isPresent()) {
 					players.get(activePlayerIndex).addProduction(product.get(), 1);

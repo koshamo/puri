@@ -1,35 +1,46 @@
 package com.github.koshamo.puri.ui.controls;
 
 import com.github.koshamo.puri.setup.PlantationType;
+import com.github.koshamo.puri.setup.PrColors;
 
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
-public class ExtraProductDialog extends Dialog<PlantationType> {
+public class ProductDialog extends Dialog<PlantationType> {
 
-	private final boolean[] products;
+	public enum State {PRODUCTION, STORAGE}
+	
+	private final int[] products;
 	private ToggleGroup group;
+	private final State state;
 
-	public ExtraProductDialog(boolean[] products) {
+	public ProductDialog(int[] products, State state) {
 		this.products = products;
-		for (boolean b : products)
-			System.out.println(b);
+		this.state = state;
 		drawDialog();
 		initResultConverter();
 	}
 
 	private void drawDialog() {
-		 this.setTitle("Privileg");
-		 drawHeaderPane();
-		 drawButtonPane();
-		 drawContentPane();
+		if (state == State.PRODUCTION)
+			this.setTitle("Privileg");
+		else 
+			this.setTitle("Lagerung");
+		drawHeaderPane();
+		drawButtonPane();
+		drawContentPane();
 	}
 
 	private void drawHeaderPane() {
-		this.getDialogPane().setHeaderText("Wähle Ware als Privileg");
+		if (state == State.PRODUCTION)
+			this.getDialogPane().setHeaderText("Wähle Ware als Privileg");
+		else
+			this.getDialogPane().setHeaderText("Wähle Ware zur Lagerung");
 	}
 
 	private void drawButtonPane() {
@@ -48,34 +59,54 @@ public class ExtraProductDialog extends Dialog<PlantationType> {
 	}
 
 	private void addButtons(VBox vbox) {
-		if (products[0]) {
+		if (products[0] > 0) {
 			RadioButton btnIndigo = new RadioButton("Indigo");
 			btnIndigo.setToggleGroup(group);
-			vbox.getChildren().add(btnIndigo);
+			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.INDIGO.getColor());
+
+			HBox hbox = new HBox(15);
+			hbox.getChildren().addAll(btnIndigo, rect);
+			vbox.getChildren().add(rect);
 		}
 
-		if (products[1]) {
+		if (products[1] > 0) {
 			RadioButton btnSugar = new RadioButton("Zucker");
 			btnSugar.setToggleGroup(group);
-			vbox.getChildren().add(btnSugar);
+			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.SUGAR.getColor());
+
+			HBox hbox = new HBox(15);
+			hbox.getChildren().addAll(btnSugar, rect);
+			vbox.getChildren().add(rect);
 		}
 
-		if (products[2]) {
+		if (products[2] > 0) {
 			RadioButton btnCorn = new RadioButton("Mais");
 			btnCorn.setToggleGroup(group);
-			vbox.getChildren().add(btnCorn);
+			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.CORN.getColor());
+
+			HBox hbox = new HBox(15);
+			hbox.getChildren().addAll(btnCorn, rect);
+			vbox.getChildren().add(rect);
 		}
 
-		if (products[3]) {
+		if (products[3] > 0) {
 			RadioButton btnTobacco = new RadioButton("Tabak");
 			btnTobacco.setToggleGroup(group);
-			vbox.getChildren().add(btnTobacco);
+			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.TOBACCO.getColor());
+
+			HBox hbox = new HBox(15);
+			hbox.getChildren().addAll(btnTobacco, rect);
+			vbox.getChildren().add(rect);
 		}
 
-		if (products[4]) {
+		if (products[4] > 0) {
 			RadioButton btnCoffee = new RadioButton("Kaffee");
 			btnCoffee.setToggleGroup(group);
-			vbox.getChildren().add(btnCoffee);
+			Rectangle rect = new Rectangle(15 * products[0], 15, PrColors.COFFEE.getColor());
+
+			HBox hbox = new HBox(15);
+			hbox.getChildren().addAll(btnCoffee, rect);
+			vbox.getChildren().add(rect);
 		}
 		
 	}
