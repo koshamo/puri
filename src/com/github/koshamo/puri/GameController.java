@@ -255,19 +255,24 @@ public class GameController {
 	 * return value back in regular order!
 	 * Product order: indigo, sugar, corn, tobacco, coffee
 	 */
-	private boolean[] calcPrivilegeProduct(int[] production) {
-		boolean[] extraProct = new boolean[5];
+	private int[] calcPrivilegeProduct(int[] production) {
+		int[] extraProct = new int[5];
 		
 		extraProct[0] = production[0] > 0 
-				&& gameBoard.availableProduct(PlantationType.INDIGO) > 0; 
+				&& gameBoard.availableProduct(PlantationType.INDIGO) > 0
+				? production[0] : 0; 
 		extraProct[1] = production[1] > 0 
-				&& gameBoard.availableProduct(PlantationType.SUGAR) > 0; 
+				&& gameBoard.availableProduct(PlantationType.SUGAR) > 0
+				? production[1] : 0; 
 		extraProct[2] = production[4] > 0 
-				&& gameBoard.availableProduct(PlantationType.CORN) > 0; 
+				&& gameBoard.availableProduct(PlantationType.CORN) > 0
+				? production[4] : 0; 
 		extraProct[3] = production[2] > 0 
-				&& gameBoard.availableProduct(PlantationType.TOBACCO) > 0; 
+				&& gameBoard.availableProduct(PlantationType.TOBACCO) > 0
+				? production[2] : 0; 
 		extraProct[4] = production[3] > 0 
-				&& gameBoard.availableProduct(PlantationType.COFFEE) > 0;
+				&& gameBoard.availableProduct(PlantationType.COFFEE) > 0
+				? production[3] : 0; 
 				
 		return extraProct;
 	}
