@@ -139,6 +139,7 @@ import javafx.scene.layout.VBox;
 		    ev.setDropCompleted(success);
 		    ev.consume();
 		});
+		// FIXME: you can drag a colonist and drop in in the same field, then colonist vanishes 
 	}
 
 	private void addColonistDragTarget(BuildingField field) {
