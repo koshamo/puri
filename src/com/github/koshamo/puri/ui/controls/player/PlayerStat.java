@@ -1,8 +1,12 @@
 package com.github.koshamo.puri.ui.controls.player;
 
+import java.util.Optional;
+
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.RoleType;
+import com.github.koshamo.puri.ui.controls.ProductDialog;
+import com.github.koshamo.puri.ui.controls.ProductDialog.State;
 import com.github.koshamo.puri.ui.controls.QuantityBar;
 
 import javafx.beans.property.IntegerProperty;
@@ -199,8 +203,40 @@ import javafx.scene.text.FontWeight;
 
 	private void chooseProductsToKeep() {
 		int[] products = possessedProducts();
+
+		ProductDialog dialog = new ProductDialog(products, State.STORAGE);
+		Optional<PlantationType> toKeep = dialog.showAndWait();
 		
-		// TODO: build Dialog to choose products to keep
+		if (toKeep.isPresent()) {
+			clearStorage(toKeep.get());
+		}
+	}
+
+	private void clearStorage(PlantationType type) {
+		if (type == PlantationType.INDIGO)
+			qbIndigo.changeQuantity(1);
+		else
+			qbIndigo.changeQuantity(0);
+		
+		if (type == PlantationType.SUGAR)
+			qbSugar.changeQuantity(1);
+		else
+			qbSugar.changeQuantity(0);
+		
+		if (type == PlantationType.CORN)
+			qbCorn.changeQuantity(1);
+		else
+			qbCorn.changeQuantity(0);
+		
+		if (type == PlantationType.TOBACCO)
+			qbTobacco.changeQuantity(1);
+		else
+			qbTobacco.changeQuantity(0);
+		
+		if (type == PlantationType.COFFEE)
+			qbCoffee.changeQuantity(1);
+		else
+			qbCoffee.changeQuantity(0);
 	}
 
 	private int[] possessedProducts() {
