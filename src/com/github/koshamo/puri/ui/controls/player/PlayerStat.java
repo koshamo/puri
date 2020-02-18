@@ -208,11 +208,11 @@ import javafx.scene.text.FontWeight;
 		Optional<PlantationType> toKeep = dialog.showAndWait();
 		
 		if (toKeep.isPresent()) {
-			clearStorage(toKeep.get());
+			clearStorageExcept(toKeep.get());
 		}
 	}
 
-	private void clearStorage(PlantationType type) {
+	private void clearStorageExcept(PlantationType type) {
 		if (type == PlantationType.INDIGO)
 			qbIndigo.changeQuantity(1);
 		else
