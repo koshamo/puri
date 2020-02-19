@@ -423,6 +423,11 @@ public class GameController {
 		gameBoard.deactivateTraderDnD();
 		nextPlayerActive();
 	}
+	
+	public void handleTraderTurnDone() {
+		gameBoard.deactivateTraderDnD();
+		nextPlayerChooseRole();
+	}
 
 	private void handleGoldfinder() {
 		players.get(activePlayerIndex).addGulden(1);
