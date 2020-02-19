@@ -174,18 +174,17 @@ import javafx.scene.text.FontWeight;
 		chooseProductsToKeep();
 	}
 	
-	public void activatePurchaseDnD() {
+	public void activateTraderDnD() {
 		btnDone.setVisible(true);
 		btnDone.setOnAction(ev -> {player.tradingDone();});
 
 		updateProductDragging(ProductDnD.TRADER);
 	}
 	
-	public void deactivatePurchaseDnD() {
+	public void deactivateTraderDnD() {
 		btnDone.setVisible(false);
 		
 		cancelProductDragging();
-		player.tradingDone();
 	}
 
 	private int countPossessedProducts() {
@@ -333,12 +332,13 @@ import javafx.scene.text.FontWeight;
 						&& ev.isAccepted()) {
 					String[] shipped = ev.getDragboard().getString().split(" ");
 					int delivered = Integer.valueOf(shipped[1]).intValue(); 
-					bar.sub(delivered);
 					if (dnd == ProductDnD.CAPTAIN) {
+						bar.sub(delivered);
 						victoryPoints.set(victoryPoints.get() + delivered);
 						player.shippingDone();
 					} else {
 						addGulden(delivered);
+						bar.sub(1);
 						player.tradingDone();
 					}
 				}
