@@ -158,6 +158,14 @@ public class Board extends Region {
 		clearShip(largeGoodsShip);
 	}
 
+	public void activateTraderDnD(boolean privilege) {
+		market.activateDnD(privilege);
+	}
+
+	public void deactivateTraderDnD() {
+		market.deactivateDnD();
+	}
+
 	private void clearShip(GoodsShip ship) {
 		if (ship.storageLeft() == 0) {
 			PlantationType type = ship.type();
