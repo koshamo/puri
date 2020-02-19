@@ -418,7 +418,7 @@ public class GameController {
 		players.get(activePlayerIndex).activateTrader(privilege);
 	}
 
-	private void handleTraderDone(int amount) {
+	public void handleTraderDone(int amount) {
 		players.get(activePlayerIndex).addGulden(amount);
 		nextPlayerActive();
 	}
