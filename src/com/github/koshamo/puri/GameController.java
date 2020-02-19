@@ -140,7 +140,7 @@ public class GameController {
 				gameEnd = true;
 		}
 		
-		handleTraderDone();
+		nextPlayerActive();
 }
 
 	private void handleSettler(boolean privilege) {
@@ -152,7 +152,7 @@ public class GameController {
 		currentPlayer.addPlantation(type);
 		if (activePlayerCount == NUM_PLAYERS - 1)
 			gameBoard.refreshPlantations();
-		handleTraderDone();
+		nextPlayerActive();
 	}
 
 	private void handleGouvernor(boolean privilege) {
@@ -172,7 +172,7 @@ public class GameController {
 			if (left == 0)
 				gameEnd = true;
 		}
-		handleTraderDone();
+		nextPlayerActive();
 	}
 
 	private void distributeColonistsToPlayers() {
@@ -217,7 +217,7 @@ public class GameController {
 			}
 		}
 		
- 		handleTraderDone();
+ 		nextPlayerActive();
 	}
 	
 	private int[] calcActualProduction() {
@@ -417,7 +417,7 @@ public class GameController {
 	private void handleTrader(boolean privilege) {
 		players.get(activePlayerIndex).activateTrader(privilege);
 	}
-
+	
 	public void handleTraderDone(int amount) {
 		players.get(activePlayerIndex).addGulden(amount);
 		nextPlayerActive();
