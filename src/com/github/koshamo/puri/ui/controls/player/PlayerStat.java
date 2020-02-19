@@ -277,7 +277,8 @@ import javafx.scene.text.FontWeight;
 				ev.consume();
 			});
 			qbColonists.setOnDragDone(ev -> {
-				if (ev.getTransferMode() == TransferMode.MOVE) {
+				if (ev.getTransferMode() == TransferMode.MOVE
+						&& ev.isAccepted()) {
 					qbColonists.sub(1);
 					player.distributeColonists();
 				}
@@ -312,7 +313,8 @@ import javafx.scene.text.FontWeight;
 				ev.consume();
 			});
 			bar.setOnDragDone(ev -> {
-				if (ev.getTransferMode() == TransferMode.MOVE) {
+				if (ev.getTransferMode() == TransferMode.MOVE
+						&& ev.isAccepted()) {
 					String[] shipped = ev.getDragboard().getString().split(" ");
 					int delivered = Integer.valueOf(shipped[1]).intValue(); 
 					bar.sub(delivered);
