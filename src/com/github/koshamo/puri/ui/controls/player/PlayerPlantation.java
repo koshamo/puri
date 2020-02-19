@@ -129,9 +129,11 @@ import javafx.scene.layout.VBox;
 			ev.consume();
 		});
 		field.setOnDragDone(ev -> {
-			field.deactivate();
-			player.distributeColonists();
-			ev.consume();
+			if (ev.isAccepted()) {
+				field.deactivate();
+				player.distributeColonists();
+				ev.consume();
+			}
 		});
 	}
 
