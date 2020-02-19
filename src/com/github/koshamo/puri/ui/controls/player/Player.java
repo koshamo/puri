@@ -191,4 +191,12 @@ public class Player extends Region {
 	public void checkProductStorage() {
 		stats.checkProductStorage();
 	}
+
+	public void activateTrader(boolean privilege) {
+		stats.purchaseProduct(privilege);
+	}
+	
+	public void tradingDone(int amount) {
+		controller.handleTraderDone(amount);
+	}
 }
