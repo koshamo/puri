@@ -415,7 +415,7 @@ public class GameController {
 	}
 
 	private void handleTrader(boolean privilege) {
-		players.get(activePlayerIndex).activateTrader(privilege);
+		players.get(activePlayerIndex).activateTrader();
 	}
 	
 	public void handleTraderDone() {

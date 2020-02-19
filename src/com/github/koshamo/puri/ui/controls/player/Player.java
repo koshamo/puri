@@ -192,8 +192,8 @@ public class Player extends Region {
 		stats.checkProductStorage();
 	}
 
-	public void activateTrader(boolean privilege) {
-		stats.activatePurchaseDnD(privilege);
+	public void activateTrader() {
+		stats.activatePurchaseDnD();
 	}
 	
 	public void tradingDone() {

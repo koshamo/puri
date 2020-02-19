@@ -174,7 +174,7 @@ import javafx.scene.text.FontWeight;
 		chooseProductsToKeep();
 	}
 	
-	public void activatePurchaseDnD(boolean privilege) {
+	public void activatePurchaseDnD() {
 		btnDone.setVisible(true);
 		btnDone.setOnAction(ev -> {player.tradingDone();});
 
