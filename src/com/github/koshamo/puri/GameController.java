@@ -415,10 +415,12 @@ public class GameController {
 	}
 
 	private void handleTrader(boolean privilege) {
+		gameBoard.activateTraderDnD(privilege);
 		players.get(activePlayerIndex).activateTrader();
 	}
 	
 	public void handleTraderDone() {
+		gameBoard.deactivateTraderDnD();
 		nextPlayerActive();
 	}
 
