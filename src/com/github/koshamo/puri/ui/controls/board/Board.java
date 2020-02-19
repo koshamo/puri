@@ -1,6 +1,7 @@
 package com.github.koshamo.puri.ui.controls.board;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.setup.BuildingTypeList;
@@ -159,11 +160,18 @@ public class Board extends Region {
 	}
 
 	public void activateTraderDnD(boolean privilege) {
-		market.activateDnD(privilege);
+		if (!market.hasEmptyPlace()) {
+			clearMarket();
+			controller.handleTraderTurnDone();
+		}
+		updateTraderDropping(privilege);
 	}
 
 	public void deactivateTraderDnD() {
-		market.deactivateDnD();
+		market.setOnDragOver(null);
+		market.setOnDragEntered(null);
+		market.setOnDragExited(null);
+		market.setOnDragDropped(null);
 	}
 
 	private void clearShip(GoodsShip ship) {
@@ -176,6 +184,15 @@ public class Board extends Region {
 			
 			ship.clear();
 		}
+	}
+
+	private void clearMarket() {
+		List<PlantationType> products = market.getProducts();
+		for (PlantationType type : products) {
+			QuantityBar bar = selectProductComponent(type);
+			bar.add(1);
+		}
+		market.clearProducts();
 	}
 
 	private void updateCaptainDropping() {
@@ -338,6 +355,44 @@ public class Board extends Region {
 		largeGoodsShip.setOnDragEntered(null);
 		largeGoodsShip.setOnDragExited(null);
 		largeGoodsShip.setOnDragDropped(null);
+	}
+
+	private void updateTraderDropping(boolean privilege) {
+		market.setOnDragOver(ev -> {
+		    if (ev.getGestureSource() != market 
+		    		&& ev.getDragboard().hasString() 
+		    		&& market.hasEmptyPlace()) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	PlantationType type = PlantationType.getByString(product[0]);
+		    	if (!market.hasProduct(type))
+		    		ev.acceptTransferModes(TransferMode.MOVE);
+		    }
+		    ev.consume();
+		});
+		market.setOnDragEntered(ev -> {
+			// TODO: show drop possible
+			ev.consume();
+		});
+		market.setOnDragExited(ev -> {
+			// TODO: end show drop possible
+			ev.consume();
+		});
+		market.setOnDragDropped(ev -> {
+		    Dragboard db = ev.getDragboard();
+		    boolean success = false;
+		    if (db.hasString()) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	PlantationType type = PlantationType.getByString(product[0]);
+		    	market.addProduct(type);
+		    	int price = privilege ? type.getPrice() + 1 : type.getPrice();
+		    	success = true;
+				ClipboardContent cc = new ClipboardContent();
+				cc.putString(String.valueOf(product[0] + " " + price));
+				db.setContent(cc);
+		    }
+		    ev.setDropCompleted(success);
+		    ev.consume();
+		});
 	}
 
 	private QuantityBar selectProductComponent(PlantationType type ) {
