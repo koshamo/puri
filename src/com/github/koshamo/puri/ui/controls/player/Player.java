@@ -155,11 +155,11 @@ public class Player extends Region {
 	}
 	
 	public void shipProducts() {
-		stats.activateProductDnD();
+		stats.activateCaptainDnD();
 	}
 	
 	public void shippingDone() {
-		stats.deactivateProductDnD();
+		stats.deactivateCaptainDnD();
 		controller.shippingDone();
 	}
 	
@@ -193,10 +193,10 @@ public class Player extends Region {
 	}
 
 	public void activateTrader(boolean privilege) {
-		stats.purchaseProduct(privilege);
+		stats.activatePurchaseDnD(privilege);
 	}
 	
-	public void tradingDone(int amount) {
-		controller.handleTraderDone(amount);
+	public void tradingDone() {
+		controller.handleTraderDone();
 	}
 }

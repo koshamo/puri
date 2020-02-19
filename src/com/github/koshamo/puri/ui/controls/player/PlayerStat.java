@@ -29,6 +29,8 @@ import javafx.scene.text.FontWeight;
 
 /*private*/ class PlayerStat extends Region {
 
+	private enum ProductDnD {CAPTAIN, TRADER}
+	
 	private final Player player;
 	private final String name;
 	private final Color color;
@@ -152,11 +154,11 @@ import javafx.scene.text.FontWeight;
 		cancelColonistDragging();
 	}
 
-	public void activateProductDnD() {
-		updateProductDragging();
+	public void activateCaptainDnD() {
+		updateProductDragging(ProductDnD.CAPTAIN);
 	}
 	
-	public void deactivateProductDnD() {
+	public void deactivateCaptainDnD() {
 		cancelProductDragging();
 	}
 	
@@ -172,6 +174,20 @@ import javafx.scene.text.FontWeight;
 		chooseProductsToKeep();
 	}
 	
+	public void activatePurchaseDnD(boolean privilege) {
+		btnDone.setVisible(true);
+		btnDone.setOnAction(ev -> {player.tradingDone();});
+
+		updateProductDragging(ProductDnD.TRADER);
+	}
+	
+	public void deactivatePurchaseDnD() {
+		btnDone.setVisible(false);
+		
+		cancelProductDragging();
+		player.tradingDone();
+	}
+
 	private int countPossessedProducts() {
 		int cnt = 0;
 		if (qbIndigo.quantity() > 0)
@@ -293,15 +309,15 @@ import javafx.scene.text.FontWeight;
 		qbColonists.setOnDragDetected(null);
 	}
 	
-	private void updateProductDragging() {
-		updateProductDraggingFor(PlantationType.INDIGO);
-		updateProductDraggingFor(PlantationType.SUGAR);
-		updateProductDraggingFor(PlantationType.CORN);
-		updateProductDraggingFor(PlantationType.TOBACCO);
-		updateProductDraggingFor(PlantationType.COFFEE);
+	private void updateProductDragging(ProductDnD dnd) {
+		updateProductDraggingFor(PlantationType.INDIGO, dnd);
+		updateProductDraggingFor(PlantationType.SUGAR, dnd);
+		updateProductDraggingFor(PlantationType.CORN, dnd);
+		updateProductDraggingFor(PlantationType.TOBACCO, dnd);
+		updateProductDraggingFor(PlantationType.COFFEE, dnd);
 	}
 	
-	private void updateProductDraggingFor(PlantationType type) {
+	private void updateProductDraggingFor(PlantationType type, ProductDnD dnd) {
 		QuantityBar bar = selectProductComponent(type);
 		if (bar.quantity() > 0) {
 			bar.setOnDragDetected(ev -> {
@@ -318,8 +334,13 @@ import javafx.scene.text.FontWeight;
 					String[] shipped = ev.getDragboard().getString().split(" ");
 					int delivered = Integer.valueOf(shipped[1]).intValue(); 
 					bar.sub(delivered);
-					victoryPoints.set(victoryPoints.get() + delivered);
-					player.shippingDone();
+					if (dnd == ProductDnD.CAPTAIN) {
+						victoryPoints.set(victoryPoints.get() + delivered);
+						player.shippingDone();
+					} else {
+						addGulden(delivered);
+						player.tradingDone();
+					}
 				}
 				ev.consume();
 			});
