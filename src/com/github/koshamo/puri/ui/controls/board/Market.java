@@ -36,7 +36,12 @@ import javafx.scene.control.Skin;
 	}
 	
 	public List<PlantationType> getProducts() {
-		return products;
+		List<PlantationType> availableProducts = new ArrayList<>();
+		for (PlantationType type : products)
+			if (type != PlantationType.NONE)
+				availableProducts.add(type);
+		
+		return availableProducts;
 	}
 	
 	public void clearProducts() {
