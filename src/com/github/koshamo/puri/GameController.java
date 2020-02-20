@@ -415,8 +415,15 @@ public class GameController {
 	}
 
 	private void handleTrader(boolean privilege) {
-		gameBoard.activateTraderDnD(privilege);
-		players.get(activePlayerIndex).activateTrader();
+		Player currentPlayer = players.get(activePlayerIndex);
+		
+		List<PlantationType> products = currentPlayer.listShippableProducts();
+		if (products.size() == 0)
+			nextPlayerActive();
+		else {
+			gameBoard.activateTraderDnD(privilege);
+			currentPlayer.activateTrader();
+		}
 	}
 	
 	public void handleTraderDone() {
