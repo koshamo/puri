@@ -163,8 +163,8 @@ public class Board extends Region {
 		if (!market.hasEmptyPlace()) {
 			clearMarket();
 			controller.handleTraderTurnDone();
-		}
-		updateTraderDropping(privilege);
+		} else
+			updateTraderDropping(privilege);
 	}
 
 	public void deactivateTraderDnD() {
@@ -176,6 +176,14 @@ public class Board extends Region {
 
 	public List<PlantationType> listProductsInMarket() {
 		return market.getProducts();
+	}
+	
+	public boolean checkForMarketClearance() {
+		if (!market.hasEmptyPlace()) {
+			clearMarket();
+			return true;
+		}
+		return false;
 	}
 	
 	private void clearShip(GoodsShip ship) {

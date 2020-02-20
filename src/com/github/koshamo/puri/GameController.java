@@ -446,12 +446,16 @@ public class GameController {
 	
 	public void handleTraderDone() {
 		gameBoard.deactivateTraderDnD();
-		nextPlayerActive();
+		if (gameBoard.checkForMarketClearance())
+			handleTraderTurnDone();
+		else
+			nextPlayerActive();
 	}
 	
 	public void handleTraderTurnDone() {
 		gameBoard.deactivateTraderDnD();
-		players.get(activePlayerIndex).tradingDone();
+		for (int i = 0; i < NUM_PLAYERS; i++)
+			players.get(i).tradingDone();
 		nextPlayerChooseRole();
 	}
 
