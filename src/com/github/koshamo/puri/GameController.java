@@ -375,7 +375,14 @@ public class GameController {
 					player.addVictoryPoints(shippable);
 					gameBoard.autoShipProduct(type, shippable);
 				}
+			} else if (gameBoard.numShipsWithNone() == 1) {
+				int places = gameBoard.freePlacesOnShipWith(PlantationType.NONE);
+				int shippable = Math.min(player.availableProducts(type), places);
+				player.reduceProduct(type, shippable);
+				player.addVictoryPoints(shippable);
+				gameBoard.autoShipProduct(type, shippable);
 			}
+
 		}
 		captainIndex++;
 		loopCaptain(0);
