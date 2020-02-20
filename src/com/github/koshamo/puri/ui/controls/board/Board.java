@@ -174,6 +174,10 @@ public class Board extends Region {
 		market.setOnDragDropped(null);
 	}
 
+	public List<PlantationType> listProductsInMarket() {
+		return market.getProducts();
+	}
+	
 	private void clearShip(GoodsShip ship) {
 		if (ship.storageLeft() == 0) {
 			PlantationType type = ship.type();
