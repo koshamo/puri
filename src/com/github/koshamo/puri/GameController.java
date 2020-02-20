@@ -418,11 +418,22 @@ public class GameController {
 		Player currentPlayer = players.get(activePlayerIndex);
 		
 		List<PlantationType> products = currentPlayer.listShippableProducts();
-		if (products.size() == 0)
+		if (products.size() == 0) 
 			nextPlayerActive();
 		else {
-			gameBoard.activateTraderDnD(privilege);
-			currentPlayer.activateTrader();
+			List<PlantationType> market = gameBoard.listProductsInMarket();
+			boolean sellable = false;
+			for (PlantationType type : products) {
+				if (!market.contains(type)) {
+					sellable = true;
+				}
+			}
+			if (sellable) {
+				gameBoard.activateTraderDnD(privilege);
+				currentPlayer.activateTrader();
+			}
+			else
+				nextPlayerActive();
 		}
 	}
 	
