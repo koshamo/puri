@@ -200,4 +200,9 @@ public class Player extends Region {
 		stats.deactivateTraderDnD();
 		controller.handleTraderDone();
 	}
+
+	public void dropProduct(PlantationType toReduce, int quantity) {
+		controller.dropProduct(toReduce, quantity);
+		
+	}
 }

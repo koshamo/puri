@@ -464,5 +464,9 @@ public class GameController {
 		
 		nextPlayerChooseRole();
 	}
+
+	public void dropProduct(PlantationType toReduce, int quantity) {
+		gameBoard.moveProductBackToPool(toReduce, quantity);
+	}
 	
 }

@@ -94,6 +94,11 @@ public class Board extends Region {
 		bar.sub(amount);
 	}
 	
+	public void moveProductBackToPool(PlantationType type, int amount) {
+		QuantityBar bar = selectProductComponent(type);
+		bar.add(amount);
+	}
+	
 	public void activateCaptainDnD() {
 		updateCaptainDropping();
 	}
