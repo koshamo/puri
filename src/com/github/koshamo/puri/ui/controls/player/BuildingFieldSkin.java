@@ -30,6 +30,7 @@ import javafx.scene.text.Text;
 		addField(type, pane);
 		addTitle(type, pane);
 		addPlaces(places, colonists, pane);
+		addVP(type, pane);
 
 		this.getChildren().add(pane);
 	}
@@ -52,8 +53,10 @@ import javafx.scene.text.Text;
 		Rectangle rect = new Rectangle(width, HEIGHT, bColor);
 		rect.relocate(1, 1);
 
-		Tooltip tooltip = new Tooltip(type.getDescription());
-		Tooltip.install(rect, tooltip);
+		if (type != BuildingTypeList.NONE) {
+			Tooltip tooltip = new Tooltip(type.getDescription());
+			Tooltip.install(rect, tooltip);
+		}
 
 		pane.getChildren().addAll(border, rect);
 	}
@@ -66,6 +69,18 @@ import javafx.scene.text.Text;
 			Circle circle = new Circle(10, color);
 			circle.relocate(5 + p * 25, 60);
 			pane.getChildren().add(circle);
+		}
+	}
+
+	private static void addVP(BuildingTypeList type, Pane pane) {
+		if (type != BuildingTypeList.NONE) {
+			Circle circle = new Circle(10, PrColors.DEFAULT_BGD.getColor());
+			circle.relocate(WIDTH - 20, 60);
+
+			Text vp = new Text(String.valueOf(type.getVictoryPoints()));
+			vp.relocate(WIDTH - 15, 62);
+
+			pane.getChildren().addAll(circle, vp);
 		}
 	}
 
