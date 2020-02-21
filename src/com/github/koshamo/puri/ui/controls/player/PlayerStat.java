@@ -204,16 +204,26 @@ import javafx.scene.text.FontWeight;
 	}
 	
 	private void reduceProductsToCapacity() {
-		if (qbIndigo.quantity() > 1)
+		if (qbIndigo.quantity() > 1) {
+			player.dropProduct(PlantationType.INDIGO, qbIndigo.quantity() - 1);
 			qbIndigo.changeQuantity(1);
-		if (qbSugar.quantity() > 1)
+		}
+		if (qbSugar.quantity() > 1) {
+			player.dropProduct(PlantationType.SUGAR, qbSugar.quantity() - 1);
 			qbSugar.changeQuantity(1);
-		if (qbCorn.quantity() > 1)
+		}
+		if (qbCorn.quantity() > 1) {
+			player.dropProduct(PlantationType.CORN, qbCorn.quantity() - 1);
 			qbCorn.changeQuantity(1);
-		if (qbTobacco.quantity() > 1)
+		}
+		if (qbTobacco.quantity() > 1) {
+			player.dropProduct(PlantationType.TOBACCO, qbTobacco.quantity() - 1);
 			qbTobacco.changeQuantity(1);
-		if (qbCoffee.quantity() > 1)
+		}
+		if (qbCoffee.quantity() > 1) {
+			player.dropProduct(PlantationType.COFFEE, qbCoffee.quantity() - 1);
 			qbCoffee.changeQuantity(1);
+		}
 	}
 
 	private void chooseProductsToKeep() {
@@ -228,30 +238,24 @@ import javafx.scene.text.FontWeight;
 	}
 
 	private void clearStorageExcept(PlantationType type) {
-		if (type == PlantationType.INDIGO)
-			qbIndigo.changeQuantity(1);
-		else
-			qbIndigo.changeQuantity(0);
+		removeProduct(PlantationType.INDIGO, type);
+		removeProduct(PlantationType.SUGAR, type);
+		removeProduct(PlantationType.CORN, type);
+		removeProduct(PlantationType.TOBACCO, type);
+		removeProduct(PlantationType.COFFEE, type);
+	}
+
+	private void removeProduct(PlantationType toReduce, PlantationType toKeep) {
+		QuantityBar bar = selectProductComponent(toReduce);
 		
-		if (type == PlantationType.SUGAR)
-			qbSugar.changeQuantity(1);
-		else
-			qbSugar.changeQuantity(0);
-		
-		if (type == PlantationType.CORN)
-			qbCorn.changeQuantity(1);
-		else
-			qbCorn.changeQuantity(0);
-		
-		if (type == PlantationType.TOBACCO)
-			qbTobacco.changeQuantity(1);
-		else
-			qbTobacco.changeQuantity(0);
-		
-		if (type == PlantationType.COFFEE)
-			qbCoffee.changeQuantity(1);
-		else
-			qbCoffee.changeQuantity(0);
+		if (toReduce == toKeep) {
+			player.dropProduct(toReduce, bar.quantity() - 1);
+			bar.changeQuantity(1);
+		}
+		else {
+			player.dropProduct(toReduce, bar.quantity());
+			bar.changeQuantity(0);
+		}
 	}
 
 	private int[] possessedProducts() {
