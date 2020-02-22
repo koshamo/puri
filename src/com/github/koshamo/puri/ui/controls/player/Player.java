@@ -196,6 +196,11 @@ public class Player extends Region {
 		stats.activateTraderDnD();
 	}
 	
+	public void deactivateTrader() {
+		stats.deactivateTraderDnD();
+		deactivatePlayer();
+	}
+	
 	public void tradingDone() {
 		stats.deactivateTraderDnD();
 		controller.handleTraderDone();

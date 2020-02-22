@@ -455,7 +455,7 @@ public class GameController {
 	public void handleTraderTurnDone() {
 		gameBoard.deactivateTraderDnD();
 		for (int i = 0; i < NUM_PLAYERS; i++)
-			players.get(i).tradingDone();
+			players.get(i).deactivateTrader();
 		nextPlayerChooseRole();
 	}
 
