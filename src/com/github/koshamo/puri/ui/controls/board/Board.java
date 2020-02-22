@@ -139,12 +139,42 @@ public class Board extends Region {
 	}
 	
 	public void autoShipProduct(PlantationType type, int amount) {
-		if (smallGoodsShip.type() == type)
+		boolean shipped = shipIfShipAvailable(type, amount);
+		
+		if (!shipped)
+			shipIfEmptyShip(type, amount);
+	}
+
+	private boolean shipIfShipAvailable(PlantationType type, int amount) {
+		if (smallGoodsShip.type() == type) {
 			smallGoodsShip.addGoods(type, amount);
-		if (mediumGoodsShip.type() == type)
+			return true;
+		}
+		if (mediumGoodsShip.type() == type) {
 			mediumGoodsShip.addGoods(type, amount);
-		if (largeGoodsShip.type() == type)
+			return true;
+		}
+		if (largeGoodsShip.type() == type) {
 			largeGoodsShip.addGoods(type, amount);
+			return true;
+		}
+		
+		return false;
+	}
+
+	private void shipIfEmptyShip(PlantationType type, int amount) {
+		if (smallGoodsShip.type() == PlantationType.NONE) {
+			smallGoodsShip.addGoods(type, amount);
+			return;
+		}
+		if (mediumGoodsShip.type() == PlantationType.NONE) {
+			mediumGoodsShip.addGoods(type, amount);
+			return;
+		}
+		if (largeGoodsShip.type() == PlantationType.NONE) {
+			largeGoodsShip.addGoods(type, amount);
+			return;
+		}
 	}
 
 	public void reduceVictoryPoints(int amount) {
