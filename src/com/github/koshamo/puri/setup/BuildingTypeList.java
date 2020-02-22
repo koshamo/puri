@@ -2,17 +2,17 @@ package com.github.koshamo.puri.setup;
 
 public enum BuildingTypeList {
 
-	KL_INDIGO ("kleine\nIndigo\nKüperei", GameSet.BASIS, "kleine Indigoküperei", 
+	KL_INDIGO ("kleine\nIndigo-Küperei", GameSet.BASIS, "kleine Indigoküperei", 
 			"kl. Indigoküperei", 1, 1, 1, 1, BuildingType.SMALL_PRODUCTION),
-	GR_INDIGO ("große\nIndigo\nKüperei", GameSet.BASIS, "große Indigoküperei", 
+	GR_INDIGO ("große\nIndigo-Küperei", GameSet.BASIS, "große Indigoküperei", 
 			"gr. Indigoküperei", 3, 2, 3, 1, BuildingType.PRODUCTION),
-	KL_ZUCKER ("kleine\nZucker\nMühle", GameSet.BASIS, "kleine Zuckermühle", 
+	KL_ZUCKER ("kleine\nZucker-Mühle", GameSet.BASIS, "kleine Zuckermühle", 
 			"kl. Zuckermühle", 2, 1, 1, 1, BuildingType.SMALL_PRODUCTION),
-	GR_ZUCKER ("große\nZucker\nMühle", GameSet.BASIS, "große Zuckermühle", 
+	GR_ZUCKER ("große\nZucker-Mühle", GameSet.BASIS, "große Zuckermühle", 
 			"gr. Zuckermühle", 4, 2, 3, 1, BuildingType.PRODUCTION),
-	TABAK ("Tabak\nspeicher", GameSet.BASIS, "Tabakspeicher", 
+	TABAK ("Tabak-Speicher", GameSet.BASIS, "Tabakspeicher", 
 			"Tabakspeicher", 5, 3, 3, 1, BuildingType.PRODUCTION),
-	KAFFEE ("Kaffee\nRösterei", GameSet.BASIS, "Kaffeerösterei", 
+	KAFFEE ("Kaffee-Rösterei", GameSet.BASIS, "Kaffeerösterei", 
 			"Kaffeerösterei", 6, 3, 2, 1, BuildingType.PRODUCTION),
 	KL_MARKT ("kleine\nMarkthalle", GameSet.BASIS, "+1 Dublone beim Verkaufen (Händlerphase)",
 			"Verkauf: +1 Dubl.", 1, 1, 1, 1, BuildingType.BUILDING),

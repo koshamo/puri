@@ -38,7 +38,12 @@ import javafx.scene.text.Text;
 	private static void addTitle(BuildingTypeList type, Pane pane) {
 		Color txtColor = PrColorUtils.selectTextColor(type);
 
-		Text title = new Text(type.getName());
+		String text = type.getName();
+		Text title;
+		if (text != null)
+			title = new Text(text.replace('-', '\n'));
+		else 
+			title = new Text();
 		title.setFill(txtColor);
 		title.relocate(2, 2);
 
