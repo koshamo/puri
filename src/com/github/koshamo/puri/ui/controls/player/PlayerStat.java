@@ -170,16 +170,19 @@ import javafx.scene.text.FontWeight;
 	
 	public void checkProductStorage() {
 		int cnt = countPossessedProducts();
+		int storage = 0;
+		if (player.hasActiveBuilding(BuildingTypeList.KL_LAGER))
+			storage += 1;
+		if (player.hasActiveBuilding(BuildingTypeList.GR_LAGER))
+			storage += 2;
 		
 		if (cnt == 0)
 			return;
-		if (cnt == 1) {
-			if (!player.hasActiveBuilding(BuildingTypeList.KL_LAGER)
-					&& !player.hasActiveBuilding(BuildingTypeList.GR_LAGER))
-				reduceProductsToCapacity();
+		if (cnt == 1 && storage == 0) {
+			reduceProductsToCapacity();
 			return;
-		}
-		chooseProductsToKeep();
+		} else if (cnt > storage)
+			chooseProductsToKeep();
 	}
 	
 	public void activateTraderDnD() {
@@ -242,6 +245,14 @@ import javafx.scene.text.FontWeight;
 			storage += 1;
 		if (player.hasActiveBuilding(BuildingTypeList.GR_LAGER))
 			storage += 2;
+		
+		// auto skip removal if all products are storable
+		if (products.length == storage + 1) {
+			for (int amount : products) 
+				if (amount == 1)
+					return;
+		}
+		
 		ProductDialog dialog = new ProductDialog(name, products, State.STORAGE, storage);
 		Optional<List<PlantationType>> toKeep = dialog.showAndWait();
 		

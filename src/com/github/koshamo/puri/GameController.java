@@ -526,8 +526,6 @@ public class GameController {
 		gameBoard.moveProductBackToPool(toReduce, quantity);
 	}
 	
-	// TODO: KL_LAGER "Lagern: +1 W.sorte"
-	// TODO: GR_LAGER "Lagern: +2 W.sorten"
 	// TODO: WERFT "1 eigenes Schiff"
 
 }
