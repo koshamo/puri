@@ -90,6 +90,10 @@ public class Player extends Region {
 		return stats.currentGulden();
 	}
 	
+	public int activeQuarries() {
+		return plantations.activeQuarries();
+	}
+	
 	public List<BuildingTypeList> ownedBuildings() {
 		return buildings.ownedBuildings();
 	}
