@@ -214,4 +214,8 @@ public class Player extends Region {
 		controller.dropProduct(toReduce, quantity);
 		
 	}
+	
+	public boolean hasActiveBuilding(BuildingTypeList type) {
+		return buildings.hasActiveBuilding(type);
+	}
 }
