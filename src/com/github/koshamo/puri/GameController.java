@@ -474,13 +474,11 @@ public class GameController {
 		gameBoard.moveProductBackToPool(toReduce, quantity);
 	}
 	
-	// TODO: KL_MARKT "Verkauf: +1 Dubl."
 	// TODO: HAZIENDA "Sied.: +1 Plantage"
 	// TODO: BAUHUETTE "Sied.: Steinbruch?"
 	// TODO: KL_LAGER "Lagern: +1 W.sorte"
 	// TODO: HOSPIZ "Sied.: +1 Kolonist"
 	// TODO: KONTOR "Verk.: gleiche Ware"
-	// TODO: GR_MARKT "Verkauf: +2 Dubl."
 	// TODO: GR_LAGER "Lagern: +2 W.sorten"
 	// TODO: MANUFAKTUR "Aufs.: +0/1/2/3/5 D."
 	// TODO: UNIVERSITAET "Bau: +1 Kolonist"

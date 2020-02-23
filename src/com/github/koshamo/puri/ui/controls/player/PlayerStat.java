@@ -2,6 +2,7 @@ package com.github.koshamo.puri.ui.controls.player;
 
 import java.util.Optional;
 
+import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.RoleType;
@@ -341,7 +342,12 @@ import javafx.scene.text.FontWeight;
 						victoryPoints.set(victoryPoints.get() + delivered);
 						player.shippingDone();
 					} else {
-						addGulden(delivered);
+						int extra = 0;
+						if (player.hasActiveBuilding(BuildingTypeList.KL_MARKT))
+							extra += 1;
+						if (player.hasActiveBuilding(BuildingTypeList.GR_MARKT))
+							extra += 2;
+						addGulden(delivered + extra);
 						bar.sub(1);
 						player.tradingDone();
 					}
