@@ -24,15 +24,17 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 	/*private*/ final boolean privilege;
 	/*private*/ final int availableGulden;
 	/*private*/ final List<BuildingTypeList> ownedBuildings;
+	/*private*/ final int quarries;
 	/*private*/ TableView<BuildingsModel> table;
 	private Callback<TableColumn<BuildingsModel,String>,TableCell<BuildingsModel,String>> cellFactory;
 	
 	public BuildingsDialog(StartupConstants gameConstants, boolean privilege, 
-			int availableGulden, List<BuildingTypeList> ownedBuildings) {
+			int availableGulden, List<BuildingTypeList> ownedBuildings, int quarries) {
 		this.gameConstants = gameConstants;
 		this.privilege = privilege;
 		this.availableGulden = availableGulden;
 		this.ownedBuildings = ownedBuildings;
+		this.quarries = quarries;
 		drawDialog();
 		initResultConverter();
 	}
@@ -81,6 +83,9 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 				if (newValue.intValue() >= 0) {
 					BuildingsModel building = gameConstants.availableBuildings.get(newValue.intValue());
 					int maxCost = privilege ? availableGulden + 1 : availableGulden;
+					maxCost = quarries > Integer.valueOf(building.getVictoryPoints()).intValue() 
+							? maxCost + Integer.valueOf(building.getVictoryPoints()).intValue() 
+							: maxCost + quarries;
 					if (Integer.valueOf(building.getCost()).intValue() > maxCost
 							|| building.getLeft().equals("0")
 							|| ownedBuildings.contains(building.type()))
@@ -108,6 +113,9 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 								
 								BuildingsModel building = row.getItem();
 								int maxCost = privilege ? availableGulden + 1 : availableGulden;
+								maxCost = quarries > Integer.valueOf(building.getVictoryPoints()).intValue() 
+										? maxCost + Integer.valueOf(building.getVictoryPoints()).intValue() 
+										: maxCost + quarries;
 
 								if (Integer.valueOf(building.getCost()).intValue() > maxCost)
 									setTextFill(Color.LIGHTSALMON);
