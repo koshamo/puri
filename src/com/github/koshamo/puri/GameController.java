@@ -229,6 +229,7 @@ public class GameController {
 	}
 
 	private void handleProducer(boolean privilege) {
+		Player player = players.get(activePlayerIndex);
 		int[] production = calcActualProduction();
 		produce(production);
 		
@@ -238,18 +239,26 @@ public class GameController {
 			
 			if (availableExtras == 1) {
 				PlantationType type = availableExtraProduct(possibleExtras);
-				players.get(activePlayerIndex).addProduction(type, 1);
+				player.addProduction(type, 1);
 				gameBoard.removeProduction(type, 1);
 			}
 			else if (availableExtras > 1) {
 				ProductDialog dialog = 
-						new ProductDialog(players.get(activePlayerIndex).name(), 
+						new ProductDialog(player.name(), 
 								possibleExtras, State.PRODUCTION);
 				Optional<PlantationType> product = dialog.showAndWait();
 				if (product.isPresent()) {
-					players.get(activePlayerIndex).addProduction(product.get(), 1);
+					player.addProduction(product.get(), 1);
 					gameBoard.removeProduction(product.get(), 1);
 				}
+			}
+		}
+		
+		if (player.hasActiveBuilding(BuildingTypeList.MANUFAKTUR)) {
+			int amount = calcAvailableExtraProducts(production);
+			if (amount > 0) {
+				int extra = amount == 5 ? 5: amount - 1;
+				player.addGulden(extra);
 			}
 		}
 		
@@ -519,7 +528,6 @@ public class GameController {
 	
 	// TODO: KL_LAGER "Lagern: +1 W.sorte"
 	// TODO: GR_LAGER "Lagern: +2 W.sorten"
-	// TODO: MANUFAKTUR "Aufs.: +0/1/2/3/5 D."
 	// TODO: WERFT "1 eigenes Schiff"
 
 }
