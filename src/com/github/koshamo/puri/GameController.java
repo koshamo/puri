@@ -125,16 +125,21 @@ public class GameController {
 
 	private void handleBuilder(boolean privilege) {
 		Player currentPlayer = players.get(activePlayerIndex);
+		int activeQuarries = currentPlayer.activeQuarries();
 		BuildingsDialog dialog = new BuildingsDialog(
 				gameConstants, 
 				privilege, 
 				currentPlayer.availableGulden(), 
-				currentPlayer.ownedBuildings());
+				currentPlayer.ownedBuildings(),
+				activeQuarries);
 		Optional<BuildingTypeList> building = dialog.showAndWait();
 		
 		if (building.isPresent()) {
 			BuildingTypeList type = building.get();
 			int cost = privilege ? type.getCost() - 1 : type.getCost();
+			cost = activeQuarries > Integer.valueOf(type.getVictoryPoints()).intValue() 
+					? cost - Integer.valueOf(type.getVictoryPoints()).intValue() 
+					: cost - activeQuarries;
 			currentPlayer.purchaseBuilding(type, cost);
 			if (currentPlayer.isBuildingSpaceFull())
 				gameEnd = true;
