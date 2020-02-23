@@ -31,6 +31,15 @@ import javafx.scene.layout.VBox;
 		update();
 	}
 
+	public int activeQuarries() {
+		int quarries = 0;
+		for (PlantationField field : plantations)
+			if (field.type() == PlantationType.QUARRY
+					&& field.state() == State.ACTIVE)
+				quarries++;
+		return quarries;
+	}
+	
 	public void addPlantation(PlantationType type) {
 		if (!plantations.get(11).type().equals(PlantationType.NONE))
 			return;
@@ -194,5 +203,5 @@ import javafx.scene.layout.VBox;
 		});
 		update();
 	}
-	
+
 }
