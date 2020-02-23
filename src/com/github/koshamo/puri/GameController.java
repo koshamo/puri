@@ -14,6 +14,10 @@ import com.github.koshamo.puri.ui.controls.board.BuildingsDialog;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+
 public class GameController {
 
 	private final StartupConstants gameConstants;
@@ -149,9 +153,23 @@ public class GameController {
 }
 
 	private void handleSettler(boolean privilege) {
+		if (players.get(activePlayerIndex).hasActiveBuilding(BuildingTypeList.HAZIENDA))
+			handleHazienda();
 		gameBoard.activateSettler(privilege);
 	}
 	
+	private void handleHazienda() {
+		Alert dialog = new Alert(AlertType.CONFIRMATION, 
+				players.get(activePlayerIndex).name() + ": zusätzliche Plantage ziehen?", 
+				ButtonType.YES, ButtonType.NO);
+		Optional<ButtonType> extra = dialog.showAndWait();
+		
+		if (extra.isPresent() && extra.get() == ButtonType.YES) {
+			PlantationType type = gameBoard.drawPlantation();
+			players.get(activePlayerIndex).addPlantation(type);
+		}
+	}
+
 	public void selectPlantation(PlantationType type ) {
 		Player currentPlayer = players.get(activePlayerIndex);
 		currentPlayer.addPlantation(type);
@@ -476,7 +494,6 @@ public class GameController {
 		gameBoard.moveProductBackToPool(toReduce, quantity);
 	}
 	
-	// TODO: HAZIENDA "Sied.: +1 Plantage"
 	// TODO: BAUHUETTE "Sied.: Steinbruch?"
 	// TODO: KL_LAGER "Lagern: +1 W.sorte"
 	// TODO: HOSPIZ "Sied.: +1 Kolonist"

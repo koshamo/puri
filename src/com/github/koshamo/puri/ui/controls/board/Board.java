@@ -220,6 +220,10 @@ public class Board extends Region {
 		}
 		return false;
 	}
+
+	public PlantationType drawPlantation() {
+		return plantations.drawPlantation();
+	}
 	
 	private void clearShip(GoodsShip ship) {
 		if (ship.storageLeft() == 0) {
@@ -616,6 +620,5 @@ public class Board extends Region {
 		vbox.getChildren().addAll(lblPlantations, plantations);
 		return vbox;
 	}
-
 
 }

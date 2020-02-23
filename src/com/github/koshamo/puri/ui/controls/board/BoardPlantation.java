@@ -60,18 +60,30 @@ import javafx.scene.control.Skin;
 		update();
 	}
 	
+	public PlantationType drawPlantation() {
+		if (plantations.size() == 0)
+			refreshDrawingPile();
+		if (plantations.size() > 0)
+			return plantations.remove(0);
+		return PlantationType.NONE;
+	}
+	
 	private void updatePlantations() {
 		toDraw = new PlantationType[numPlayers + 1];
 		
 		for (int i = 0; i < toDraw.length; i++) {
-			if (plantations.size() == 0) {
-				if (usedPlantations.size() == 0)
-					return;
-				plantations.addAll(usedPlantations);
-				usedPlantations.clear();
-				ListUtils.generateRandomList(plantations);
-			}
+			refreshDrawingPile();
 			toDraw[i] = plantations.remove(0);
+		}
+	}
+
+	private void refreshDrawingPile() {
+		if (plantations.size() == 0) {
+			if (usedPlantations.size() == 0)
+				return;
+			plantations.addAll(usedPlantations);
+			usedPlantations.clear();
+			ListUtils.generateRandomList(plantations);
 		}
 	}
 
