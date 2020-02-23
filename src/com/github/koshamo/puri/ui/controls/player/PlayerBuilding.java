@@ -88,6 +88,13 @@ import javafx.scene.layout.VBox;
 		cancelDragging();
 	}
 	
+	public boolean hasActiveBuilding(BuildingTypeList type) {
+		for (BuildingField field : buildings)
+			if (field.type() == type && field.state() == State.ACTIVE)
+				return true;
+		return false;
+	}
+	
 	public int distributeColonists() {
 		int usedColonists = 0;
 		for (BuildingField field : buildings) {
