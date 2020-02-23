@@ -599,7 +599,7 @@ public class Board extends Region {
 		Label lblBuildings = new Label("Gebäude");
 		BuildingsButton btnBuilding = new BuildingsButton();
 		btnBuilding.setOnMouseClicked(ev -> {
-			BuildingsDialog dialog = new BuildingsDialog(gameConstants, false, 10, new LinkedList<BuildingTypeList>());
+			BuildingsDialog dialog = new BuildingsDialog(gameConstants, false, 10, new LinkedList<BuildingTypeList>(), 0);
 			dialog.showAndWait();
 			});
 		vbox.getChildren().addAll(lblBuildings, btnBuilding);
