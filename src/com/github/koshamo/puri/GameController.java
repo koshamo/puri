@@ -176,6 +176,10 @@ public class GameController {
 	public void selectPlantation(PlantationType type ) {
 		Player currentPlayer = players.get(activePlayerIndex);
 		currentPlayer.addPlantation(type);
+		if (currentPlayer.hasActiveBuilding(BuildingTypeList.HOSPIZ)) {
+			currentPlayer.addColonistToPlantation(type);
+			gameBoard.removeColonist();
+		}
 		if (activePlayerCount == NUM_PLAYERS - 1)
 			gameBoard.refreshPlantations();
 		nextPlayerActive();
@@ -498,7 +502,6 @@ public class GameController {
 	}
 	
 	// TODO: KL_LAGER "Lagern: +1 W.sorte"
-	// TODO: HOSPIZ "Sied.: +1 Kolonist"
 	// TODO: KONTOR "Verk.: gleiche Ware"
 	// TODO: GR_LAGER "Lagern: +2 W.sorten"
 	// TODO: MANUFAKTUR "Aufs.: +0/1/2/3/5 D."

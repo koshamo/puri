@@ -67,6 +67,11 @@ public class Board extends Region {
 		plantations.refreshPlantations();
 	}
 	
+	public void removeColonist() {
+		if (availColonists.quantity() > 0)
+			availColonists.sub(1);
+	}
+	
 	public int dischargeColonists() {
 		if (availColonists.quantity() > 0)
 			availColonists.sub(1);

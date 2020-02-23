@@ -89,6 +89,14 @@ import javafx.scene.layout.VBox;
 		return usedColonists;
 	}
 	
+	public void addColonistToPlantation(PlantationType type) {
+		for (PlantationField field : plantations)
+			if (field.type() == type && field.state() == State.INACTIVE) {
+				field.activate();
+				return;
+			}
+	}
+	
 	private void updateDragging() {
 		for (PlantationField field : plantations) {
 			if (field.type() != PlantationType.NONE) {

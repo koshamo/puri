@@ -115,6 +115,10 @@ public class Player extends Region {
 		stats.addColonists(num);
 	}
 
+	public void addColonistToPlantation(PlantationType type) {
+		plantations.addColonistToPlantation(type);
+	}
+
 	public int calcEmptyPlaces() {
 		return buildings.calcEmptyPlaces();
 	}
