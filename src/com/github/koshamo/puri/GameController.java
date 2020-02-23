@@ -155,7 +155,10 @@ public class GameController {
 	private void handleSettler(boolean privilege) {
 		if (players.get(activePlayerIndex).hasActiveBuilding(BuildingTypeList.HAZIENDA))
 			handleHazienda();
-		gameBoard.activateSettler(privilege);
+		
+		boolean canQuarry = privilege 
+				|| players.get(activePlayerIndex).hasActiveBuilding(BuildingTypeList.BAUHUETTE);
+		gameBoard.activateSettler(canQuarry);
 	}
 	
 	private void handleHazienda() {
@@ -494,7 +497,6 @@ public class GameController {
 		gameBoard.moveProductBackToPool(toReduce, quantity);
 	}
 	
-	// TODO: BAUHUETTE "Sied.: Steinbruch?"
 	// TODO: KL_LAGER "Lagern: +1 W.sorte"
 	// TODO: HOSPIZ "Sied.: +1 Kolonist"
 	// TODO: KONTOR "Verk.: gleiche Ware"
