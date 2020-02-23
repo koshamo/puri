@@ -420,6 +420,10 @@ public class GameController {
 			}
 
 		}
+		if (player.hasActiveBuilding(BuildingTypeList.HAFEN)) {
+			player.addVictoryPoints(1);
+			gameBoard.reduceVictoryPoints(1);
+		}
 		captainIndex++;
 		loopCaptain(0);
 	}
@@ -441,6 +445,13 @@ public class GameController {
 	
 	public void shippingDone() {
 		gameBoard.deactivateCaptainDnD();
+		
+		Player player = players.get(captainIndex);
+		if (player.hasActiveBuilding(BuildingTypeList.HAFEN)) {
+			player.addVictoryPoints(1);
+			gameBoard.reduceVictoryPoints(1);
+		}
+
 		captainIndex++;
 		loopCaptain(0);
 	}
@@ -509,7 +520,6 @@ public class GameController {
 	// TODO: KONTOR "Verk.: gleiche Ware"
 	// TODO: GR_LAGER "Lagern: +2 W.sorten"
 	// TODO: MANUFAKTUR "Aufs.: +0/1/2/3/5 D."
-	// TODO: HAFEN "+1 SP / Lieferung"
 	// TODO: WERFT "1 eigenes Schiff"
 
 }
