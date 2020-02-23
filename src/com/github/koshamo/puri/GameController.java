@@ -167,7 +167,7 @@ public class GameController {
 	
 	private void handleHazienda() {
 		Alert dialog = new Alert(AlertType.CONFIRMATION, 
-				players.get(activePlayerIndex).name() + ": zusätzliche Plantage ziehen?", 
+				players.get(activePlayerIndex).name() + "\n\nHazienda: zusätzliche Plantage ziehen?", 
 				ButtonType.YES, ButtonType.NO);
 		Optional<ButtonType> extra = dialog.showAndWait();
 		
