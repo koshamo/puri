@@ -145,6 +145,10 @@ public class GameController {
 					? cost - Integer.valueOf(type.getVictoryPoints()).intValue() 
 					: cost - activeQuarries;
 			currentPlayer.purchaseBuilding(type, cost);
+			if (currentPlayer.hasActiveBuilding(BuildingTypeList.UNIVERSITAET)) {
+				currentPlayer.addColonistToBuilding(type);
+				gameBoard.removeColonist();
+			}
 			if (currentPlayer.isBuildingSpaceFull())
 				gameEnd = true;
 		}
@@ -505,7 +509,6 @@ public class GameController {
 	// TODO: KONTOR "Verk.: gleiche Ware"
 	// TODO: GR_LAGER "Lagern: +2 W.sorten"
 	// TODO: MANUFAKTUR "Aufs.: +0/1/2/3/5 D."
-	// TODO: UNIVERSITAET "Bau: +1 Kolonist"
 	// TODO: HAFEN "+1 SP / Lieferung"
 	// TODO: WERFT "1 eigenes Schiff"
 

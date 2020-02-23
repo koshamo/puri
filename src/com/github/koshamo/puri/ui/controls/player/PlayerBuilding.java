@@ -109,6 +109,14 @@ import javafx.scene.layout.VBox;
 		return usedColonists;
 	}
 
+	public void addColonistToBuilding(BuildingTypeList type) {
+		for (BuildingField field : buildings)
+			if (field.type() == type && field.state() == State.INACTIVE) {
+				field.addColonist();
+				return;
+			}
+	}
+
 	private void updateDragging() {
 		for (BuildingField field : buildings) {
 			if (field.type() != BuildingTypeList.NONE) {
