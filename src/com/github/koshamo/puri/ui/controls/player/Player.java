@@ -48,6 +48,10 @@ public class Player extends Region {
 		this.controller = controller;
 	}
 	
+	public String name() {
+		return stats.name();
+	}
+	
 	public void activateGouvernor() {
 		stats.activateGouvernor();
 		activateRole();

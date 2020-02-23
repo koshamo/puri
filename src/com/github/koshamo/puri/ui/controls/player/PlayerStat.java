@@ -63,6 +63,10 @@ import javafx.scene.text.FontWeight;
 		
 		this.getChildren().add(drawComponent());
 	}
+	
+	public String name() {
+		return name;
+	}
 
 	public void addVictoryPoints(int num) {
 		victoryPoints.set(victoryPoints.get() + num);
@@ -230,7 +234,7 @@ import javafx.scene.text.FontWeight;
 	private void chooseProductsToKeep() {
 		int[] products = possessedProducts();
 
-		ProductDialog dialog = new ProductDialog(products, State.STORAGE);
+		ProductDialog dialog = new ProductDialog(name, products, State.STORAGE);
 		Optional<PlantationType> toKeep = dialog.showAndWait();
 		
 		if (toKeep.isPresent()) {

@@ -213,7 +213,9 @@ public class GameController {
 				gameBoard.removeProduction(type, 1);
 			}
 			else if (availableExtras > 1) {
-				ProductDialog dialog = new ProductDialog(possibleExtras, State.PRODUCTION);
+				ProductDialog dialog = 
+						new ProductDialog(players.get(activePlayerIndex).name(), 
+								possibleExtras, State.PRODUCTION);
 				Optional<PlantationType> product = dialog.showAndWait();
 				if (product.isPresent()) {
 					players.get(activePlayerIndex).addProduction(product.get(), 1);

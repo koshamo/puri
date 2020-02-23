@@ -15,11 +15,13 @@ public class ProductDialog extends Dialog<PlantationType> {
 
 	public enum State {PRODUCTION, STORAGE}
 	
+	private final String name;
 	private final int[] products;
 	private ToggleGroup group;
 	private final State state;
 
-	public ProductDialog(int[] products, State state) {
+	public ProductDialog(String name, int[] products, State state) {
+		this.name = name;
 		this.products = products;
 		this.state = state;
 		drawDialog();
@@ -38,9 +40,9 @@ public class ProductDialog extends Dialog<PlantationType> {
 
 	private void drawHeaderPane() {
 		if (state == State.PRODUCTION)
-			this.getDialogPane().setHeaderText("Wähle Ware als Privileg");
+			this.getDialogPane().setHeaderText(name + ": Wähle Ware als Privileg");
 		else
-			this.getDialogPane().setHeaderText("Wähle Ware zur Lagerung");
+			this.getDialogPane().setHeaderText(name + ": Wähle Ware zur Lagerung");
 	}
 
 	private void drawButtonPane() {
