@@ -420,7 +420,8 @@ public class Board extends Region {
 		    		&& market.hasEmptyPlace()) {
 		    	String[] product = ev.getDragboard().getString().split(" ");
 		    	PlantationType type = PlantationType.getByString(product[0]);
-		    	if (!market.hasProduct(type))
+		    	if (!market.hasProduct(type) 
+		    			|| product[1].equals(BuildingTypeList.KONTOR.toString()))
 		    		ev.acceptTransferModes(TransferMode.MOVE);
 		    }
 		    ev.consume();

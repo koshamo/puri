@@ -332,7 +332,13 @@ import javafx.scene.text.FontWeight;
 				Dragboard db = bar.startDragAndDrop(TransferMode.MOVE);
 				// TODO: db.setDragView(IMAGE);
 				ClipboardContent cc = new ClipboardContent();
-				cc.putString(type.toString() + " " + bar.quantity());
+				String msgAdd = "";
+				if (dnd == ProductDnD.CAPTAIN)
+					msgAdd = String.valueOf(bar.quantity());
+				else if (dnd == ProductDnD.TRADER 
+						&& player.hasActiveBuilding(BuildingTypeList.KONTOR))
+					msgAdd = BuildingTypeList.KONTOR.toString();
+				cc.putString(type.toString() + " " + msgAdd);
 				db.setContent(cc);
 				ev.consume();
 			});

@@ -482,7 +482,8 @@ public class GameController {
 					sellable = true;
 				}
 			}
-			if (sellable) {
+			if (sellable 
+					|| currentPlayer.hasActiveBuilding(BuildingTypeList.KONTOR)) {
 				gameBoard.activateTraderDnD(privilege);
 				currentPlayer.activateTrader();
 			}
@@ -517,7 +518,6 @@ public class GameController {
 	}
 	
 	// TODO: KL_LAGER "Lagern: +1 W.sorte"
-	// TODO: KONTOR "Verk.: gleiche Ware"
 	// TODO: GR_LAGER "Lagern: +2 W.sorten"
 	// TODO: MANUFAKTUR "Aufs.: +0/1/2/3/5 D."
 	// TODO: WERFT "1 eigenes Schiff"
