@@ -245,11 +245,11 @@ public class GameController {
 			else if (availableExtras > 1) {
 				ProductDialog dialog = 
 						new ProductDialog(player.name(), 
-								possibleExtras, State.PRODUCTION);
-				Optional<PlantationType> product = dialog.showAndWait();
+								possibleExtras, State.PRODUCTION, 0);
+				Optional<List<PlantationType>> product = dialog.showAndWait();
 				if (product.isPresent()) {
-					player.addProduction(product.get(), 1);
-					gameBoard.removeProduction(product.get(), 1);
+					player.addProduction(product.get().get(0), 1);
+					gameBoard.removeProduction(product.get().get(0), 1);
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 package com.github.koshamo.puri.ui.controls.player;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.github.koshamo.puri.setup.BuildingTypeList;
@@ -173,7 +174,9 @@ import javafx.scene.text.FontWeight;
 		if (cnt == 0)
 			return;
 		if (cnt == 1) {
-			reduceProductsToCapacity();
+			if (!player.hasActiveBuilding(BuildingTypeList.KL_LAGER)
+					&& !player.hasActiveBuilding(BuildingTypeList.GR_LAGER))
+				reduceProductsToCapacity();
 			return;
 		}
 		chooseProductsToKeep();
@@ -234,33 +237,36 @@ import javafx.scene.text.FontWeight;
 	private void chooseProductsToKeep() {
 		int[] products = possessedProducts();
 
-		ProductDialog dialog = new ProductDialog(name, products, State.STORAGE);
-		Optional<PlantationType> toKeep = dialog.showAndWait();
+		int storage = 0;
+		if (player.hasActiveBuilding(BuildingTypeList.KL_LAGER))
+			storage += 1;
+		if (player.hasActiveBuilding(BuildingTypeList.GR_LAGER))
+			storage += 2;
+		ProductDialog dialog = new ProductDialog(name, products, State.STORAGE, storage);
+		Optional<List<PlantationType>> toKeep = dialog.showAndWait();
 		
 		if (toKeep.isPresent()) {
 			clearStorageExcept(toKeep.get());
 		}
 	}
 
-	private void clearStorageExcept(PlantationType type) {
-		removeProduct(PlantationType.INDIGO, type);
-		removeProduct(PlantationType.SUGAR, type);
-		removeProduct(PlantationType.CORN, type);
-		removeProduct(PlantationType.TOBACCO, type);
-		removeProduct(PlantationType.COFFEE, type);
+	private void clearStorageExcept(List<PlantationType> type) {
+		PlantationType[] types = PlantationType.values();
+
+		for (int i = 1; i < 6; i++) {
+			int index = type.indexOf(types[i]);
+			if (index < 0)
+				removeProduct(types[i], 0);
+			else if (index == 0)
+				removeProduct(types[i], 1);
+		}
 	}
 
-	private void removeProduct(PlantationType toReduce, PlantationType toKeep) {
+	private void removeProduct(PlantationType toReduce, int toKeep) {
 		QuantityBar bar = selectProductComponent(toReduce);
 		
-		if (toReduce == toKeep) {
-			player.dropProduct(toReduce, bar.quantity() - 1);
-			bar.changeQuantity(1);
-		}
-		else {
-			player.dropProduct(toReduce, bar.quantity());
-			bar.changeQuantity(0);
-		}
+		player.dropProduct(toReduce, bar.quantity() - toKeep);
+		bar.changeQuantity(toKeep);
 	}
 
 	private int[] possessedProducts() {
