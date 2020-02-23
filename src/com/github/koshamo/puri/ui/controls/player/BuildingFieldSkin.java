@@ -80,10 +80,10 @@ import javafx.scene.text.Text;
 	private static void addVP(BuildingTypeList type, Pane pane) {
 		if (type != BuildingTypeList.NONE) {
 			Circle circle = new Circle(10, PrColors.DEFAULT_BGD.getColor());
-			circle.relocate(WIDTH - 20, 40);
+			circle.relocate(type.getSize() * WIDTH - 23, 35);
 
 			Text vp = new Text(String.valueOf(type.getVictoryPoints()));
-			vp.relocate(WIDTH - 15, 42);
+			vp.relocate(type.getSize() * WIDTH - 18, 37);
 
 			pane.getChildren().addAll(circle, vp);
 		}
