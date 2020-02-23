@@ -263,8 +263,11 @@ public class Board extends Region {
 		    		&& ev.getDragboard().hasString()
 		    		&& smallGoodsShip.storageLeft() > 0) {
 		    	String[] product = ev.getDragboard().getString().split(" ");
-		    	if (smallGoodsShip.type() == PlantationType.NONE
-		    			|| smallGoodsShip.type().toString().equals(product[0]))
+		    	if (smallGoodsShip.type().toString().equals(product[0])
+		    			|| smallGoodsShip.type() == PlantationType.NONE
+		    			&& !mediumGoodsShip.type().toString().equals(product[0])
+		    			&& !largeGoodsShip.type().toString().equals(product[0])
+		    			)
 		    		ev.acceptTransferModes(TransferMode.MOVE);
 		    }
 		    ev.consume();
@@ -306,8 +309,11 @@ public class Board extends Region {
 		    		&& ev.getDragboard().hasString()
 		    		&& mediumGoodsShip.storageLeft() > 0) {
 		    	String[] product = ev.getDragboard().getString().split(" ");
-		    	if (mediumGoodsShip.type() == PlantationType.NONE
-		    			|| mediumGoodsShip.type().toString().equals(product[0]))
+		    	if (mediumGoodsShip.type().toString().equals(product[0])
+		    			|| mediumGoodsShip.type() == PlantationType.NONE
+		    			&& !smallGoodsShip.type().toString().equals(product[0])
+		    			&& !largeGoodsShip.type().toString().equals(product[0])
+		    			)
 		    		ev.acceptTransferModes(TransferMode.MOVE);
 		    }
 		    ev.consume();
@@ -349,8 +355,11 @@ public class Board extends Region {
 		    		&& ev.getDragboard().hasString()
 		    		&& largeGoodsShip.storageLeft() > 0) {
 		    	String[] product = ev.getDragboard().getString().split(" ");
-		    	if (largeGoodsShip.type() == PlantationType.NONE
-		    			|| largeGoodsShip.type().toString().equals(product[0]))
+		    	if (largeGoodsShip.type().toString().equals(product[0])
+		    			|| largeGoodsShip.type() == PlantationType.NONE
+		    			&& !smallGoodsShip.type().toString().equals(product[0])
+		    			&& !mediumGoodsShip.type().toString().equals(product[0])
+		    			)
 		    		ev.acceptTransferModes(TransferMode.MOVE);
 		    }
 		    ev.consume();
