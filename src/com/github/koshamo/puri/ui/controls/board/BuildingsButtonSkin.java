@@ -26,9 +26,9 @@ import javafx.scene.text.Text;
 	}
 
 	private static void drawButton(StackPane stack) {
-		Rectangle border = new Rectangle(112, 95, Color.BLACK);
-		Rectangle rect = new Rectangle(110, 93, PrColors.BUILDING.getColor());
-		Text text = new Text("anschauen\nund\nkaufen");
+		Rectangle border = new Rectangle(102, 52, Color.BLACK);
+		Rectangle rect = new Rectangle(100, 50, PrColors.BUILDING.getColor());
+		Text text = new Text("anschauen");
 		stack.getChildren().addAll(border, rect, text);
 	}
 }

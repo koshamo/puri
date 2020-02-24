@@ -43,6 +43,7 @@ public class Board extends Region {
 	private GoodsShip smallGoodsShip;
 	private GoodsShip mediumGoodsShip;
 	private GoodsShip largeGoodsShip;
+	private GoodsShip werft;
 	private Market market;
 	private BoardPlantation plantations;
 
@@ -228,6 +229,14 @@ public class Board extends Region {
 
 	public PlantationType drawPlantation() {
 		return plantations.drawPlantation();
+	}
+	
+	public void activateWerft() {
+		werft.setVisible(true);
+	}
+	
+	public void deactivateWerft() {
+		werft.setVisible(false);
 	}
 	
 	private void clearShip(GoodsShip ship) {
@@ -482,7 +491,7 @@ public class Board extends Region {
 		vbox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.MEDIUM, new Insets(3))));
 	
 		vbox.getChildren().addAll(
-				initPlantations(),
+				initPlantationsAndButton(),
 				initColonistsAndVictoryPoints(),
 				initGoodsShipsAndProducts());
 		
@@ -552,14 +561,32 @@ public class Board extends Region {
 	private Node initProductsAndMarket() {
 		VBox vbox = new VBox(3);
 		
-		vbox.getChildren().addAll(initProducts(), initMarketAndButton());
+		vbox.getChildren().addAll(initProducts(), initMarketAndWerft());
 		return vbox;
 	}
 
-	private Node initMarketAndButton() {
+	private Node initPlantationsAndButton() {
 		HBox hbox = new HBox(20);
-		hbox.getChildren().addAll(initMarket(), initBuildings());
+		hbox.getChildren().addAll(initPlantations(), initBuildings());
 		return hbox;
+	}
+
+	private Node initMarketAndWerft() {
+		HBox hbox = new HBox(20);
+		hbox.getChildren().addAll(initMarket(), initWerft());
+		return hbox;
+	}
+
+	private Node initWerft() {
+		VBox vbox = new VBox(3);
+		vbox.setPadding(new Insets(5));
+	
+		Label lblWerft = new Label("Werft");
+		werft = new GoodsShip(12);
+		deactivateWerft();
+		
+		vbox.getChildren().addAll(lblWerft, werft);
+		return vbox;
 	}
 
 	private Node initMarket() {
