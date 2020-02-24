@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.github.koshamo.puri.setup.BuildingType;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.State;
@@ -115,6 +116,46 @@ import javafx.scene.layout.VBox;
 				field.addColonist();
 				return;
 			}
+	}
+
+	public int victoryPoints() {
+		int vp = 0;
+		for (BuildingField field : buildings)
+			vp += field.type().getVictoryPoints();
+		return vp;
+	}
+	
+	public int smallProductionBuildings() {
+		int num = 0;
+		for (BuildingField field : buildings)
+			if (field.type().getType() == BuildingType.SMALL_PRODUCTION) 
+			num++;
+		return num;
+	}
+
+	public int largeProductionBuildings() {
+		int num = 0;
+		for (BuildingField field : buildings)
+			if (field.type().getType() == BuildingType.PRODUCTION) 
+				num++;
+		return num;
+	}
+	
+	public int numColonists() {
+		int num = 0;
+		for (BuildingField field : buildings)
+			num += field.colonists();
+		return num;
+		
+	}
+	
+	public int numNonProductionBuildings() {
+		int num = 0;
+		for (BuildingField field : buildings)
+			if (field.type().getType() == BuildingType.BUILDING
+				|| field.type().getType() == BuildingType.LARGE_BUILDING)
+				num++;
+		return num;
 	}
 
 	private void updateDragging() {
