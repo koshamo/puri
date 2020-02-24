@@ -92,11 +92,11 @@ import javafx.scene.text.Text;
 		stack.getChildren().addAll(rect, text);
 		
 		if (active && privilege) {
-			rect.setOnMouseClicked(ev -> {
+			stack.setOnMouseClicked(ev -> {
 				control.selectPlantation(PlantationType.QUARRY);
 			});
 		} else
-			rect.setOnMouseClicked(null);
+			stack.setOnMouseClicked(null);
 		
 		Tooltip tooltip = new Tooltip("verfügbare Steinbrüche");
 		Tooltip.install(stack, tooltip);
