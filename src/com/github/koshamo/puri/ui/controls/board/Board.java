@@ -105,8 +105,8 @@ public class Board extends Region {
 		bar.add(amount);
 	}
 	
-	public void activateCaptainDnD() {
-		updateCaptainDropping();
+	public void activateCaptainDnD(boolean werftVisible) {
+		updateCaptainDropping(werftVisible);
 	}
 
 	public void deactivateCaptainDnD() {
@@ -231,12 +231,12 @@ public class Board extends Region {
 		return plantations.drawPlantation();
 	}
 	
-	public void activateWerft() {
+	private void activateWerft() {
 		updateWerftDropping();
 		werft.setVisible(true);
 	}
 	
-	public void deactivateWerft() {
+	private void deactivateWerft() {
 		cancelWerftDropping();
 		werft.clear();
 		werft.setVisible(false);
@@ -263,10 +263,12 @@ public class Board extends Region {
 		market.clearProducts();
 	}
 
-	private void updateCaptainDropping() {
+	private void updateCaptainDropping(boolean werftVisible) {
 		updateSmallShipDropping();
 		updateMediumShipDropping();
 		updateLargeShipDropping();
+		if (werftVisible)
+			activateWerft();
 	}
 
 	private void updateSmallShipDropping() {
@@ -431,7 +433,7 @@ public class Board extends Region {
 		    	int playerAmount = Integer.valueOf(product[1]).intValue();
 		    	success = true;
 				ClipboardContent cc = new ClipboardContent();
-				cc.putString(String.valueOf(product[0] + " " + playerAmount + "WERFT"));
+				cc.putString(String.valueOf(product[0] + " " + playerAmount + " WERFT"));
 				db.setContent(cc);
 		    }
 		    ev.setDropCompleted(success);
@@ -443,6 +445,7 @@ public class Board extends Region {
 		cancelSmallShipDropping();
 		cancelMediumShipDropping();
 		cancelLargeShipDropping();
+		deactivateWerft();
 	}
 
 	private void cancelSmallShipDropping() {

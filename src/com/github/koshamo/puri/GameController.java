@@ -347,6 +347,8 @@ public class GameController {
 	private void handleCaptain() {
 		captainIndex = activePlayerIndex;
 		captainPrivilege = false;
+		for (Player p : players)
+			p.resetWerft();
 		loopCaptain(0);
 	}
 	
@@ -373,15 +375,19 @@ public class GameController {
 	}
 
 	private void shipProducts(int noSellCount) {
+		Player player = players.get(captainIndex);
 		int shippableProducts = canShipProducts();
 		
 		if (shippableProducts == 0) {
 			captainIndex++;
 			loopCaptain(noSellCount + 1);
-		}
-		if (shippableProducts == 1) 
+		} else if (shippableProducts == 1
+				&& (!player.hasActiveBuilding(BuildingTypeList.WERFT))
+				|| !player.hasUsableWerft())
 			autoShipProducts();
-		if (shippableProducts > 1) 
+		else if (shippableProducts > 1
+				|| player.hasActiveBuilding(BuildingTypeList.WERFT)
+				&& player.hasUsableWerft()) 
 			playerShipProducts();
 	}
 
@@ -448,7 +454,10 @@ public class GameController {
 				players.get(i).deactivatePlayer();
 		}
 
-		gameBoard.activateCaptainDnD();
+		Player player = players.get(captainIndex);
+		gameBoard.activateCaptainDnD(
+				player.hasActiveBuilding(BuildingTypeList.WERFT) 
+				&& player.hasUsableWerft());
 		players.get(captainIndex).shipProducts();
 	}
 	
@@ -525,7 +534,4 @@ public class GameController {
 	public void dropProduct(PlantationType toReduce, int quantity) {
 		gameBoard.moveProductBackToPool(toReduce, quantity);
 	}
-	
-	// TODO: WERFT "1 eigenes Schiff"
-
 }

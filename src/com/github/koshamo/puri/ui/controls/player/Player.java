@@ -26,6 +26,8 @@ public class Player extends Region {
 	private final PlayerBuilding buildings;
 	private final Color color;
 	
+	private boolean usableWerft;
+	
 	public Player(String name, PrColors color) {
 		this.color = color.getColor();
 		stats = new PlayerStat(this, name, color);
@@ -229,5 +231,17 @@ public class Player extends Region {
 
 	public void addColonistToBuilding(BuildingTypeList type) {
 		buildings.addColonistToBuilding(type);
+	}
+	
+	public void resetWerft() {
+		usableWerft = true;
+	}
+	
+	public boolean hasUsableWerft() {
+		return usableWerft;
+	}
+	
+	public void useWerft() {
+		usableWerft = false;
 	}
 }

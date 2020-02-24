@@ -372,6 +372,8 @@ import javafx.scene.text.FontWeight;
 					if (dnd == ProductDnD.CAPTAIN) {
 						bar.sub(delivered);
 						victoryPoints.set(victoryPoints.get() + delivered);
+						if (shipped.length == 3)
+							player.useWerft();
 						player.shippingDone();
 					} else {
 						int extra = 0;
