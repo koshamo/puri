@@ -247,11 +247,16 @@ import javafx.scene.text.FontWeight;
 			storage += 2;
 		
 		// auto skip removal if all products are storable
-		if (products.length == storage + 1) {
-			for (int amount : products) 
-				if (amount == 1)
-					return;
+		int cnt = 0;
+		boolean one = false;
+		for (int amount : products) { 
+			if (amount == 1)
+				one = true;
+			if (amount > 0)
+				cnt++;
 		}
+		if (one && cnt == storage + 1)
+			return;
 		
 		ProductDialog dialog = new ProductDialog(name, products, State.STORAGE, storage);
 		Optional<List<PlantationType>> toKeep = dialog.showAndWait();
