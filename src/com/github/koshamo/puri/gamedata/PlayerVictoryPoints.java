@@ -7,14 +7,16 @@ public class PlayerVictoryPoints {
 	private final int shippedVP;
 	private final int buildingVP;
 	private final int specialVP;
+	private final int products;
 	
-	public PlayerVictoryPoints(String name, String ki, int shippedVP, int buildingVP, int specialVP) {
+	public PlayerVictoryPoints(String name, String ki, int shippedVP, int buildingVP, int specialVP, int products) {
 		super();
 		this.name = name;
 		this.ki = ki;
 		this.shippedVP = shippedVP;
 		this.buildingVP = buildingVP;
 		this.specialVP = specialVP;
+		this.products = products;
 	}
 
 	public String getName() {
@@ -39,5 +41,9 @@ public class PlayerVictoryPoints {
 
 	public String getSpecialVP() {
 		return String.valueOf(specialVP);
+	}
+	
+	public int getProducts() {
+		return products;
 	}
 }

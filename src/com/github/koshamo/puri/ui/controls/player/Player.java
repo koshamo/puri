@@ -277,6 +277,9 @@ public class Player extends Region {
 			special += buildings.numNonProductionBuildings(); 
 		}
 		
-		return new PlayerVictoryPoints(stats.name(), null, shippedVP, buildingVP, special);
+		int productsAndGulden = stats.sumProductsAndGulden();
+		
+		return new PlayerVictoryPoints(
+				stats.name(), null, shippedVP, buildingVP, special, productsAndGulden);
 	}
 }

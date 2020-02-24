@@ -202,6 +202,15 @@ import javafx.scene.text.FontWeight;
 		return victoryPoints.get();
 	}
 	
+	public int sumProductsAndGulden() {
+		return currentGulden() 
+				+ qbIndigo.quantity()
+				+ qbSugar.quantity()
+				+ qbCorn.quantity()
+				+ qbTobacco.quantity()
+				+ qbCoffee.quantity();
+	}
+	
 	private int countPossessedProducts() {
 		int cnt = 0;
 		if (qbIndigo.quantity() > 0)

@@ -26,13 +26,20 @@ public class FinalsDialog extends Dialog<ButtonType> {
 		 playerFinals = FXCollections.observableArrayList();
 		 for (PlayerVictoryPoints pvp : playerStats)
 			 playerFinals.add(pvp);
-		 playerFinals.sort((p1, p2) -> {
-			 return Integer.valueOf(p2.getTotalVP()).
-					 compareTo(Integer.valueOf(p1.getTotalVP()));
-		 });
+		 sortPlayers();
 		 this.turnCount = turnCount;
 		 
 		 drawDialog();
+	}
+
+	private void sortPlayers() {
+		playerFinals.sort((p1, p2) -> {
+			 int cmp = Integer.valueOf(p2.getTotalVP()).
+					 compareTo(Integer.valueOf(p1.getTotalVP()));
+			 if (cmp == 0)
+				 return Integer.valueOf(p2.getProducts()).compareTo(Integer.valueOf(p1.getProducts()));
+			 return cmp;
+		 });
 	}
 
 	private void drawDialog() {
