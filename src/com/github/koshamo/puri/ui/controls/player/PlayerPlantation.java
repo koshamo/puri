@@ -97,6 +97,22 @@ import javafx.scene.layout.VBox;
 			}
 	}
 	
+	public int numPlantations() {
+		int num = 0;
+		for (PlantationField field : plantations)
+			if (field.type() != PlantationType.NONE)
+				num++;
+		return num;
+	}
+	
+	public int numColonists() {
+		int num = 0;
+		for (PlantationField field : plantations)
+			if (field.state() == State.ACTIVE)
+				num++;
+		return num;
+	}
+	
 	private void updateDragging() {
 		for (PlantationField field : plantations) {
 			if (field.type() != PlantationType.NONE) {
