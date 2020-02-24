@@ -82,13 +82,12 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 			Platform.runLater(() -> {
 				if (newValue.intValue() >= 0) {
 					BuildingsModel building = gameConstants.availableBuildings.get(newValue.intValue());
-					int maxCost = privilege ? availableGulden + 1 : availableGulden;
-					maxCost = quarries > Integer.valueOf(building.getVictoryPoints()).intValue() 
-							? maxCost + Integer.valueOf(building.getVictoryPoints()).intValue() 
-							: maxCost + quarries;
+					int maxCost = calcMaxCost(building);
+					
 					if (Integer.valueOf(building.getCost()).intValue() > maxCost
 							|| building.getLeft().equals("0")
-							|| ownedBuildings.contains(building.type()))
+							|| ownedBuildings.contains(building.type())
+							|| building.type().getSize() > emptySpace())
 						table.getSelectionModel().clearSelection();
 				}
 			});
@@ -112,16 +111,14 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 								setText(item);
 								
 								BuildingsModel building = row.getItem();
-								int maxCost = privilege ? availableGulden + 1 : availableGulden;
-								maxCost = quarries > Integer.valueOf(building.getVictoryPoints()).intValue() 
-										? maxCost + Integer.valueOf(building.getVictoryPoints()).intValue() 
-										: maxCost + quarries;
-
+								int maxCost = calcMaxCost(building);
+								
 								if (Integer.valueOf(building.getCost()).intValue() > maxCost)
 									setTextFill(Color.LIGHTSALMON);
 								
 								if (building.getLeft().equals("0")
-										|| ownedBuildings.contains(building.type()))
+										|| ownedBuildings.contains(building.type())
+										|| building.type().getSize() > emptySpace())
 									setTextFill(Color.LIGHTGREY);
 							}
 						}
@@ -132,6 +129,23 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 		};
 	}
 
+	/*private*/ int calcMaxCost(BuildingsModel building) {
+		int maxCost = privilege ? availableGulden + 1 : availableGulden;
+		maxCost = quarries > Integer.valueOf(building.getVictoryPoints()).intValue() 
+				? maxCost + Integer.valueOf(building.getVictoryPoints()).intValue() 
+				: maxCost + quarries;
+		return maxCost;
+	}
+	
+	/*private*/ int emptySpace() {
+		int space = 0;
+		for (BuildingTypeList type : ownedBuildings)
+			if (type != BuildingTypeList.NONE)
+				space += type.getSize();
+		
+		return 12 - space;
+	}
+	
 	private TableColumn<BuildingsModel, String> initiateNameCol() {
 		TableColumn<BuildingsModel, String> colName = new TableColumn<>();
 		colName.setText("Gebäude");
