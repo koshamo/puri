@@ -232,10 +232,13 @@ public class Board extends Region {
 	}
 	
 	public void activateWerft() {
+		updateWerftDropping();
 		werft.setVisible(true);
 	}
 	
 	public void deactivateWerft() {
+		cancelWerftDropping();
+		werft.clear();
 		werft.setVisible(false);
 	}
 	
@@ -404,6 +407,38 @@ public class Board extends Region {
 		});
 	}
 
+	private void updateWerftDropping() {
+		werft.setOnDragOver(ev -> {
+		    if (ev.getGestureSource() != werft 
+		    		&& ev.getDragboard().hasString()) {
+		    	ev.acceptTransferModes(TransferMode.MOVE);
+		    }
+		    ev.consume();
+		});
+		werft.setOnDragEntered(ev -> {
+			// TODO: show drop possible
+			ev.consume();
+		});
+		werft.setOnDragExited(ev -> {
+			// TODO: end show drop possible
+			ev.consume();
+		});
+		werft.setOnDragDropped(ev -> {
+		    Dragboard db = ev.getDragboard();
+		    boolean success = false;
+		    if (db.hasString()) {
+		    	String[] product = ev.getDragboard().getString().split(" ");
+		    	int playerAmount = Integer.valueOf(product[1]).intValue();
+		    	success = true;
+				ClipboardContent cc = new ClipboardContent();
+				cc.putString(String.valueOf(product[0] + " " + playerAmount + "WERFT"));
+				db.setContent(cc);
+		    }
+		    ev.setDropCompleted(success);
+		    ev.consume();
+		});
+	}
+	
 	private void cancelCaptainDropping() {
 		cancelSmallShipDropping();
 		cancelMediumShipDropping();
@@ -429,6 +464,13 @@ public class Board extends Region {
 		largeGoodsShip.setOnDragEntered(null);
 		largeGoodsShip.setOnDragExited(null);
 		largeGoodsShip.setOnDragDropped(null);
+	}
+
+	private void cancelWerftDropping() {
+		werft.setOnDragOver(null);
+		werft.setOnDragEntered(null);
+		werft.setOnDragExited(null);
+		werft.setOnDragDropped(null);
 	}
 
 	private void updateTraderDropping(boolean privilege) {
