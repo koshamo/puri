@@ -198,6 +198,10 @@ import javafx.scene.text.FontWeight;
 		cancelProductDragging();
 	}
 
+	public int victoryPoints() {
+		return victoryPoints.get();
+	}
+	
 	private int countPossessedProducts() {
 		int cnt = 0;
 		if (qbIndigo.quantity() > 0)

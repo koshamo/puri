@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.github.koshamo.puri.GameController;
+import com.github.koshamo.puri.gamedata.PlayerVictoryPoints;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
@@ -243,5 +244,39 @@ public class Player extends Region {
 	
 	public void useWerft() {
 		usableWerft = false;
+	}
+
+	public PlayerVictoryPoints calcVictoryPoints() {
+		int shippedVP = stats.victoryPoints();
+		int buildingVP = buildings.victoryPoints();
+		
+		int special = 0;
+		
+		if (hasActiveBuilding(BuildingTypeList.ZUNFTHALLE)) {
+			special += buildings.smallProductionBuildings();
+			special += 2 * buildings.largeProductionBuildings();
+		}
+		
+		if (hasActiveBuilding(BuildingTypeList.RESIDENZ)) {
+			int numPlantations = plantations.numPlantations();
+			if (numPlantations > 8)
+				special += numPlantations - 5;
+		}
+		
+		if (hasActiveBuilding(BuildingTypeList.FESTUNG)) {
+			int colonists = plantations.numColonists() 
+					+ buildings.numColonists(); 
+			special += colonists / 3;
+		}
+		
+		if (hasActiveBuilding(BuildingTypeList.ZOLLHAUS)) {
+			special += shippedVP / 4;
+		}
+		
+		if (hasActiveBuilding(BuildingTypeList.RATHAUS)) {
+			special += buildings.numNonProductionBuildings(); 
+		}
+		
+		return new PlayerVictoryPoints(stats.name(), null, shippedVP, buildingVP, special);
 	}
 }

@@ -1,12 +1,15 @@
 package com.github.koshamo.puri;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import com.github.koshamo.puri.gamedata.PlayerVictoryPoints;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.RoleType;
 import com.github.koshamo.puri.setup.StartupConstants;
+import com.github.koshamo.puri.ui.controls.FinalsDialog;
 import com.github.koshamo.puri.ui.controls.ProductDialog;
 import com.github.koshamo.puri.ui.controls.ProductDialog.State;
 import com.github.koshamo.puri.ui.controls.board.Board;
@@ -37,7 +40,7 @@ public class GameController {
 	private int captainIndex;
 	private boolean captainPrivilege;
 	
-	int turnCount = 0;
+	private int turnCount = 0;
 	
 	public GameController(StartupConstants gameConstants, List<Player> players, Board gameBoard, RoleBoard roleBoard) {
 		this.gameConstants = gameConstants;
@@ -99,7 +102,8 @@ public class GameController {
 		turnCount++;
 
 		if (gameEnd) {
-			// TODO: game is ended
+			List<PlayerVictoryPoints> finalStats = calcVictoryPoints();
+			displayFinals(finalStats);
 		}
 		else {
 			Player oldGov = players.remove(0);
@@ -113,7 +117,7 @@ public class GameController {
 			roleBoard.activate();
 		}
 	}
-	
+
 	private void handleRoleAction(boolean privilege) {
 		switch (activeRole) {
 		case BAUMEISTER: handleBuilder(privilege); break;
@@ -533,5 +537,18 @@ public class GameController {
 
 	public void dropProduct(PlantationType toReduce, int quantity) {
 		gameBoard.moveProductBackToPool(toReduce, quantity);
+	}
+	
+	private List<PlayerVictoryPoints> calcVictoryPoints() {
+		List <PlayerVictoryPoints> finalStats = new LinkedList<>();
+		
+		for (Player player : players)
+			finalStats.add(player.calcVictoryPoints());
+		return finalStats;
+	}
+
+	private void displayFinals(List<PlayerVictoryPoints> finalStats) {
+		FinalsDialog dialog = new FinalsDialog(finalStats, turnCount);
+		dialog.showAndWait();
 	}
 }
