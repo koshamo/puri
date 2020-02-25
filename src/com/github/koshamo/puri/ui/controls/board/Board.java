@@ -219,7 +219,7 @@ public class Board extends Region {
 		return market.getProducts();
 	}
 	
-	public boolean checkForMarketClearance() {
+	public boolean checkAndClearMarket() {
 		if (!market.hasEmptyPlace()) {
 			clearMarket();
 			return true;

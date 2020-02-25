@@ -527,7 +527,7 @@ public class GameController {
 	
 	public void handleTraderDone() {
 		gameBoard.deactivateTraderDnD();
-		if (gameBoard.checkForMarketClearance())
+		if (gameBoard.checkAndClearMarket())
 			handleTraderTurnDone();
 		else
 			nextPlayerActive();
