@@ -245,6 +245,10 @@ public class Player extends Region {
 	public void useWerft() {
 		usableWerft = false;
 	}
+	
+	public int numPlantations() {
+		return plantations.numPlantations();
+	}
 
 	public PlayerVictoryPoints calcVictoryPoints() {
 		int shippedVP = stats.victoryPoints();

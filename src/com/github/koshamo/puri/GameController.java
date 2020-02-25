@@ -161,11 +161,22 @@ public class GameController {
 }
 
 	private void handleSettler(boolean privilege) {
-		if (players.get(activePlayerIndex).hasActiveBuilding(BuildingTypeList.HAZIENDA))
+		Player player = players.get(activePlayerIndex);
+		if (player.numPlantations() > 11) {
+			nextPlayerActive();
+			return;
+		}
+		
+		if (player.hasActiveBuilding(BuildingTypeList.HAZIENDA)) {
 			handleHazienda();
+			if (player.numPlantations() > 11) {
+				nextPlayerActive();
+				return;
+			}
+		}
 		
 		boolean canQuarry = privilege 
-				|| players.get(activePlayerIndex).hasActiveBuilding(BuildingTypeList.BAUHUETTE);
+				|| player.hasActiveBuilding(BuildingTypeList.BAUHUETTE);
 		gameBoard.activateSettler(canQuarry);
 	}
 	
