@@ -53,7 +53,7 @@ import javafx.scene.text.Text;
 	private static void addField(BuildingTypeList type, Pane pane) {
 		Color bColor = PrColorUtils.selectBuildingColor(type);
 
-		int width = type.getSize() * WIDTH + (type.getSize() - 1) * 3;
+		int width = type.getSize() * WIDTH + (type.getSize() - 1) * 5;
 		Rectangle border = new Rectangle(width + 2, HEIGHT + 2, Color.BLACK);
 		Rectangle rect = new Rectangle(width, HEIGHT, bColor);
 		rect.relocate(1, 1);

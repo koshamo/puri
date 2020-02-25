@@ -120,7 +120,7 @@ public class FinalsDialog extends Dialog<ButtonType> {
 
 	private static TableColumn<PlayerVictoryPoints, String> shippedVpColumn() {
 		TableColumn<PlayerVictoryPoints, String> colShippedVP = new TableColumn<>();
-		colShippedVP.setText("VP durch Waren");
+		colShippedVP.setText("VP Verschiffen");
 		colShippedVP.setPrefWidth(120);
 		colShippedVP.setCellValueFactory(new PropertyValueFactory<PlayerVictoryPoints, String>("shippedVP"));
 		return colShippedVP;
@@ -128,7 +128,7 @@ public class FinalsDialog extends Dialog<ButtonType> {
 
 	private static TableColumn<PlayerVictoryPoints, String> buildingVpColumn() {
 		TableColumn<PlayerVictoryPoints, String> colBuildinVP = new TableColumn<>();
-		colBuildinVP.setText("VP durch Gebäude");
+		colBuildinVP.setText("VP Gebäude");
 		colBuildinVP.setPrefWidth(120);
 		colBuildinVP.setCellValueFactory(new PropertyValueFactory<PlayerVictoryPoints, String>("buildingVP"));
 		return colBuildinVP;
@@ -136,7 +136,7 @@ public class FinalsDialog extends Dialog<ButtonType> {
 
 	private static TableColumn<PlayerVictoryPoints, String> specialVpColumn() {
 		TableColumn<PlayerVictoryPoints, String> colSpecialVP = new TableColumn<>();
-		colSpecialVP.setText("Extra VP");
+		colSpecialVP.setText("VP Extra");
 		colSpecialVP.setPrefWidth(120);
 		colSpecialVP.setCellValueFactory(new PropertyValueFactory<PlayerVictoryPoints, String>("specialVP"));
 		return colSpecialVP;

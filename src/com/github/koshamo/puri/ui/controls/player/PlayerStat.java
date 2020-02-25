@@ -143,6 +143,7 @@ import javafx.scene.text.FontWeight;
 	
 	public void deactivatePlayer() {
 		lblActive.setVisible(false);
+		btnDone.setVisible(false);
 	}
 
 	public void activateColonistsDnD() {
