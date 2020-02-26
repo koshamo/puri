@@ -542,6 +542,7 @@ public class GameController {
 
 	private void handleGoldfinder() {
 		players.get(activePlayerIndex).addGulden(1);
+		players.get(activePlayerIndex).deactivatePlayer();
 		
 		nextPlayerChooseRole();
 	}
