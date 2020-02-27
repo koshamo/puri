@@ -397,17 +397,18 @@ public class GameController {
 			captainIndex++;
 			loopCaptain(noSellCount + 1);
 		} else if (shippableProducts == 1
-				&& (!player.hasActiveBuilding(BuildingTypeList.WERFT))
-				|| !player.hasUsableWerft())
+				&& (!player.hasActiveBuilding(BuildingTypeList.WERFT)
+				|| !player.hasUsableWerft()))
 			autoShipProducts();
 		else if (shippableProducts > 1
 				|| player.hasActiveBuilding(BuildingTypeList.WERFT)
-				&& player.hasUsableWerft()) 
+				&& player.hasUsableWerft())
 			playerShipProducts();
 	}
 
 	private int canShipProducts() {
-		List<PlantationType> availProducts = players.get(captainIndex).listShippableProducts();
+		Player player = players.get(captainIndex);
+		List<PlantationType> availProducts = player.listShippableProducts();
 		
 		if (availProducts.size() == 0)
 			return 0;
@@ -421,6 +422,9 @@ public class GameController {
 			else if (gameBoard.hasShip(PlantationType.NONE))
 				shippable += gameBoard.numShipsWithNone();
 		}
+		if (player.hasActiveBuilding(BuildingTypeList.WERFT) 
+				&& player.hasUsableWerft())
+			shippable++;
 
 		return shippable;
 	}

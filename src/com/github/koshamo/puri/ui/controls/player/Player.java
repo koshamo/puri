@@ -27,7 +27,7 @@ public class Player extends Region {
 	private final PlayerBuilding buildings;
 	private final Color color;
 	
-	private boolean usableWerft;
+	private boolean usableWerft = true;
 	
 	public Player(String name, PrColors color) {
 		this.color = color.getColor();
