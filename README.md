@@ -19,3 +19,7 @@ Most of the time playing board games with other people, it's too slow for me. Th
 be too fast for you.
 
 Enjoy playing and feel free to give feedback!
+
+Notes:
+
+* if running on UNIX like systems with X11 you need XComposite. Install and activate xcompmgr
