@@ -72,6 +72,17 @@ public enum PrColors {
 		return brightIcon;
 	}
 	
+	public static PrColors getByPlantationType(PlantationType type) {
+		switch (type) {
+		case INDIGO: return INDIGO;
+		case SUGAR: return SUGAR;
+		case CORN: return CORN;
+		case TOBACCO: return TOBACCO;
+		case COFFEE: return COFFEE;
+		default: return DEFAULT_BGD;
+		}
+	}
+	
 	private static WritableImage drawDnDImage(Color color) {
 		StackPane pane = new StackPane();
 		Scene scene = new Scene(pane, 20, 20);
