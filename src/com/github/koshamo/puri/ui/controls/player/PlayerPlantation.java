@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.koshamo.puri.setup.PlantationType;
+import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.State;
 
 import javafx.geometry.Insets;
@@ -133,11 +134,11 @@ import javafx.scene.layout.VBox;
 		    ev.consume();
 		});
 		field.setOnDragEntered(ev -> {
-			// TODO: show drop possible
+			ev.getDragboard().setDragView(PrColors.COLONIST.brightIcon());
 			ev.consume();
 		});
 		field.setOnDragExited(ev -> {
-			// TODO: end show drop possible
+			ev.getDragboard().setDragView(PrColors.COLONIST.icon());
 			ev.consume();
 		});
 		field.setOnDragDropped(ev -> {
@@ -155,7 +156,7 @@ import javafx.scene.layout.VBox;
 	private void addColonistDragTarget(PlantationField field) {
 		field.setOnDragDetected(ev -> {
 			Dragboard db = field.startDragAndDrop(TransferMode.MOVE);
-			// TODO: db.setDragView(IMAGE);
+			db.setDragView(PrColors.COLONIST.icon());
 			ClipboardContent cc = new ClipboardContent();
 			cc.putString("1");
 			db.setContent(cc);

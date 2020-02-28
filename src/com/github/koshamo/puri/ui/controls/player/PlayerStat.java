@@ -329,7 +329,7 @@ import javafx.scene.text.FontWeight;
 		if (qbColonists.quantity() > 0) {
 			qbColonists.setOnDragDetected(ev -> {
 				Dragboard db = qbColonists.startDragAndDrop(TransferMode.MOVE);
-				// TODO: db.setDragView(IMAGE);
+				db.setDragView(PrColors.COLONIST.icon());
 				ClipboardContent cc = new ClipboardContent();
 				cc.putString("1");
 				db.setContent(cc);
