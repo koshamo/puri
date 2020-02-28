@@ -134,11 +134,11 @@ import javafx.scene.layout.VBox;
 		    ev.consume();
 		});
 		field.setOnDragEntered(ev -> {
-			ev.getDragboard().setDragView(PrColors.COLONIST.brightIcon());
+			// TODO: highlight control if acceptable
 			ev.consume();
 		});
 		field.setOnDragExited(ev -> {
-			ev.getDragboard().setDragView(PrColors.COLONIST.icon());
+			// TODO: reset highlighting
 			ev.consume();
 		});
 		field.setOnDragDropped(ev -> {
