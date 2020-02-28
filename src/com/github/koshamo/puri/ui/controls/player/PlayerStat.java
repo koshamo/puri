@@ -365,7 +365,7 @@ import javafx.scene.text.FontWeight;
 		if (bar.quantity() > 0) {
 			bar.setOnDragDetected(ev -> {
 				Dragboard db = bar.startDragAndDrop(TransferMode.MOVE);
-				// TODO: db.setDragView(IMAGE);
+				db.setDragView(PrColors.getByPlantationType(type).icon());
 				ClipboardContent cc = new ClipboardContent();
 				String msgAdd = "";
 				if (dnd == ProductDnD.CAPTAIN)
