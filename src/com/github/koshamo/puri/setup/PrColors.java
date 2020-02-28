@@ -1,4 +1,9 @@
 package com.github.koshamo.puri.setup;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public enum PrColors {
@@ -33,9 +38,13 @@ public enum PrColors {
 	PLAYER_5 (Color.SLATEGREY);
 	
 	private Color color;
+	private WritableImage icon;
+	private WritableImage brightIcon;
 	
 	private PrColors (Color color) {
 		this.color = color;
+		icon = drawDnDImage(color.darker());
+		brightIcon = drawDnDImage(color.brighter());
 	}
 	
 	public Color getColor() {
@@ -53,5 +62,31 @@ public enum PrColors {
 			return PLAYER_4;
 		else
 			return PLAYER_5;
+	}
+	
+	public WritableImage icon() {
+		return icon;
+	}
+	
+	public WritableImage brightIcon() {
+		return brightIcon;
+	}
+	
+	private static WritableImage drawDnDImage(Color color) {
+		StackPane pane = new StackPane();
+		Scene scene = new Scene(pane, 20, 20);
+		WritableImage wim = new WritableImage(20, 20);
+
+		Canvas canvas = new Canvas(20, 20);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.setStroke(Color.BLACK);
+		gc.strokeOval(0, 0, 20, 20);
+		gc.setFill(color);
+		gc.fillOval(1, 1, 18, 18);
+		
+		pane.getChildren().add(canvas);
+		scene.snapshot(wim);
+
+		return wim;
 	}
 }
