@@ -179,6 +179,10 @@ public class ProductDialog extends Dialog<List<PlantationType>> {
 			index++;
 		}
 		
+		if (checker) {
+			grid.add(new Label("Kapizität der Lagerhallen: " + storage), 1, index, 3, 1);
+		}
+		
 	}
 
 	private void initResultConverter() {
