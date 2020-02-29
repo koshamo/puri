@@ -186,25 +186,17 @@ public class ProductDialog extends Dialog<List<PlantationType>> {
 			List<PlantationType> result = new LinkedList<>();
 			
 			RadioButton btn = (RadioButton) group.getSelectedToggle();
-			switch ((String) btn.getUserData()) {
-			case "INDIGO": result.add(PlantationType.INDIGO); break;
-			case "SUGAR": result.add(PlantationType.SUGAR); break;
-			case "CORN": result.add(PlantationType.CORN); break;
-			case "TOBACCO": result.add(PlantationType.TOBACCO); break;
-			case "COFFEE": result.add(PlantationType.COFFEE); break;
-			default: result.add(PlantationType.NONE);
-			}
+			PlantationType type = PlantationType.getByString((String) btn.getUserData());
+			result.add(type);
 			
 			if (checker) {
-				int cnt = 1;
 				for (CheckBox box : boxes) {
 					if (box.isSelected()) {
 						result.add(PlantationType.getByString((String) box.getUserData()));
-						cnt++;
-						if (cnt > storage)
-							break;	// TODO: better logic and check for wrong user input
 					}
 				}
+				while (result.size() > storage + 1)
+					result.remove(result.size() - 1);
 			}
 			
 			return result;
