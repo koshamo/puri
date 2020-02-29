@@ -194,17 +194,14 @@ public class ProductDialog extends Dialog<List<PlantationType>> {
 			result.add(type);
 			
 			if (checker) {
-				for (CheckBox box : boxes) {
-					if (box.isSelected()) {
+				for (CheckBox box : boxes) 
+					if (box.isSelected()) 
 						result.add(PlantationType.getByString((String) box.getUserData()));
-					}
-				}
 				while (result.size() > storage + 1)
 					result.remove(result.size() - 1);
 			}
 			
 			return result;
-			
 		});
 	}
 	
