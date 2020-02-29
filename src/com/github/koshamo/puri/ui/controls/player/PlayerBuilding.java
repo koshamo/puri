@@ -7,6 +7,7 @@ import java.util.List;
 import com.github.koshamo.puri.setup.BuildingType;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
+import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.setup.State;
 
 import javafx.geometry.Insets;
@@ -200,7 +201,7 @@ import javafx.scene.layout.VBox;
 	private void addColonistDragTarget(BuildingField field) {
 		field.setOnDragDetected(ev -> {
 			Dragboard db = field.startDragAndDrop(TransferMode.MOVE);
-			// TODO: db.setDragView(IMAGE);
+			db.setDragView(PrColors.COLONIST.icon());
 			ClipboardContent cc = new ClipboardContent();
 			cc.putString("1");
 			db.setContent(cc);
