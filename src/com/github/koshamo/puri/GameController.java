@@ -424,7 +424,7 @@ public class GameController {
 		}
 		if (player.hasActiveBuilding(BuildingTypeList.WERFT) 
 				&& player.hasUsableWerft())
-			shippable++;
+			shippable += 2; // prevent autoshipping
 
 		return shippable;
 	}
