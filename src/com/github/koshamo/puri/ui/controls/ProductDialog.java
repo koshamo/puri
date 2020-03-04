@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 public class ProductDialog extends Dialog<List<PlantationType>> {
@@ -60,14 +62,17 @@ public class ProductDialog extends Dialog<List<PlantationType>> {
 	}
 
 	private void drawContentPane() {
+		VBox vbox = new VBox(15);
 		GridPane grid = new GridPane();
 		grid.setHgap(5);
 		grid.setVgap(5);
-		
 	    group = new ToggleGroup();
-	    
+		
 	    addContent(grid);
-	    this.getDialogPane().setContent(grid);
+		drawCapacity(vbox);
+		
+	    vbox.getChildren().add(grid);
+	    this.getDialogPane().setContent(vbox);
 	}
 
 	private void addContent(GridPane grid) {
@@ -178,11 +183,12 @@ public class ProductDialog extends Dialog<List<PlantationType>> {
 			grid.add(new Label("Kaffee"), 3, index);
 			index++;
 		}
-		
+	}
+
+	private void drawCapacity(Pane box) {
 		if (checker) {
-			grid.add(new Label("Kapizität der Lagerhallen: " + storage), 1, index, 3, 1);
+			box.getChildren().add(new Label("Kapizität der Lagerhallen: " + storage));
 		}
-		
 	}
 
 	private void initResultConverter() {
