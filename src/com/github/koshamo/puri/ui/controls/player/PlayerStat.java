@@ -381,7 +381,9 @@ import javafx.scene.text.FontWeight;
 				if (ev.getTransferMode() == TransferMode.MOVE
 						&& ev.isAccepted()) {
 					String[] delivered = ev.getDragboard().getString().split(" ");
-					int amount = Integer.valueOf(delivered[1]).intValue(); 
+					int amount = Integer.valueOf(delivered[1]).intValue();
+					// FIXME: why is DnD msg once a game missing
+					System.out.println("Dropped: " + ev.getDragboard().getString());
 					if (dnd == ProductDnD.CAPTAIN) {
 						bar.sub(amount);
 						victoryPoints.set(victoryPoints.get() + amount);
@@ -394,6 +396,8 @@ import javafx.scene.text.FontWeight;
 							extra += 1;
 						if (player.hasActiveBuilding(BuildingTypeList.GR_MARKT))
 							extra += 2;
+						// FIXME: why is DnD msg once a game missing
+						System.out.println("Trader: " + (amount + extra));
 						addGulden(amount + extra);
 						bar.sub(1);
 						player.tradingDone();

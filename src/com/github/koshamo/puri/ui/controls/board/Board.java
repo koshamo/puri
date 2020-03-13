@@ -509,6 +509,8 @@ public class Board extends Region {
 		    	success = true;
 				ClipboardContent cc = new ClipboardContent();
 				cc.putString(String.valueOf(product[0] + " " + price));
+				// FIXME: why is DnD msg once a game missing
+				System.out.println("Market: " + cc.getString());
 				db.setContent(cc);
 		    }
 		    ev.setDropCompleted(success);
