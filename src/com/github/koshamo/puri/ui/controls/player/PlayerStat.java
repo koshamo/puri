@@ -380,12 +380,12 @@ import javafx.scene.text.FontWeight;
 			bar.setOnDragDone(ev -> {
 				if (ev.getTransferMode() == TransferMode.MOVE
 						&& ev.isAccepted()) {
-					String[] shipped = ev.getDragboard().getString().split(" ");
-					int delivered = Integer.valueOf(shipped[1]).intValue(); 
+					String[] delivered = ev.getDragboard().getString().split(" ");
+					int amount = Integer.valueOf(delivered[1]).intValue(); 
 					if (dnd == ProductDnD.CAPTAIN) {
-						bar.sub(delivered);
-						victoryPoints.set(victoryPoints.get() + delivered);
-						if (shipped.length == 3)
+						bar.sub(amount);
+						victoryPoints.set(victoryPoints.get() + amount);
+						if (delivered.length == 3)
 							player.useWerft();
 						player.shippingDone();
 					} else {
@@ -394,7 +394,7 @@ import javafx.scene.text.FontWeight;
 							extra += 1;
 						if (player.hasActiveBuilding(BuildingTypeList.GR_MARKT))
 							extra += 2;
-						addGulden(delivered + extra);
+						addGulden(amount + extra);
 						bar.sub(1);
 						player.tradingDone();
 					}
