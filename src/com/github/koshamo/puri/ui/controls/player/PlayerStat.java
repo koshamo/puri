@@ -378,6 +378,8 @@ import javafx.scene.text.FontWeight;
 				ev.consume();
 			});
 			bar.setOnDragDone(ev -> {
+				// FIXME: why is DnD msg once a game missing
+				System.out.println("=== " + ev.getTransferMode() + " . " + ev.isAccepted());
 				if (ev.getTransferMode() == TransferMode.MOVE
 						&& ev.isAccepted()) {
 					String[] delivered = ev.getDragboard().getString().split(" ");
