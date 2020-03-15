@@ -134,11 +134,11 @@ import javafx.scene.layout.VBox;
 		    ev.consume();
 		});
 		field.setOnDragEntered(ev -> {
-			// TODO: highlight control if acceptable
+			// TODO: show drop possible
 			ev.consume();
 		});
 		field.setOnDragExited(ev -> {
-			// TODO: reset highlighting
+			// TODO: end show drop possible
 			ev.consume();
 		});
 		field.setOnDragDropped(ev -> {

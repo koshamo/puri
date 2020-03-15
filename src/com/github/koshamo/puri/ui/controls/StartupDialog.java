@@ -40,7 +40,7 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 	
 	private final ComboBox<GameSet> gameSet = new ComboBox<>();
 	
-	// TODO: ComboBoxes for kiType need to be filled
+	// TODO: ComboBoxes for aiType need to be filled
 	
 	public StartupDialog() {
 		drawDialog();
