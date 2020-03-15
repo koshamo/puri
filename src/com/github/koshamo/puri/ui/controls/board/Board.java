@@ -47,8 +47,8 @@ public class Board extends Region {
 	private Market market;
 	private BoardPlantation plantations;
 
-	public Board(int numPlayers) {
-		gameConstants = new StartupConstants(numPlayers);
+	public Board(StartupConstants gameConstants) {
+		this.gameConstants = gameConstants;
 		init();
 	}
 	
@@ -692,6 +692,7 @@ public class Board extends Region {
 
 		Label lblBuildings = new Label("Gebäude");
 		BuildingsButton btnBuilding = new BuildingsButton();
+		
 		btnBuilding.setOnMouseClicked(ev -> {
 			BuildingsDialog dialog = new BuildingsDialog(gameConstants, false, 10, new LinkedList<BuildingTypeList>(), 0);
 			dialog.showAndWait();
