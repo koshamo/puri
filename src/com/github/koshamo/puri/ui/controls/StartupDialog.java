@@ -40,6 +40,8 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 	
 	private final ComboBox<GameSet> gameSet = new ComboBox<>();
 	
+	private final String[] availableAis = new String[] {"Beginner"};
+	
 	// TODO: ComboBoxes for aiType need to be filled
 	
 	public StartupDialog() {
@@ -101,11 +103,27 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 
 	private void drawAiType() {
 		grid.add(new Label("KI-Typ"), 3, 0);
-		
+
+		addAis();
+
 		grid.add(aiType2, 3, 2);
 		grid.add(aiType3, 3, 3);
 		grid.add(aiType4, 3, 4);
 		grid.add(aiType5, 3, 5);
+	}
+
+	private void addAis() {
+		aiType2.getItems().addAll(availableAis);
+		aiType2.getSelectionModel().select(0);
+		
+		aiType3.getItems().addAll(availableAis);
+		aiType3.getSelectionModel().select(0);
+		
+		aiType4.getItems().addAll(availableAis);
+		aiType4.getSelectionModel().select(0);
+		
+		aiType5.getItems().addAll(availableAis);
+		aiType5.getSelectionModel().select(0);
 	}
 
 	private void drawGameSet() {
