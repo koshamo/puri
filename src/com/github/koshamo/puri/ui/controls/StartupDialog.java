@@ -22,10 +22,10 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 	
 	private final CheckBox player4 = new CheckBox();
 	private final CheckBox player5 = new CheckBox();
-	private final CheckBox ki2 = new CheckBox();
-	private final CheckBox ki3 = new CheckBox();
-	private final CheckBox ki4 = new CheckBox();
-	private final CheckBox ki5 = new CheckBox();
+	private final CheckBox ai2 = new CheckBox();
+	private final CheckBox ai3 = new CheckBox();
+	private final CheckBox ai4 = new CheckBox();
+	private final CheckBox ai5 = new CheckBox();
 	
 	private final TextField name1 = new TextField("dein Name");
 	private final TextField name2 = new TextField("Mechthild");
@@ -33,10 +33,10 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 	private final TextField name4 = new TextField("Aghata");
 	private final TextField name5 = new TextField("Wigbert");
 	
-	private final ComboBox<String> kiType2 = new ComboBox<>();
-	private final ComboBox<String> kiType3 = new ComboBox<>();
-	private final ComboBox<String> kiType4 = new ComboBox<>();
-	private final ComboBox<String> kiType5 = new ComboBox<>();
+	private final ComboBox<String> aiType2 = new ComboBox<>();
+	private final ComboBox<String> aiType3 = new ComboBox<>();
+	private final ComboBox<String> aiType4 = new ComboBox<>();
+	private final ComboBox<String> aiType5 = new ComboBox<>();
 	
 	private final ComboBox<GameSet> gameSet = new ComboBox<>();
 	
@@ -66,8 +66,8 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 		
 		drawPlayerCount();
 		drawPlayerName();
-		drawKi();
-		drawKiType();
+		drawAi();
+		drawAiType();
 		drawGameSet();
 		
 		this.getDialogPane().setContent(grid);
@@ -90,22 +90,22 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 		grid.add(name5, 1, 5);
 	}
 
-	private void drawKi() {
+	private void drawAi() {
 		grid.add(new Label("KI"), 2, 0);
 		
-		grid.add(ki2, 2, 2);
-		grid.add(ki3, 2, 3);
-		grid.add(ki4, 2, 4);
-		grid.add(ki5, 2, 5);
+		grid.add(ai2, 2, 2);
+		grid.add(ai3, 2, 3);
+		grid.add(ai4, 2, 4);
+		grid.add(ai5, 2, 5);
 	}
 
-	private void drawKiType() {
+	private void drawAiType() {
 		grid.add(new Label("KI-Typ"), 3, 0);
 		
-		grid.add(kiType2, 3, 2);
-		grid.add(kiType3, 3, 3);
-		grid.add(kiType4, 3, 4);
-		grid.add(kiType5, 3, 5);
+		grid.add(aiType2, 3, 2);
+		grid.add(aiType3, 3, 3);
+		grid.add(aiType4, 3, 4);
+		grid.add(aiType5, 3, 5);
 	}
 
 	private void drawGameSet() {
@@ -139,25 +139,25 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 	}
 
 	private void addPlayer2(List<PlayerSetup> setup) {
-		setup.add(new PlayerSetup(name2.getText(), ki2.isSelected(), 
-				kiType2.getSelectionModel().getSelectedItem(), GameSet.BASIS));
+		setup.add(new PlayerSetup(name2.getText(), ai2.isSelected(), 
+				aiType2.getSelectionModel().getSelectedItem(), GameSet.BASIS));
 	}
 
 	private void addPlayer3(List<PlayerSetup> setup) {
-		setup.add(new PlayerSetup(name3.getText(), ki3.isSelected(), 
-				kiType3.getSelectionModel().getSelectedItem(), GameSet.BASIS));
+		setup.add(new PlayerSetup(name3.getText(), ai3.isSelected(), 
+				aiType3.getSelectionModel().getSelectedItem(), GameSet.BASIS));
 	}
 
 	private void addPlayer4(List<PlayerSetup> setup) {
 		if (player4.isSelected())
-			setup.add(new PlayerSetup(name4.getText(), ki4.isSelected(), 
-					kiType4.getSelectionModel().getSelectedItem(), GameSet.BASIS));
+			setup.add(new PlayerSetup(name4.getText(), ai4.isSelected(), 
+					aiType4.getSelectionModel().getSelectedItem(), GameSet.BASIS));
 	}
 
 	private void addPlayer5(List<PlayerSetup> setup) {
 		if (player5.isSelected())
-			setup.add(new PlayerSetup(name5.getText(), ki5.isSelected(), 
-					kiType5.getSelectionModel().getSelectedItem(), GameSet.BASIS));
+			setup.add(new PlayerSetup(name5.getText(), ai5.isSelected(), 
+					aiType5.getSelectionModel().getSelectedItem(), GameSet.BASIS));
 	}
 
 }
