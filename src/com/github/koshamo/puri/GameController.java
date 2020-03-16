@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.github.koshamo.puri.gamedata.PlayerVictoryPoints;
+import com.github.koshamo.puri.gamedata.StartupConstants;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.RoleType;
-import com.github.koshamo.puri.setup.StartupConstants;
 import com.github.koshamo.puri.ui.controls.FinalsDialog;
 import com.github.koshamo.puri.ui.controls.ProductDialog;
 import com.github.koshamo.puri.ui.controls.ProductDialog.State;

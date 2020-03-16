@@ -1,4 +1,8 @@
-package com.github.koshamo.puri.setup;
+package com.github.koshamo.puri.gamedata;
+
+import com.github.koshamo.puri.setup.BuildingTypeList;
+import com.github.koshamo.puri.setup.BuildingsModel;
+import com.github.koshamo.puri.setup.PlantationType;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

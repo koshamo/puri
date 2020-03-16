@@ -6,9 +6,9 @@ import java.util.Optional;
 
 import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.gamedata.PlayerSetup;
+import com.github.koshamo.puri.gamedata.StartupConstants;
 import com.github.koshamo.puri.setup.GameSet;
 import com.github.koshamo.puri.setup.PrColors;
-import com.github.koshamo.puri.setup.StartupConstants;
 import com.github.koshamo.puri.ui.controls.StartupDialog;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.player.Player;

@@ -2,9 +2,9 @@ package com.github.koshamo.puri.ui.controls.board;
 
 import java.util.List;
 
+import com.github.koshamo.puri.gamedata.StartupConstants;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.BuildingsModel;
-import com.github.koshamo.puri.setup.StartupConstants;
 
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;

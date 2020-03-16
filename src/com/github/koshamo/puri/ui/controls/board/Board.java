@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.github.koshamo.puri.GameController;
+import com.github.koshamo.puri.gamedata.StartupConstants;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
-import com.github.koshamo.puri.setup.StartupConstants;
 import com.github.koshamo.puri.ui.controls.QuantityBar;
 
 import javafx.geometry.Insets;
