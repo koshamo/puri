@@ -26,4 +26,11 @@ public class AiFactory {
 		
 		return names;
 	}
+	
+	public static AbstractAi AiByName(String name) {
+		switch (name) {
+		case "Anfänger": return /*new Beginner AI*/ null;
+		default: return null;
+		}
+	}
 }

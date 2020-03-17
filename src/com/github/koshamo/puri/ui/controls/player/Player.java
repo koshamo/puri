@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.github.koshamo.puri.GameController;
+import com.github.koshamo.puri.ai.AbstractAi;
 import com.github.koshamo.puri.gamedata.PlayerVictoryPoints;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.PlantationType;
@@ -26,11 +27,13 @@ public class Player extends Region {
 	private final PlayerPlantation plantations;
 	private final PlayerBuilding buildings;
 	private final Color color;
+	private final AbstractAi ai;
 	
 	private boolean usableWerft = true;
 	
-	public Player(String name, PrColors color) {
+	public Player(String name, AbstractAi ai, PrColors color) {
 		this.color = color.getColor();
+		this.ai = ai;
 		stats = new PlayerStat(this, name, color);
 		plantations = new PlayerPlantation(this);
 		buildings = new PlayerBuilding(this);
