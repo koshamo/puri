@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.github.koshamo.puri.GameController;
+import com.github.koshamo.puri.ai.AbstractAi;
 import com.github.koshamo.puri.gamedata.PlayerSetup;
 import com.github.koshamo.puri.gamedata.StartupConstants;
 import com.github.koshamo.puri.setup.GameSet;
@@ -62,7 +63,8 @@ public class PuRiGui extends Application {
 		gameSet = list.get(0).gameSet;
 		
 		for (int i = 0; i < list.size(); i++) {
-			Player p = new Player(list.get(i).name, list.get(i).aiType, PrColors.getPlayerColor(i));
+			AbstractAi ai = list.get(i).ai ? list.get(i).aiType : null;
+			Player p = new Player(list.get(i).name, ai, PrColors.getPlayerColor(i));
 			p.addPlantation(constants.INITIAL_PLANTATIONS[i]);
 			players.add(p);
 		}
