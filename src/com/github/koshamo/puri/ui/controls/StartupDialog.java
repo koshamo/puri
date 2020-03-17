@@ -3,6 +3,7 @@ package com.github.koshamo.puri.ui.controls;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.github.koshamo.puri.ai.AiFactory;
 import com.github.koshamo.puri.gamedata.PlayerSetup;
 import com.github.koshamo.puri.setup.GameSet;
 
@@ -39,8 +40,6 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 	private final ComboBox<String> aiType5 = new ComboBox<>();
 	
 	private final ComboBox<GameSet> gameSet = new ComboBox<>();
-	
-	private final String[] availableAis = new String[] {"Beginner"};
 	
 	// TODO: ComboBoxes for aiType need to be filled
 	
@@ -113,16 +112,16 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 	}
 
 	private void addAis() {
-		aiType2.getItems().addAll(availableAis);
+		aiType2.getItems().addAll(AiFactory.AiNames());
 		aiType2.getSelectionModel().select(0);
 		
-		aiType3.getItems().addAll(availableAis);
+		aiType3.getItems().addAll(AiFactory.AiNames());
 		aiType3.getSelectionModel().select(0);
 		
-		aiType4.getItems().addAll(availableAis);
+		aiType4.getItems().addAll(AiFactory.AiNames());
 		aiType4.getSelectionModel().select(0);
 		
-		aiType5.getItems().addAll(availableAis);
+		aiType5.getItems().addAll(AiFactory.AiNames());
 		aiType5.getSelectionModel().select(0);
 	}
 
