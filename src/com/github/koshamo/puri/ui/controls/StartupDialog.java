@@ -152,7 +152,7 @@ public class StartupDialog extends Dialog<List<PlayerSetup>> {
 	}
 
 	private void addPlayer1(List<PlayerSetup> setup) {
-		setup.add(new PlayerSetup(name1.getText(), false, null, GameSet.BASIS));
+		setup.add(new PlayerSetup(name1.getText(), false, "", GameSet.BASIS));
 	}
 
 	private void addPlayer2(List<PlayerSetup> setup) {
