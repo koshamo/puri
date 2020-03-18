@@ -50,7 +50,7 @@ public class RoleBoard extends Region {
 		for (RoleCard rc : roleCards)
 			rc.setOnMouseClicked(null);
 		
-		controller.chooseRole(card.type(), card.removeGulden());
+		controller.chooseRole(card.type(), card.removeGuldenAndDeactivateCard());
 	}
 	
 	public void prepareNextTurn() {

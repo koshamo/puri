@@ -26,7 +26,7 @@ import javafx.scene.control.Skin;
 		return type;
 	}
 	
-	public int removeGulden() {
+	public int removeGuldenAndDeactivateCard() {
 		int gulden = this.gulden;
 		this.gulden = 0;
 		used = true;
