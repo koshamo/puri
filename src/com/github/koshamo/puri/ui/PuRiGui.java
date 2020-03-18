@@ -98,7 +98,6 @@ public class PuRiGui extends Application {
 
 	private void buildBoardPane() {
 		VBox gameBox = new VBox();
-		int numPlayers = players.size();
 		gameBox.getChildren().addAll(
 				gameBoard, roleBoard);
 		
