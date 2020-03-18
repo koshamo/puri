@@ -9,7 +9,7 @@ import com.github.koshamo.puri.utils.ListUtils;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-/*private*/ class BoardPlantation extends Control {
+public class BoardPlantation extends Control {
 
 	private final BoardPlantationSkin skin;
 	

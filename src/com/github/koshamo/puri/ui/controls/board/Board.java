@@ -56,6 +56,10 @@ public class Board extends Region {
 		this.controller = controller;
 	}
 	
+	public BoardPlantation plantations() {
+		return plantations;
+	}
+	
 	public void activateSettler(boolean privilege) {
 		plantations.activate(privilege);
 	}

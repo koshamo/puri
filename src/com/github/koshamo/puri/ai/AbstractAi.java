@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.setup.BuildingTypeList;
+import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
@@ -30,10 +31,10 @@ public abstract class AbstractAi {
 		this.controller = controller;
 	}
 	
-	/*
+	/**
 	 * call
 	 * propagateRole(card)
-	 * at last action
+	 * as last action
 	 */
 	public abstract void chooseRole();
 	
@@ -44,5 +45,16 @@ public abstract class AbstractAi {
 	public abstract Optional<BuildingTypeList> purchaseBuilding();
 
 	public abstract Optional<ButtonType> useHazienda();
+
+	/**
+	 * call
+	 * propagatePlantation(type)
+	 * as last action
+	 */
+	public abstract void choosePlantation();
+
+	protected final void propagatePlantation(PlantationType type) {
+		gameBoard.plantations().selectPlantation(type);
+	}
 
 }

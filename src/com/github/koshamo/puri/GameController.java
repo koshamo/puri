@@ -167,23 +167,27 @@ public class GameController {
 }
 
 	private void handleSettler(boolean privilege) {
-		Player player = players.get(activePlayerIndex);
-		if (player.numPlantations() > 11) {
+		Player currentPlayer = players.get(activePlayerIndex);
+		if (currentPlayer.numPlantations() > 11) {
 			nextPlayerActive();
 			return;
 		}
 		
-		if (player.hasActiveBuilding(BuildingTypeList.HAZIENDA)) {
+		if (currentPlayer.hasActiveBuilding(BuildingTypeList.HAZIENDA)) {
 			handleHazienda();
-			if (player.numPlantations() > 11) {
+			if (currentPlayer.numPlantations() > 11) {
 				nextPlayerActive();
 				return;
 			}
 		}
 		
 		boolean canQuarry = privilege 
-				|| player.hasActiveBuilding(BuildingTypeList.BAUHUETTE);
-		gameBoard.activateSettler(canQuarry);
+				|| currentPlayer.hasActiveBuilding(BuildingTypeList.BAUHUETTE);
+		
+		if (currentPlayer.hasAi())
+			currentPlayer.ai().choosePlantation();
+		else
+			gameBoard.activateSettler(canQuarry);
 	}
 	
 	private void handleHazienda() {
