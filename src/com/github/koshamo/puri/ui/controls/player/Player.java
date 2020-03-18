@@ -28,12 +28,14 @@ public class Player extends Region {
 	private final PlayerBuilding buildings;
 	private final Color color;
 	private final AbstractAi ai;
+	private final boolean isAi;
 	
 	private boolean usableWerft = true;
 	
 	public Player(String name, AbstractAi ai, PrColors color) {
 		this.color = color.getColor();
 		this.ai = ai;
+		isAi = ai != null;
 		stats = new PlayerStat(this, name, color);
 		plantations = new PlayerPlantation(this);
 		buildings = new PlayerBuilding(this);
