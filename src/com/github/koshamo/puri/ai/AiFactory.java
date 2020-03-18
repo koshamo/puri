@@ -1,5 +1,11 @@
 package com.github.koshamo.puri.ai;
 
+import java.util.List;
+
+import com.github.koshamo.puri.ui.controls.board.Board;
+import com.github.koshamo.puri.ui.controls.player.Player;
+import com.github.koshamo.puri.ui.controls.role.RoleBoard;
+
 public class AiFactory {
 
 	public enum AiList {
@@ -27,7 +33,8 @@ public class AiFactory {
 		return names;
 	}
 	
-	public static AbstractAi AiByName(String name) {
+	public static AbstractAi createAi(String name, List<Player> players, 
+			Board gameBoard, RoleBoard roleBoard) {
 		switch (name) {
 		case "Anfänger": return /*new Beginner AI*/ null;
 		default: return null;
