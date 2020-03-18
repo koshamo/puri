@@ -53,6 +53,7 @@ public class PuRiGui extends Application {
 			System.exit(0);
 		
 		constants = new StartupConstants(players.get().size());
+		initGameBoardPanels(constants.NUM_PLAYERS); 
 		initPlayers(players.get());
 		buildGui();
 	}
@@ -95,12 +96,15 @@ public class PuRiGui extends Application {
 	private void buildBoardPane() {
 		VBox gameBox = new VBox();
 		int numPlayers = players.size();
-		gameBoard = new Board(constants);
-		roleBoard = new RoleBoard(numPlayers); 
 		gameBox.getChildren().addAll(
 				gameBoard, roleBoard);
 		
 		mainPane.setCenter(gameBox);
+	}
+
+	private void initGameBoardPanels(int numPlayers) {
+		gameBoard = new Board(constants);
+		roleBoard = new RoleBoard(numPlayers);
 	}
 
 }
