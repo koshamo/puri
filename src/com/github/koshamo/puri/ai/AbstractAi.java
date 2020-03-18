@@ -6,6 +6,7 @@ import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
+import com.github.koshamo.puri.ui.controls.role.RoleCard;
 
 public abstract class AbstractAi {
 
@@ -27,8 +28,13 @@ public abstract class AbstractAi {
 	
 	/*
 	 * call
-	 * controller.chooseRole(card.type(), card.removeGuldenAndDeactivateCard());
+	 * propagateRole(card)
+	 * at last action
 	 */
 	public abstract void chooseRole();
+	
+	protected final void propagateRole(RoleCard card) {
+		controller.chooseRole(card.type(), card.removeGuldenAndDeactivateCard());
+	}
 
 }
