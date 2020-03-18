@@ -22,7 +22,7 @@ public class AiFactory {
 		String[] names = new String[ais.length];
 		
 		for (int i = 0; i < ais.length; i++)
-			names[i] = ais[i].name();
+			names[i] = ais[i].toString();
 		
 		return names;
 	}
