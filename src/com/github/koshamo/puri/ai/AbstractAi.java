@@ -10,6 +10,8 @@ import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
 import com.github.koshamo.puri.ui.controls.role.RoleCard;
 
+import javafx.scene.control.ButtonType;
+
 public abstract class AbstractAi {
 
 	protected final List<Player> players;
@@ -40,5 +42,7 @@ public abstract class AbstractAi {
 	}
 
 	public abstract Optional<BuildingTypeList> purchaseBuilding();
+
+	public abstract Optional<ButtonType> useHazienda();
 
 }

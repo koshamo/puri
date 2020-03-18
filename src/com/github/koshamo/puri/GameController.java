@@ -187,14 +187,21 @@ public class GameController {
 	}
 	
 	private void handleHazienda() {
-		Alert dialog = new Alert(AlertType.CONFIRMATION, 
-				players.get(activePlayerIndex).name() + "\n\nHazienda: zusätzliche Plantage ziehen?", 
-				ButtonType.YES, ButtonType.NO);
-		Optional<ButtonType> extra = dialog.showAndWait();
+		Player currentPlayer = players.get(activePlayerIndex);
+		Optional<ButtonType> extra;
+		
+		if (currentPlayer.hasAi()) {
+			extra = currentPlayer.ai().useHazienda();
+		} else {
+			Alert dialog = new Alert(AlertType.CONFIRMATION, 
+					currentPlayer.name() + "\n\nHazienda: zusätzliche Plantage ziehen?", 
+					ButtonType.YES, ButtonType.NO);
+			extra = dialog.showAndWait();
+		}
 		
 		if (extra.isPresent() && extra.get() == ButtonType.YES) {
 			PlantationType type = gameBoard.drawPlantation();
-			players.get(activePlayerIndex).addPlantation(type);
+			currentPlayer.addPlantation(type);
 		}
 	}
 
