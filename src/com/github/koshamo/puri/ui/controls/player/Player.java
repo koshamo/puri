@@ -58,6 +58,14 @@ public class Player extends Region {
 			ai.connectController(controller);
 	}
 	
+	public boolean hasAi() {
+		return isAi;
+	}
+	
+	public AbstractAi ai() {
+		return ai;
+	}
+	
 	public String name() {
 		return stats.name();
 	}
