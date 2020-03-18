@@ -76,6 +76,8 @@ public class FinalsDialog extends Dialog<ButtonType> {
 		return hbox;
 	}
 
+	// TODO: check why annotation is neccessary
+	@SuppressWarnings("unchecked")
 	private Node drawTable() {
 		TableView<PlayerVictoryPoints> table = new TableView<>();
 		table.getColumns().addAll(
