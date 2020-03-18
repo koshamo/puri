@@ -71,6 +71,8 @@ public class Player extends Region {
 	
 	public void activateRole() {
 		stats.activateRole();
+		if (isAi)
+			ai.chooseRole();
 		activatePlayer();
 	}
 	
