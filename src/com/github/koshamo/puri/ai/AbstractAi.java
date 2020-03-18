@@ -1,8 +1,10 @@
 package com.github.koshamo.puri.ai;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.github.koshamo.puri.GameController;
+import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
@@ -36,5 +38,7 @@ public abstract class AbstractAi {
 	protected final void propagateRole(RoleCard card) {
 		controller.chooseRole(card.type(), card.removeGuldenAndDeactivateCard());
 	}
+
+	public abstract Optional<BuildingTypeList> purchaseBuilding();
 
 }

@@ -134,13 +134,19 @@ public class GameController {
 	private void handleBuilder(boolean privilege) {
 		Player currentPlayer = players.get(activePlayerIndex);
 		int activeQuarries = currentPlayer.activeQuarries();
-		BuildingsDialog dialog = new BuildingsDialog(
-				gameConstants, 
-				privilege, 
-				currentPlayer.availableGulden(), 
-				currentPlayer.ownedBuildings(),
-				activeQuarries);
-		Optional<BuildingTypeList> building = dialog.showAndWait();
+		
+		Optional<BuildingTypeList> building;
+		if (currentPlayer.hasAi()) {
+			building = currentPlayer.ai().purchaseBuilding();
+		} else {
+			BuildingsDialog dialog = new BuildingsDialog(
+					gameConstants, 
+					privilege, 
+					currentPlayer.availableGulden(), 
+					currentPlayer.ownedBuildings(),
+					activeQuarries);
+			building = dialog.showAndWait();
+		}
 		
 		if (building.isPresent()) {
 			BuildingTypeList type = building.get();
