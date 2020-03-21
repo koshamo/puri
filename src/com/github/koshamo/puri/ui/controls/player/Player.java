@@ -162,9 +162,13 @@ public class Player extends Region {
 	public void distributeColonists() {
 		if (stats.colonists() < 
 				plantations.calcEmptyPlaces() + buildings.calcEmptyPlaces()) {
-			stats.activateColonistsDnD();
-			plantations.activateColonistsDnD();
-			buildings.activateColonistsDnD();
+			if (isAi) {
+				ai.distributeColonists();
+			} else {
+				stats.activateColonistsDnD();
+				plantations.activateColonistsDnD();
+				buildings.activateColonistsDnD();
+			}
 		}
 		else {
 			int plCols = plantations.distributeColonists();

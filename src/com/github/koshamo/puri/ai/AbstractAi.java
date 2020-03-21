@@ -57,4 +57,15 @@ public abstract class AbstractAi {
 		gameBoard.plantations().selectPlantation(type);
 	}
 
+	/**
+	 * call
+	 * propagateColonistDistribution()
+	 * as last action
+	 */
+	public abstract void distributeColonists();
+	
+	protected final void propagateColonistDistribution() {
+		controller.gouvernorDone();
+	}
+
 }
