@@ -187,7 +187,10 @@ public class Player extends Region {
 	}
 	
 	public void shipProducts() {
-		stats.activateCaptainDnD();
+		if (hasAi())
+			ai.shipProduct();
+		else
+			stats.activateCaptainDnD();
 	}
 	
 	public void shippingDone() {

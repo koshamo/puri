@@ -70,4 +70,15 @@ public abstract class AbstractAi {
 
 	public abstract Optional<List<PlantationType>> chooseProductionExtra(int[] possibleExtras);
 
+	/**
+	 * call
+	 * propagateShipping()
+	 * as last action
+	 */
+	public abstract void shipProduct();
+	
+	protected final void propagateShipping() {
+		controller.shippingDone();
+	}
+
 }
