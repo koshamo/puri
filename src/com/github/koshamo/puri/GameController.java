@@ -261,7 +261,7 @@ public class GameController {
 	}
 
 	private void handleProducer(boolean privilege) {
-		Player player = players.get(activePlayerIndex);
+		Player currentPlayer = players.get(activePlayerIndex);
 		int[] production = calcActualProduction();
 		produce(production);
 		
@@ -271,26 +271,31 @@ public class GameController {
 			
 			if (availableExtras == 1) {
 				PlantationType type = availableExtraProduct(possibleExtras);
-				player.addProduction(type, 1);
+				currentPlayer.addProduction(type, 1);
 				gameBoard.removeProduction(type, 1);
 			}
 			else if (availableExtras > 1) {
-				ProductDialog dialog = 
-						new ProductDialog(player.name(), 
-								possibleExtras, State.PRODUCTION, 0);
-				Optional<List<PlantationType>> product = dialog.showAndWait();
+				Optional<List<PlantationType>> product;
+				if (currentPlayer.hasAi()) {
+					product = currentPlayer.ai().chooseProductionExtra(possibleExtras);
+				} else {
+					ProductDialog dialog = 
+							new ProductDialog(currentPlayer.name(), 
+									possibleExtras, State.PRODUCTION, 0);
+					product = dialog.showAndWait();
+				}
 				if (product.isPresent()) {
-					player.addProduction(product.get().get(0), 1);
+					currentPlayer.addProduction(product.get().get(0), 1);
 					gameBoard.removeProduction(product.get().get(0), 1);
 				}
 			}
 		}
 		
-		if (player.hasActiveBuilding(BuildingTypeList.MANUFAKTUR)) {
+		if (currentPlayer.hasActiveBuilding(BuildingTypeList.MANUFAKTUR)) {
 			int amount = calcAvailableExtraProducts(production);
 			if (amount > 0) {
 				int extra = amount == 5 ? 5: amount - 1;
-				player.addGulden(extra);
+				currentPlayer.addGulden(extra);
 			}
 		}
 		

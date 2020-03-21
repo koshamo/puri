@@ -68,4 +68,6 @@ public abstract class AbstractAi {
 		controller.gouvernorDone();
 	}
 
+	public abstract Optional<List<PlantationType>> chooseProductionExtra(int[] possibleExtras);
+
 }
