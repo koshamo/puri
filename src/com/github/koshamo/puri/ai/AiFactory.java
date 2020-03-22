@@ -36,7 +36,7 @@ public class AiFactory {
 	public static AbstractAi createAi(String name, List<Player> players, 
 			Board gameBoard, RoleBoard roleBoard) {
 		switch (name) {
-		case "Anfänger": return /*new Beginner AI*/ null;
+		case "Anfänger": return new BeginnerAi(players, gameBoard, roleBoard);
 		default: return null;
 		}
 	}
