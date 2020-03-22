@@ -228,7 +228,10 @@ public class Player extends Region {
 	}
 
 	public void activateTrader() {
-		stats.activateTraderDnD();
+		if (hasAi())
+			ai.trade();
+		else
+			stats.activateTraderDnD();
 	}
 	
 	public void deactivateTrader() {

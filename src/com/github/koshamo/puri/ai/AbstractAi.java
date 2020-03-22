@@ -81,4 +81,14 @@ public abstract class AbstractAi {
 		controller.shippingDone();
 	}
 
+	/**
+	 * call
+	 * propagateTrading()
+	 * as last action
+	 */
+	public abstract void trade();
+
+	protected final void propagateTrading() {
+		controller.handleTraderDone();
+	}
 }
