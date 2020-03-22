@@ -38,6 +38,10 @@ public class RoleBoard extends Region {
 	public void connectController(GameController controller) {
 		this.controller = controller;
 	}
+	
+	public List<RoleCard> roleCards() {
+		return roleCards;
+	}
 
 	public void activate() {
 		for (RoleCard rc : roleCards) {

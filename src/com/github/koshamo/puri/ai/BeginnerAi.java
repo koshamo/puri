@@ -1,5 +1,6 @@
 package com.github.koshamo.puri.ai;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
+import com.github.koshamo.puri.ui.controls.role.RoleCard;
 
 import javafx.scene.control.ButtonType;
 
@@ -20,8 +22,23 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public void chooseRole() {
-		System.out.println("AI: choose Role");
-		propagateRole(null);
+		System.out.print("AI: choose Role: ");
+		
+		List<Pair<RoleCard,Integer>> ratedRoles = new LinkedList<>();
+		for (RoleCard rc : roleBoard.roleCards()) 
+			if (!rc.isUsed()) {
+				int points = calcRoleGain(rc);
+				ratedRoles.add(new Pair<>(rc, Integer.valueOf(points)));
+			}
+		
+		ratedRoles.sort((o1,o2) -> {return o1.second().compareTo(o2.second());});
+		System.out.println(ratedRoles.get(0).first().type());
+		propagateRole(ratedRoles.get(0).first());
+	}
+
+	private int calcRoleGain(RoleCard rc) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
