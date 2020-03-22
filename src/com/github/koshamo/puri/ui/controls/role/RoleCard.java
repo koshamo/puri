@@ -34,6 +34,10 @@ public class RoleCard extends Control {
 		return gulden;
 	}
 	
+	public int gulden() {
+		return gulden;
+	}
+	
 	public void prepareNextTurn() {
 		if (!used)
 			gulden++;

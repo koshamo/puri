@@ -15,6 +15,8 @@ import javafx.scene.control.ButtonType;
 
 public class BeginnerAi extends AbstractAi {
 
+	private final int POINTS_GULDEN_ON_ROLE = 5;
+	
 	public BeginnerAi(List<Player> players, 
 			Board gameBoard, RoleBoard roleBoard) {
 		super(players, gameBoard, roleBoard);
@@ -37,8 +39,52 @@ public class BeginnerAi extends AbstractAi {
 	}
 
 	private int calcRoleGain(RoleCard rc) {
+		int points = rc.gulden() * POINTS_GULDEN_ON_ROLE;
+		
+		switch (rc.type()) {
+		case BAUMEISTER: return points + calcGainBuilder();
+		case SIEDLER: return points + calcGainSettler();
+		case BUERGERMEISTER: return points + calcGainGouvernor();
+		case AUFSEHER: return points + calcGainProducer();
+		case KAPITAEN: return points + calcGainCaptain();
+		case HAENDLER: return points + calcGainTrader();
+		case GOLDSUCHER: return points + calcGainGoldfinder();
+		default: return 0;
+		}
+	}
+
+	private int calcGainBuilder() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	private int calcGainSettler() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private int calcGainGouvernor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private int calcGainProducer() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private int calcGainCaptain() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private int calcGainTrader() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private int calcGainGoldfinder() {
+		return POINTS_GULDEN_ON_ROLE;
 	}
 
 	@Override
