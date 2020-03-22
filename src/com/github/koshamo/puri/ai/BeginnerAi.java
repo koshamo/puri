@@ -35,8 +35,8 @@ public class BeginnerAi extends AbstractAi {
 				ratedRoles.add(new Pair<>(rc, Integer.valueOf(points)));
 			}
 		
-		ratedRoles.sort((o1,o2) -> {return o1.second().compareTo(o2.second());});
-		System.out.println(ratedRoles.get(0).first().type());
+		ratedRoles.sort((o1,o2) -> {return o2.second().compareTo(o1.second());});
+		System.out.println(ratedRoles.get(0).first().type() + " " + ratedRoles.get(0).second() + " Points");
 		propagateRole(ratedRoles.get(0).first());
 	}
 
