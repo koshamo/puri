@@ -183,7 +183,7 @@ public class Player extends Region {
 		plantations.deactivateColonistsDnD();
 		buildings.deactivateColonistsDnD();
 		
-		controller.gouvernorDone();
+		controller.handleGouvernorDone();
 	}
 	
 	public void shipProducts() {
@@ -195,7 +195,7 @@ public class Player extends Region {
 	
 	public void shippingDone() {
 		stats.deactivateCaptainDnD();
-		controller.shippingDone();
+		controller.handleShippingDone();
 	}
 	
 	public List<PlantationType> listShippableProducts() {

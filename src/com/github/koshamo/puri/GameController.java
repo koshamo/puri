@@ -229,7 +229,7 @@ public class GameController {
 		currentPlayer.distributeColonists();
 	}
 	
-	public void gouvernorDone() {
+	public void handleGouvernorDone() {
 		if (activePlayerCount == NUM_PLAYERS - 1) {
 			int emptyPlaces = 0;
 			for (Player p : players)
@@ -511,7 +511,7 @@ public class GameController {
 		players.get(captainIndex).shipProducts();
 	}
 	
-	public void shippingDone() {
+	public void handleShippingDone() {
 		gameBoard.deactivateCaptainDnD();
 		
 		Player player = players.get(captainIndex);

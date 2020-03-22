@@ -65,7 +65,7 @@ public abstract class AbstractAi {
 	public abstract void distributeColonists();
 	
 	protected final void propagateColonistDistribution() {
-		controller.gouvernorDone();
+		controller.handleGouvernorDone();
 	}
 
 	public abstract Optional<List<PlantationType>> chooseProductionExtra(int[] possibleExtras);
@@ -78,7 +78,7 @@ public abstract class AbstractAi {
 	public abstract void shipProduct();
 	
 	protected final void propagateShipping() {
-		controller.shippingDone();
+		controller.handleShippingDone();
 	}
 
 	/**
