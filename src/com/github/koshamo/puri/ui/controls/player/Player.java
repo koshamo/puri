@@ -55,7 +55,7 @@ public class Player extends Region {
 	public void connectController(GameController controller) {
 		this.controller = controller;
 		if (isAi)
-			ai.connectController(controller);
+			ai.connectPlayerAndController(this, controller);
 	}
 	
 	public boolean hasAi() {

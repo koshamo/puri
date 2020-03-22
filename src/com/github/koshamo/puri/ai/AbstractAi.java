@@ -16,6 +16,7 @@ import javafx.scene.control.ButtonType;
 public abstract class AbstractAi {
 
 	protected final List<Player> players;
+	protected Player player;
 	protected final Board gameBoard;
 	protected final RoleBoard roleBoard;
 	protected GameController controller;
@@ -27,7 +28,8 @@ public abstract class AbstractAi {
 		this.roleBoard = roleBoard;
 	}
 	
-	public void connectController(GameController controller) {
+	public void connectPlayerAndController(Player player, GameController controller) {
+		this.player = player;
 		this.controller = controller;
 	}
 	
