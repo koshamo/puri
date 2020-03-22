@@ -6,10 +6,12 @@ import java.util.List;
 import com.github.koshamo.puri.GameController;
 import com.github.koshamo.puri.gamedata.StartupConstants;
 import com.github.koshamo.puri.setup.BuildingTypeList;
+import com.github.koshamo.puri.setup.BuildingsModel;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.setup.PrColors;
 import com.github.koshamo.puri.ui.controls.QuantityBar;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -58,6 +60,10 @@ public class Board extends Region {
 	
 	public BoardPlantation plantations() {
 		return plantations;
+	}
+	
+	public ObservableList<BuildingsModel> availableBuildings() {
+		return gameConstants.availableBuildings;
 	}
 	
 	public void activateSettler(boolean privilege) {

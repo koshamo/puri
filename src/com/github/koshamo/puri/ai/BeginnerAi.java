@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.github.koshamo.puri.setup.BuildingTypeList;
+import com.github.koshamo.puri.setup.BuildingsModel;
 import com.github.koshamo.puri.setup.PlantationType;
 import com.github.koshamo.puri.ui.controls.board.Board;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
 import com.github.koshamo.puri.ui.controls.role.RoleCard;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.ButtonType;
 
 public class BeginnerAi extends AbstractAi {
@@ -54,8 +56,22 @@ public class BeginnerAi extends AbstractAi {
 	}
 
 	private int calcGainBuilder() {
-		// TODO Auto-generated method stub
-		return 0;
+		int availableGulden = player.availableGulden() + 1;
+		List<BuildingTypeList> ownedBuildings = player.ownedBuildings();
+		ObservableList<BuildingsModel> availableBuildings = gameBoard.availableBuildings();
+		
+		int maxPoints = 0;
+		// TODO: think about weighting of buildings per phase
+		for (BuildingsModel bm : availableBuildings) {
+			if (Integer.valueOf(bm.getLeft()).intValue() > 0
+					&& !(bm.type().getCost() > availableGulden)
+					&& !ownedBuildings.contains(bm.type())) {
+				if (bm.type().getVictoryPoints() > maxPoints)
+					maxPoints = bm.type().getVictoryPoints();
+			}
+		}
+
+		return maxPoints;
 	}
 
 	private int calcGainSettler() {
