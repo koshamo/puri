@@ -68,6 +68,14 @@ public class BoardPlantation extends Control {
 		return PlantationType.NONE;
 	}
 	
+	public PlantationType[] drawablePlantations() {
+		return toDraw;
+	}
+	
+	public int drawableQuarries() {
+		return quarries;
+	}
+	
 	private void updatePlantations() {
 		toDraw = new PlantationType[numPlayers + 1];
 		

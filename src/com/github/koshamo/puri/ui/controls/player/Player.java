@@ -276,6 +276,10 @@ public class Player extends Region {
 	public int numPlantations() {
 		return plantations.numPlantations();
 	}
+	
+	public List<PlantationField> ownedPlantations() {
+		return plantations.ownedPlantations();
+	}
 
 	public PlayerVictoryPoints calcVictoryPoints() {
 		int shippedVP = stats.victoryPoints();

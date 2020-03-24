@@ -98,6 +98,10 @@ import javafx.scene.layout.VBox;
 			}
 	}
 	
+	public List<PlantationField> ownedPlantations() {
+		return plantations;
+	}
+	
 	public int numPlantations() {
 		int num = 0;
 		for (PlantationField field : plantations)
