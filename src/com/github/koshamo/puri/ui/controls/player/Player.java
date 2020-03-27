@@ -122,6 +122,10 @@ public class Player extends Region {
 		return buildings.ownedBuildings();
 	}
 	
+	public List<BuildingField> ownedBuildingsAsField() {
+		return buildings.ownedBuildingsAsFields();
+	}
+	
 	public void purchaseBuilding(BuildingTypeList type, int amount) {
 		buildings.addBuilding(type);
 		stats.subGulden(amount);

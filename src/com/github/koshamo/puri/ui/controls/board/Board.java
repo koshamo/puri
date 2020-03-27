@@ -62,6 +62,10 @@ public class Board extends Region {
 		return plantations;
 	}
 	
+	public int colonists() {
+		return colonistShip.colonists();
+	}
+	
 	public ObservableList<BuildingsModel> availableBuildings() {
 		return gameConstants.availableBuildings;
 	}

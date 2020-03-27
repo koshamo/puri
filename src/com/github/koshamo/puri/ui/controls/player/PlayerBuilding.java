@@ -54,6 +54,10 @@ import javafx.scene.layout.VBox;
 		return buildingList;
 	}
 	
+	public List<BuildingField> ownedBuildingsAsFields() {
+		return buildings;
+	}
+	
 	public boolean isBuildingSpaceFull() {
 		int occupied = 0;
 		for (BuildingField bf : buildings)

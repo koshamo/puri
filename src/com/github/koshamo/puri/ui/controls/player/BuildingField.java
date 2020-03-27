@@ -6,7 +6,7 @@ import com.github.koshamo.puri.setup.State;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-/*private*/ class BuildingField extends Control {
+public class BuildingField extends Control {
 
 	private final BuildingFieldSkin skin;
 	

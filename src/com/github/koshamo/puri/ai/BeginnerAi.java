@@ -4,10 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import com.github.koshamo.puri.setup.BuildingType;
 import com.github.koshamo.puri.setup.BuildingTypeList;
 import com.github.koshamo.puri.setup.BuildingsModel;
 import com.github.koshamo.puri.setup.PlantationType;
+import com.github.koshamo.puri.setup.State;
 import com.github.koshamo.puri.ui.controls.board.Board;
+import com.github.koshamo.puri.ui.controls.player.BuildingField;
 import com.github.koshamo.puri.ui.controls.player.PlantationField;
 import com.github.koshamo.puri.ui.controls.player.Player;
 import com.github.koshamo.puri.ui.controls.role.RoleBoard;
@@ -20,6 +23,7 @@ public class BeginnerAi extends AbstractAi {
 	private final int POINTS_GULDEN_ON_ROLE = 5;
 	private final int POINTS_FOR_CORN = 5;
 	private final int DIVIDER_FOR_SETTLER = 10;
+	private final int DIVIDER_FOR_GOUVERNOR = 3;
 	
 	public BeginnerAi(List<Player> players, 
 			Board gameBoard, RoleBoard roleBoard) {
@@ -28,7 +32,7 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public void chooseRole() {
-		System.out.print("AI: choose Role: ");
+		System.out.print("AI " + player.name() + ": choose Role: ");
 		
 		List<Pair<RoleCard,Integer>> ratedRoles = new LinkedList<>();
 		for (RoleCard rc : roleBoard.roleCards()) 
@@ -154,13 +158,93 @@ public class BeginnerAi extends AbstractAi {
 	}
 
 	private int calcGainGouvernor() {
-		// TODO Auto-generated method stub
+		int colonistsToGet = calcDrawableColonists();
+		int[] inactivePlantations = calcEmptyPlantations();
+		int[] inactiveProductions = calcEmptyProductionBuildings();
+		int inactiveBuildings = calcEmptyBuildings();
+		
+		int freeProduction = 0;
+		for (int i = 0; i < 4; i++) 
+			if (inactivePlantations[i] > 0 || inactiveProductions[i] > 0)
+				freeProduction += Math.abs(inactivePlantations[i] - inactiveProductions[i]);
+		freeProduction += inactivePlantations[4];
+		freeProduction += inactivePlantations[5];
+		
+		return (freeProduction + inactiveBuildings - colonistsToGet) / DIVIDER_FOR_GOUVERNOR;
+	}
+	
+	private int calcDrawableColonists() {
+		int colonistsOnBoard = gameBoard.colonists();
+		int colonistsToGet = colonistsOnBoard % players.size() > 0 
+				? colonistsOnBoard / 3 + 2 : colonistsOnBoard / 3 + 1;
+		return colonistsToGet;
+	}
+
+	private int[] calcEmptyPlantations() {
+		int[] inactivePlantations = new int[6]; // corn = 4, quarry = 5
+		
+		for (PlantationField pf : player.ownedPlantations())
+			if (pf.state() == State.INACTIVE) 
+				switch (pf.type()) {
+				case QUARRY: inactivePlantations[5]++; break;
+				case INDIGO: inactivePlantations[0]++; break;
+				case SUGAR: inactivePlantations[1]++; break;
+				case CORN: inactivePlantations[4]++; break;
+				case TOBACCO: inactivePlantations[2]++; break;
+				case COFFEE: inactivePlantations[3]++; break;
+				default: break;
+				}
+		
+		return inactivePlantations;
+	}
+	
+	private int[] calcEmptyProductionBuildings() {
+		int[] inactiveProductionPlaces = new int[4];
+		
+		for (BuildingField bf: player.ownedBuildingsAsField())
+			switch (bf.type()) {
+			case KL_INDIGO: 
+			case GR_INDIGO: inactiveProductionPlaces[0] += bf.emptyPlaces();
+				break;
+			case KL_ZUCKER: 
+			case GR_ZUCKER: inactiveProductionPlaces[1] += bf.emptyPlaces();
+				break;
+			case TABAK: inactiveProductionPlaces[2] += bf.emptyPlaces();
+				break;
+			case KAFFEE: inactiveProductionPlaces[3] += bf.emptyPlaces();
+				break;
+			default: break;
+			}
+		
+		return inactiveProductionPlaces;
+	}
+	
+	private int calcEmptyBuildings() {
+		int emptyBuilding = 0;
+
+		for (BuildingField bf: player.ownedBuildingsAsField())
+			if (bf.state() == State.INACTIVE
+				&& bf.type().getType() == BuildingType.BUILDING
+				|| bf.type().getType() == BuildingType.LARGE_BUILDING)
+				emptyBuilding++;
+
+		return emptyBuilding;
+	}
+	
+	private int calcGainProducer() {
+		int[] producableMaterials = calcProducableMaterials();
+		int[] producableProducts = calcProducableProducts();
 		return 0;
 	}
 
-	private int calcGainProducer() {
+	private int[] calcProducableMaterials() {
+		int[] materials = new int[5];
+		return null;
+	}
+
+	private int[] calcProducableProducts() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	private int calcGainCaptain() {
