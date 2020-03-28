@@ -159,16 +159,23 @@ public class BeginnerAi extends AbstractAi {
 
 	private int calcGainGouvernor() {
 		int colonistsToGet = calcDrawableColonists();
-		int[] inactivePlantations = calcEmptyPlantations();
-		int[] inactiveProductions = calcEmptyProductionBuildings();
+		int[] plantations = calcPlantationsColonists();
+		int[] productions = calcProductionBuildingsColonists();
 		int inactiveBuildings = calcEmptyBuildings();
 		
 		int freeProduction = 0;
-		for (int i = 0; i < 4; i++) 
-			if (inactivePlantations[i] > 0 || inactiveProductions[i] > 0)
-				freeProduction += Math.abs(inactivePlantations[i] - inactiveProductions[i]);
-		freeProduction += inactivePlantations[4];
-		freeProduction += inactivePlantations[5];
+		for (int i = 0; i < productions.length; i += 2) {
+			if (plantations[i] != productions[i])
+				if (plantations[i] > productions[i])
+					freeProduction += productions[i+1];
+				else
+					freeProduction += plantations[i+1];
+				
+			if (plantations[i+1] > 0 && productions[i+1] > 0)
+				freeProduction += Math.abs(plantations[i] - productions[i]);
+		}
+		freeProduction += plantations[9];
+		freeProduction += plantations[11];
 		
 		return (freeProduction + inactiveBuildings - colonistsToGet) / DIVIDER_FOR_GOUVERNOR;
 	}
@@ -180,43 +187,92 @@ public class BeginnerAi extends AbstractAi {
 		return colonistsToGet;
 	}
 
-	private int[] calcEmptyPlantations() {
-		int[] inactivePlantations = new int[6]; // corn = 4, quarry = 5
+	private int[] calcPlantationsColonists() {
+		int[] plantations = new int[12]; // active, inactive,...
+										 // corn = 8, quarry = 10
 		
 		for (PlantationField pf : player.ownedPlantations())
 			if (pf.state() == State.INACTIVE) 
 				switch (pf.type()) {
-				case QUARRY: inactivePlantations[5]++; break;
-				case INDIGO: inactivePlantations[0]++; break;
-				case SUGAR: inactivePlantations[1]++; break;
-				case CORN: inactivePlantations[4]++; break;
-				case TOBACCO: inactivePlantations[2]++; break;
-				case COFFEE: inactivePlantations[3]++; break;
+				case INDIGO: 
+					if (pf.state() == State.ACTIVE) 
+						plantations[0] += 1;
+					else 
+						plantations[1] += 1;
+					break;
+				case SUGAR: 
+					if (pf.state() == State.ACTIVE) 
+						plantations[2] += 1;
+					else 
+						plantations[3] += 1;
+					break;
+				case TOBACCO: 
+					if (pf.state() == State.ACTIVE) 
+						plantations[4] += 1;
+					else 
+						plantations[5] += 1;
+					break;
+				case COFFEE: 
+					if (pf.state() == State.ACTIVE) 
+						plantations[6] += 1;
+					else 
+						plantations[7] += 1;
+					break;
+				case CORN: 
+					if (pf.state() == State.ACTIVE) 
+						plantations[8] += 1;
+					else 
+						plantations[9] += 1;
+					break;
+				case QUARRY: 
+					if (pf.state() == State.ACTIVE) 
+						plantations[10] += 1;
+					else 
+						plantations[11] += 1;
+					break;
 				default: break;
 				}
 		
-		return inactivePlantations;
+		return plantations;
 	}
 	
-	private int[] calcEmptyProductionBuildings() {
-		int[] inactiveProductionPlaces = new int[4];
+	private int[] calcProductionBuildingsColonists() {
+		int[] productionPlaces = new int[8]; // active, inactive,..
 		
 		for (BuildingField bf: player.ownedBuildingsAsField())
 			switch (bf.type()) {
 			case KL_INDIGO: 
-			case GR_INDIGO: inactiveProductionPlaces[0] += bf.emptyPlaces();
+				if (bf.state() == State.ACTIVE) 
+					productionPlaces[0] += 1;
+				else 
+					productionPlaces[1] += 1;
+				break;
+			case GR_INDIGO: 
+				productionPlaces[0] += bf.type().getPlaces() - bf.emptyPlaces();
+				productionPlaces[1] += bf.emptyPlaces();
 				break;
 			case KL_ZUCKER: 
-			case GR_ZUCKER: inactiveProductionPlaces[1] += bf.emptyPlaces();
+				if (bf.state() == State.ACTIVE) 
+					productionPlaces[2] += 1;
+				else 
+					productionPlaces[3] += 1;
 				break;
-			case TABAK: inactiveProductionPlaces[2] += bf.emptyPlaces();
+			case GR_ZUCKER: 
+				productionPlaces[2] += bf.type().getPlaces() - bf.emptyPlaces();
+				productionPlaces[3] += bf.emptyPlaces();
 				break;
-			case KAFFEE: inactiveProductionPlaces[3] += bf.emptyPlaces();
+			case TABAK: 
+				productionPlaces[4] += bf.type().getPlaces() - bf.emptyPlaces();
+				productionPlaces[5] += bf.emptyPlaces();
+				break;
+			case KAFFEE: 
+				productionPlaces[6] += bf.type().getPlaces() - bf.emptyPlaces();
+				productionPlaces[7] += bf.emptyPlaces();
 				break;
 			default: break;
 			}
 		
-		return inactiveProductionPlaces;
+		return productionPlaces;
 	}
 	
 	private int calcEmptyBuildings() {
