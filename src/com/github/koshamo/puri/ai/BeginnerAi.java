@@ -318,7 +318,7 @@ public class BeginnerAi extends AbstractAi {
 		return activeProductionPlaces;
 	}
 	
-	private int calcProduction(int[] materials, int[] products) {
+	private static int calcProduction(int[] materials, int[] products) {
 		int production = 0;
 		
 		for (int i = 0; i < products.length; i++)
