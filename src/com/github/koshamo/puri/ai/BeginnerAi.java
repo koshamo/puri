@@ -276,6 +276,9 @@ public class BeginnerAi extends AbstractAi {
 		int[] producableProducts = calcProducableProducts();
 		
 		int production = calcProduction(producableMaterials, producableProducts);
+		if (player.hasActiveBuilding(BuildingTypeList.MANUFAKTUR))
+			production += calcNumOfDifferentProducts(
+					producableMaterials, producableProducts) - 1;
 		return production;
 	}
 
@@ -324,6 +327,18 @@ public class BeginnerAi extends AbstractAi {
 		for (int i = 0; i < products.length; i++)
 			production += Math.min(materials[i], products[i]);
 		production += materials[4];
+		
+		return production;
+	}
+
+	private static int calcNumOfDifferentProducts(int[] materials, int[] products) {
+		int production = 0;
+		
+		for (int i = 0; i < products.length; i++)
+			if (materials[i] > 0 && products[i] > 0)
+				production++;
+		if (materials[4] > 0)
+			production++;
 		
 		return production;
 	}
