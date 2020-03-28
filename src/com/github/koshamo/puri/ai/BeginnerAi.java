@@ -234,17 +234,58 @@ public class BeginnerAi extends AbstractAi {
 	private int calcGainProducer() {
 		int[] producableMaterials = calcProducableMaterials();
 		int[] producableProducts = calcProducableProducts();
-		return 0;
+		
+		int production = calcProduction(producableMaterials, producableProducts);
+		return production;
 	}
 
 	private int[] calcProducableMaterials() {
 		int[] materials = new int[5];
-		return null;
+		
+		for (PlantationField pf: player.ownedPlantations())
+			if (pf.state() == State.ACTIVE)
+				switch (pf.type()) {
+				case INDIGO: materials[0]++; break;
+				case SUGAR: materials[1]++; break;
+				case CORN: materials[4]++; break;
+				case TOBACCO: materials[2]++; break;
+				case COFFEE: materials[3]++; break;
+				default: break;
+				}
+
+		return materials;
 	}
 
 	private int[] calcProducableProducts() {
-		// TODO Auto-generated method stub
-		return null;
+		int[] activeProductionPlaces = new int[4];
+		
+		for (BuildingField bf: player.ownedBuildingsAsField())
+			if (bf.state() == State.ACTIVE)
+				switch (bf.type()) {
+				case KL_INDIGO: activeProductionPlaces[0]++; break;
+				case GR_INDIGO: activeProductionPlaces[0] += bf.colonists();
+					break;
+				case KL_ZUCKER: activeProductionPlaces[1]++; break;
+				case GR_ZUCKER: activeProductionPlaces[1] += bf.colonists();
+					break;
+				case TABAK: activeProductionPlaces[2] += bf.colonists();
+					break;
+				case KAFFEE: activeProductionPlaces[3] += bf.colonists();
+					break;
+				default: break;
+				}
+		
+		return activeProductionPlaces;
+	}
+	
+	private int calcProduction(int[] materials, int[] products) {
+		int production = 0;
+		
+		for (int i = 0; i < products.length; i++)
+			production += Math.min(materials[i], products[i]);
+		production += materials[4];
+		
+		return production;
 	}
 
 	private int calcGainCaptain() {
