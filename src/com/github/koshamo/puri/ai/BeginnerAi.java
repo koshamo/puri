@@ -218,11 +218,11 @@ public class BeginnerAi extends AbstractAi {
 		return plantations;
 	}
 	
-	private static void addPointPerState(int[] plantation, State state, int index) {
+	private static void addPointPerState(int[] field, State state, int index) {
 		if (state == State.ACTIVE) 
-			plantation[index] ++;
+			field[index]++;
 		else 
-			plantation[index + 1] ++;
+			field[index + 1]++;
 	}
 	
 	private int[] calcProductionBuildingsColonists() {
@@ -231,37 +231,32 @@ public class BeginnerAi extends AbstractAi {
 		for (BuildingField bf: player.ownedBuildingsAsField())
 			switch (bf.type()) {
 			case KL_INDIGO: 
-				if (bf.state() == State.ACTIVE) 
-					productionPlaces[0] += 1;
-				else 
-					productionPlaces[1] += 1;
+				addPointPerState(productionPlaces, bf.state(), 0);
 				break;
 			case GR_INDIGO: 
-				productionPlaces[0] += bf.type().getPlaces() - bf.emptyPlaces();
-				productionPlaces[1] += bf.emptyPlaces();
+				addPointsPerFreePlaces(productionPlaces, bf, 0);
 				break;
 			case KL_ZUCKER: 
-				if (bf.state() == State.ACTIVE) 
-					productionPlaces[2] += 1;
-				else 
-					productionPlaces[3] += 1;
+				addPointPerState(productionPlaces, bf.state(), 2);
 				break;
 			case GR_ZUCKER: 
-				productionPlaces[2] += bf.type().getPlaces() - bf.emptyPlaces();
-				productionPlaces[3] += bf.emptyPlaces();
+				addPointsPerFreePlaces(productionPlaces, bf, 2);
 				break;
 			case TABAK: 
-				productionPlaces[4] += bf.type().getPlaces() - bf.emptyPlaces();
-				productionPlaces[5] += bf.emptyPlaces();
+				addPointsPerFreePlaces(productionPlaces, bf, 4);
 				break;
 			case KAFFEE: 
-				productionPlaces[6] += bf.type().getPlaces() - bf.emptyPlaces();
-				productionPlaces[7] += bf.emptyPlaces();
+				addPointsPerFreePlaces(productionPlaces, bf, 6);
 				break;
 			default: break;
 			}
 		
 		return productionPlaces;
+	}
+	
+	private static void addPointsPerFreePlaces(int[] places, BuildingField field, int index) {
+		places[index] += field.type().getPlaces() - field.emptyPlaces();
+		places[index + 1] += field.emptyPlaces();
 	}
 	
 	private int calcEmptyBuildings() {
