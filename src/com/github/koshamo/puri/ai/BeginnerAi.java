@@ -195,45 +195,34 @@ public class BeginnerAi extends AbstractAi {
 			if (pf.state() == State.INACTIVE) 
 				switch (pf.type()) {
 				case INDIGO: 
-					if (pf.state() == State.ACTIVE) 
-						plantations[0] += 1;
-					else 
-						plantations[1] += 1;
+					addPointPerState(plantations, pf.state(), 0);
 					break;
 				case SUGAR: 
-					if (pf.state() == State.ACTIVE) 
-						plantations[2] += 1;
-					else 
-						plantations[3] += 1;
+					addPointPerState(plantations, pf.state(), 2);
 					break;
 				case TOBACCO: 
-					if (pf.state() == State.ACTIVE) 
-						plantations[4] += 1;
-					else 
-						plantations[5] += 1;
+					addPointPerState(plantations, pf.state(), 4);
 					break;
 				case COFFEE: 
-					if (pf.state() == State.ACTIVE) 
-						plantations[6] += 1;
-					else 
-						plantations[7] += 1;
+					addPointPerState(plantations, pf.state(), 6);
 					break;
 				case CORN: 
-					if (pf.state() == State.ACTIVE) 
-						plantations[8] += 1;
-					else 
-						plantations[9] += 1;
+					addPointPerState(plantations, pf.state(), 8);
 					break;
 				case QUARRY: 
-					if (pf.state() == State.ACTIVE) 
-						plantations[10] += 1;
-					else 
-						plantations[11] += 1;
+					addPointPerState(plantations, pf.state(), 10);
 					break;
 				default: break;
 				}
 		
 		return plantations;
+	}
+	
+	private static void addPointPerState(int[] plantation, State state, int index) {
+		if (state == State.ACTIVE) 
+			plantation[index] ++;
+		else 
+			plantation[index + 1] ++;
 	}
 	
 	private int[] calcProductionBuildingsColonists() {
