@@ -344,8 +344,8 @@ public class BeginnerAi extends AbstractAi {
 	}
 
 	private int calcGainCaptain() {
-		int maxAmount = calcMaxShippableProducts();
-		int extra = 1;
+		int maxAmount = calcMaxShippableProductsWithPrivilege();
+		int extra = 0;
 		
 		if (player.hasActiveBuilding(BuildingTypeList.HAFEN))
 			extra++;
@@ -355,7 +355,7 @@ public class BeginnerAi extends AbstractAi {
 		return maxAmount + extra;
 	}
 	
-	private int calcMaxShippableProducts() {
+	private int calcMaxShippableProductsWithPrivilege() {
 		int max = 0;
 		int shippable = 0;
 		
@@ -375,7 +375,7 @@ public class BeginnerAi extends AbstractAi {
 		if (shippable > max)
 			max = shippable;
 		
-		return max;
+		return max > 0 ? max++ : max;
 	}
 
 	private int calcShippableProductsPerType(PlantationType type) {
