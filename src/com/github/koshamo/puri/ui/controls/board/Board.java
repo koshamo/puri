@@ -149,12 +149,13 @@ public class Board extends Region {
 	}
 	
 	public int freePlacesOnShipWith(PlantationType type) {
-		if (smallGoodsShip.type() == type)
-			return smallGoodsShip.storageLeft();
-		if (mediumGoodsShip.type() == type)
-			return mediumGoodsShip.storageLeft();
+		// TODO: is there a need for small Ship to be the first?
 		if (largeGoodsShip.type() == type)
 			return largeGoodsShip.storageLeft();
+		if (mediumGoodsShip.type() == type)
+			return mediumGoodsShip.storageLeft();
+		if (smallGoodsShip.type() == type)
+			return smallGoodsShip.storageLeft();
 		return 0;
 	}
 	

@@ -344,7 +344,51 @@ public class BeginnerAi extends AbstractAi {
 	}
 
 	private int calcGainCaptain() {
-		// TODO Auto-generated method stub
+		int maxAmount = calcMaxShippableProducts();
+		int extra = 1;
+		
+		if (player.hasActiveBuilding(BuildingTypeList.HAFEN))
+			extra++;
+		if (maxAmount > 0 && player.hasActiveBuilding(BuildingTypeList.WERFT))
+			extra++;
+		
+		return maxAmount + extra;
+	}
+	
+	private int calcMaxShippableProducts() {
+		int max = 0;
+		int shippable = 0;
+		
+		shippable = calcShippableProductsPerType(PlantationType.INDIGO);
+		if (shippable > max)
+			max = shippable;
+		shippable = calcShippableProductsPerType(PlantationType.SUGAR);
+		if (shippable > max)
+			max = shippable;
+		shippable = calcShippableProductsPerType(PlantationType.CORN);
+		if (shippable > max)
+			max = shippable;
+		shippable = calcShippableProductsPerType(PlantationType.TOBACCO);
+		if (shippable > max)
+			max = shippable;
+		shippable = calcShippableProductsPerType(PlantationType.COFFEE);
+		if (shippable > max)
+			max = shippable;
+		
+		return max;
+	}
+
+	private int calcShippableProductsPerType(PlantationType type) {
+		int playerAmount = player.availableProducts(type);
+		
+		if (playerAmount > 0) {
+			int amount = 0;
+			if (gameBoard.hasShip(type)) 
+				amount = gameBoard.freePlacesOnShipWith(type);
+			else if (gameBoard.numShipsWithNone() > 0) 
+				amount = gameBoard.freePlacesOnShipWith(PlantationType.NONE);
+			return Math.min(playerAmount, amount);
+		}
 		return 0;
 	}
 
