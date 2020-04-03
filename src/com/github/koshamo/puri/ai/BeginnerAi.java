@@ -66,14 +66,17 @@ public class BeginnerAi extends AbstractAi {
 	private int calcGainBuilder() {
 		int availableGulden = player.availableGulden() + 1;
 		int quarries = player.activeQuarries();
-		// FIXME: add quarries to calculation!
 		List<BuildingTypeList> ownedBuildings = player.ownedBuildings();
 		
 		int maxPoints = 0;
 		// TODO: think about weighting of buildings per phase
 		for (BuildingsModel bm : gameBoard.availableBuildings()) {
+			int cost = bm.type().getCost();
+			int vp = bm.type().getVictoryPoints();
+			int quarryGain = vp < quarries ? vp : quarries; 
+
 			if (Integer.valueOf(bm.getLeft()).intValue() > 0
-					&& !(bm.type().getCost() > availableGulden)
+					&& !(cost - quarryGain > availableGulden)
 					&& !ownedBuildings.contains(bm.type())) {
 				if (bm.type().getVictoryPoints() > maxPoints)
 					maxPoints = bm.type().getVictoryPoints();
