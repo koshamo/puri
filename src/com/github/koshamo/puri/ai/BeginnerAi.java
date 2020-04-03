@@ -454,8 +454,8 @@ public class BeginnerAi extends AbstractAi {
 		
 		List<BuildingTypeList> buyableBuildings = new LinkedList<>();
 		for (BuildingsModel bm : gameBoard.availableBuildings()) {
-			int cost = Integer.valueOf(bm.getCost()).intValue();
-			int vp = Integer.valueOf(bm.getVictoryPoints()).intValue();
+			int cost = bm.type().getCost();
+			int vp = bm.type().getVictoryPoints();
 			int quarryGain = vp < quarries ? vp : quarries; 
 			if (!ownedBuildings.contains(bm.type()) 
 					&& !(cost - quarryGain > availableGulden))
