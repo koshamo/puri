@@ -1,5 +1,6 @@
 package com.github.koshamo.puri.ai;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -452,7 +453,7 @@ public class BeginnerAi extends AbstractAi {
 		int quarries = player.activeQuarries();
 		List<BuildingTypeList> ownedBuildings = player.ownedBuildings();
 		
-		List<BuildingTypeList> buyableBuildings = new LinkedList<>();
+		List<BuildingTypeList> buyableBuildings = new ArrayList<>();
 		for (BuildingsModel bm : gameBoard.availableBuildings()) {
 			int cost = bm.type().getCost();
 			int vp = bm.type().getVictoryPoints();
@@ -462,8 +463,51 @@ public class BeginnerAi extends AbstractAi {
 				buyableBuildings.add(bm.type());
 		}
 		
-		System.out.println("AI: choose Building");
-		return Optional.empty();
+		if (buyableBuildings.size() == 0)
+			return Optional.empty();
+		
+		int n = buyableBuildings.size() - 1;
+		BuildingTypeList toPurchase = buyableBuildings.get(n);
+		
+		while (toPurchase.getType() == BuildingType.SMALL_PRODUCTION 
+				|| toPurchase.getType() == BuildingType.PRODUCTION) {
+			
+			List<PlantationType> plantations = new LinkedList<>(); 
+			for (PlantationField pf : player.ownedPlantations())
+				plantations.add(pf.type());
+			
+			if (toPurchase == BuildingTypeList.KL_INDIGO 
+					&& plantations.contains(PlantationType.INDIGO)) 
+				break;
+			if (toPurchase == BuildingTypeList.GR_INDIGO 
+					&& plantations.indexOf(PlantationType.INDIGO) != plantations.lastIndexOf(PlantationType.INDIGO)) 
+				break;
+			if (toPurchase == BuildingTypeList.KL_ZUCKER 
+					&& plantations.contains(PlantationType.SUGAR)) 
+				break;
+			if (toPurchase == BuildingTypeList.GR_ZUCKER
+					&& plantations.indexOf(PlantationType.SUGAR) != plantations.lastIndexOf(PlantationType.SUGAR)) 
+				break;
+			if (toPurchase == BuildingTypeList.TABAK 
+					&& plantations.contains(PlantationType.TOBACCO)) 
+				break;
+			if (toPurchase == BuildingTypeList.KAFFEE 
+					&& plantations.contains(PlantationType.COFFEE)) 
+				break;
+
+			if (n > 0) {
+				n--;
+				toPurchase = buyableBuildings.get(n);
+			} else {
+				toPurchase = BuildingTypeList.NONE;
+				break;
+			}
+		}
+			
+		System.out.println("AI: choose Building: " + toPurchase);
+		return toPurchase == BuildingTypeList.NONE 
+				? Optional.empty() 
+				: Optional.of(toPurchase);
 	}
 
 	@Override
