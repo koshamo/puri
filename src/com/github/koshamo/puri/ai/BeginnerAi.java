@@ -33,7 +33,7 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public void chooseRole() {
-		System.out.print("AI " + player.name() + ": choose Role: ");
+		System.out.print(player.name() + " choose Role: ");
 		
 		List<Pair<RoleCard,Integer>> ratedRoles = new LinkedList<>();
 		for (RoleCard rc : roleBoard.roleCards()) 
@@ -504,7 +504,7 @@ public class BeginnerAi extends AbstractAi {
 			}
 		}
 			
-		System.out.println("AI: choose Building: " + toPurchase);
+		System.out.println(player.name() + " choose Building: " + toPurchase);
 		return toPurchase == BuildingTypeList.NONE 
 				? Optional.empty() 
 				: Optional.of(toPurchase);
