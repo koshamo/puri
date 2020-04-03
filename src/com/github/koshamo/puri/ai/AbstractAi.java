@@ -44,7 +44,7 @@ public abstract class AbstractAi {
 		controller.chooseRole(card.type(), card.removeGuldenAndDeactivateCard());
 	}
 
-	public abstract Optional<BuildingTypeList> purchaseBuilding();
+	public abstract Optional<BuildingTypeList> purchaseBuilding(boolean privilege);
 
 	public abstract Optional<ButtonType> useHazienda();
 

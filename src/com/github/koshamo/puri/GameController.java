@@ -137,7 +137,7 @@ public class GameController {
 		
 		Optional<BuildingTypeList> building;
 		if (currentPlayer.hasAi()) {
-			building = currentPlayer.ai().purchaseBuilding();
+			building = currentPlayer.ai().purchaseBuilding(privilege);
 		} else {
 			BuildingsDialog dialog = new BuildingsDialog(
 					gameConstants, 

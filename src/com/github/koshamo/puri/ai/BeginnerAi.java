@@ -65,6 +65,8 @@ public class BeginnerAi extends AbstractAi {
 
 	private int calcGainBuilder() {
 		int availableGulden = player.availableGulden() + 1;
+		int quarries = player.activeQuarries();
+		// FIXME: add quarries to calculation!
 		List<BuildingTypeList> ownedBuildings = player.ownedBuildings();
 		
 		int maxPoints = 0;
@@ -441,7 +443,22 @@ public class BeginnerAi extends AbstractAi {
 	}
 
 	@Override
-	public Optional<BuildingTypeList> purchaseBuilding() {
+	public Optional<BuildingTypeList> purchaseBuilding(boolean privilege) {
+		int availableGulden = privilege ? player.availableGulden() + 1
+				: player.availableGulden();
+		int quarries = player.activeQuarries();
+		List<BuildingTypeList> ownedBuildings = player.ownedBuildings();
+		
+		List<BuildingTypeList> buyableBuildings = new LinkedList<>();
+		for (BuildingsModel bm : gameBoard.availableBuildings()) {
+			int cost = Integer.valueOf(bm.getCost()).intValue();
+			int vp = Integer.valueOf(bm.getVictoryPoints()).intValue();
+			int quarryGain = vp < quarries ? vp : quarries; 
+			if (!ownedBuildings.contains(bm.type()) 
+					&& !(cost - quarryGain > availableGulden))
+				buyableBuildings.add(bm.type());
+		}
+		
 		System.out.println("AI: choose Building");
 		return Optional.empty();
 	}
