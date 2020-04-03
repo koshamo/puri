@@ -185,7 +185,7 @@ public class GameController {
 				|| currentPlayer.hasActiveBuilding(BuildingTypeList.BAUHUETTE);
 		
 		if (currentPlayer.hasAi())
-			currentPlayer.ai().choosePlantation();
+			currentPlayer.ai().choosePlantation(canQuarry);
 		else
 			gameBoard.activateSettler(canQuarry);
 	}

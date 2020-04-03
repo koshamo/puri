@@ -57,7 +57,7 @@ public abstract class AbstractAi {
 	 * propagatePlantation(type)
 	 * as last action
 	 */
-	public abstract void choosePlantation();
+	public abstract void choosePlantation(boolean canQuarry);
 
 	protected final void propagatePlantation(PlantationType type) {
 		gameBoard.plantations().selectPlantation(type);

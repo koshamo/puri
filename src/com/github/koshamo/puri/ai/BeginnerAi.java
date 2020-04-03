@@ -1,6 +1,7 @@
 package com.github.koshamo.puri.ai;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -519,9 +520,46 @@ public class BeginnerAi extends AbstractAi {
 	}
 
 	@Override
-	public void choosePlantation() {
-		System.out.println("AI: choose Plantation");
-		propagatePlantation(PlantationType.NONE);
+	public void choosePlantation(boolean canQuarry) {
+		int[] rawMaterials = calcOwnedPlantationsPerType();
+		int[] products = calcProductionCapacityPerType();
+		
+		List<Pair<PlantationType,Integer>> mostNeeded = new ArrayList<>();
+		if (products[0] > rawMaterials[0]) 
+			mostNeeded.add(new Pair<>(PlantationType.INDIGO, Integer.valueOf(products[0] - rawMaterials[0])));
+		if (products[1] > rawMaterials[1]) 
+			mostNeeded.add(new Pair<>(PlantationType.SUGAR, Integer.valueOf(products[1] - rawMaterials[1])));
+		if (products[0] > rawMaterials[2]) 
+			mostNeeded.add(new Pair<>(PlantationType.TOBACCO, Integer.valueOf(products[2] - rawMaterials[2])));
+		if (products[0] > rawMaterials[3]) 
+			mostNeeded.add(new Pair<>(PlantationType.COFFEE, Integer.valueOf(products[3] - rawMaterials[3])));
+		mostNeeded.add(new Pair<>(PlantationType.CORN, Integer.valueOf(4 - rawMaterials[4])));
+		if (canQuarry)
+			mostNeeded.add(new Pair<>(PlantationType.QUARRY, Integer.valueOf(4 - rawMaterials[5])));
+
+		mostNeeded.sort((p1,p2) -> {return p2.second().compareTo(p1.second());});
+		List<PlantationType> drawable = Arrays.asList(gameBoard.plantations().drawablePlantations());
+		drawable.sort((p1,p2) -> {return p2.compareTo(p1);});
+		
+		PlantationType toDraw = PlantationType.NONE;
+		
+		for (Pair<PlantationType,Integer> p : mostNeeded) {
+			if (drawable.contains(p.first())
+					|| p.first() == PlantationType.QUARRY 
+					&& gameBoard.plantations().drawableQuarries() > 0) {
+				toDraw = p.first();
+				break;
+			}
+		}
+		if (toDraw == PlantationType.NONE) 
+			for (PlantationType pt : drawable)
+				if (pt != pt.NONE) {
+					toDraw = pt;
+					break;
+				}
+
+		System.out.println(player.name() + " choose Plantation " + toDraw);
+		propagatePlantation(toDraw);
 	}
 
 	@Override
