@@ -460,7 +460,8 @@ public class BeginnerAi extends AbstractAi {
 			int vp = bm.type().getVictoryPoints();
 			int quarryGain = vp < quarries ? vp : quarries; 
 			if (!ownedBuildings.contains(bm.type()) 
-					&& !(cost - quarryGain > availableGulden))
+					&& !(cost - quarryGain > availableGulden)
+					&& Integer.valueOf(bm.getLeft()).intValue() > 0)
 				buyableBuildings.add(bm.type());
 		}
 		
