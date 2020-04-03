@@ -46,6 +46,10 @@ public abstract class AbstractAi {
 
 	public abstract Optional<BuildingTypeList> purchaseBuilding(boolean privilege);
 
+	/**
+	 * must return either
+	 * ButtonType.YES or ButtonType.NO
+	 */
 	public abstract Optional<ButtonType> useHazienda();
 
 	/**

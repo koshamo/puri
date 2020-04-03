@@ -512,8 +512,10 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public Optional<ButtonType> useHazienda() {
-		System.out.println("AI: use Hazienda");
-		return Optional.empty();
+		System.out.println(player.name() + " use Hazienda "  + (player.numPlantations() < 11));
+		if (player.numPlantations() < 11)
+			return Optional.of(ButtonType.YES);
+		return Optional.of(ButtonType.NO);
 	}
 
 	@Override
