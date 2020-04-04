@@ -155,6 +155,8 @@ public class GameController {
 					? cost - type.getVictoryPoints() 
 					: cost - activeQuarries;
 			currentPlayer.purchaseBuilding(type, cost);
+			gameConstants.purchaseBuilding(type);
+			
 			if (currentPlayer.hasActiveBuilding(BuildingTypeList.UNIVERSITAET)) {
 				currentPlayer.addColonistToBuilding(type);
 				gameBoard.removeColonist();

@@ -62,6 +62,11 @@ public final class StartupConstants {
 		fillBuildingsList();
 	}
 
+	public void purchaseBuilding(BuildingTypeList type) {
+		for (BuildingsModel bm : availableBuildings)
+			if (bm.type() == type)
+				bm.removeBuilding();
+	}
 
 	private void fillBuildingsList() {
 		BuildingTypeList[] buildingsList = BuildingTypeList.values();

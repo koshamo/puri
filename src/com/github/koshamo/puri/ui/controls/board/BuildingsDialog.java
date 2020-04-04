@@ -198,7 +198,7 @@ public class BuildingsDialog extends Dialog<BuildingTypeList> {
 			BuildingsModel item = table.getSelectionModel().getSelectedItem();
 			if (item == null)
 				return null;
-			return item.removeBuilding();
+			return item.type();
 		});		
 	}
 }
