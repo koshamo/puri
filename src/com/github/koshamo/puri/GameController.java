@@ -151,8 +151,8 @@ public class GameController {
 		if (building.isPresent()) {
 			BuildingTypeList type = building.get();
 			int cost = privilege ? type.getCost() - 1 : type.getCost();
-			cost = activeQuarries > Integer.valueOf(type.getVictoryPoints()).intValue() 
-					? cost - Integer.valueOf(type.getVictoryPoints()).intValue() 
+			cost = activeQuarries > type.getVictoryPoints() 
+					? cost - type.getVictoryPoints() 
 					: cost - activeQuarries;
 			currentPlayer.purchaseBuilding(type, cost);
 			if (currentPlayer.hasActiveBuilding(BuildingTypeList.UNIVERSITAET)) {
