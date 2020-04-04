@@ -261,9 +261,19 @@ public class Player extends Region {
 	public void addColonistToPlantation(PlantationType type) {
 		plantations.addColonistToPlantation(type);
 	}
+	
+	public void removeColonistFromPlantation(PlantationType type) {
+		plantations.removeColonistFromPlantation(type);
+	}
 
 	public void addColonistToBuilding(BuildingTypeList type) {
 		buildings.addColonistToBuilding(type);
+	}
+	
+	public int getColonistsFromPool() {
+		int colonists = stats.colonists();
+		stats.subColonists(colonists);
+		return colonists;
 	}
 	
 	public void resetWerft() {

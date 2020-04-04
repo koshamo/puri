@@ -98,6 +98,14 @@ import javafx.scene.layout.VBox;
 			}
 	}
 	
+	public void removeColonistFromPlantation(PlantationType type) {
+		for (PlantationField field : plantations)
+			if (field.type() == type && field.state() == State.ACTIVE) {
+				field.deactivate();
+				return;
+			}
+	}
+
 	public List<PlantationField> ownedPlantations() {
 		return plantations;
 	}

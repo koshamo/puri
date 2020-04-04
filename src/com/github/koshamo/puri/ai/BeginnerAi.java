@@ -554,7 +554,7 @@ public class BeginnerAi extends AbstractAi {
 		}
 		if (toDraw == PlantationType.NONE) 
 			for (PlantationType pt : drawable)
-				if (pt != pt.NONE) {
+				if (pt != PlantationType.NONE) {
 					toDraw = pt;
 					break;
 				}
@@ -565,8 +565,132 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public void distributeColonists() {
+		int freeCols = player.getColonistsFromPool();
+
+		List<BuildingField> buildings = player.ownedBuildingsAsField();
+		for (int i = buildings.size() - 1; i >= 0; i--) {
+			BuildingField building = buildings.get(i); 
+			
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KAFFEE);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.TABAK);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.GR_ZUCKER);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KL_ZUCKER);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.GR_INDIGO);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KL_INDIGO);
+		}
+		
+		if (freeCols > 0) {
+			freeCols = distributeColonistsToQuarries(freeCols);
+		}
+		
+		if (freeCols > 0) {
+			freeCols = distributeColonistsToBuildings(freeCols);
+		}
+		
+		if (freeCols > 0) {
+			freeCols = distributeColonistsToPlantations(freeCols);
+		}
+		
 		System.out.println("AI: distribute Colonists");
 		propagateColonistDistribution();
+	}
+
+	private int distributeColonistsToPlantations(int freeColonists) {
+		int freeCols = freeColonists;
+		for (PlantationField pf : player.ownedPlantations()) {
+			if (pf.state() == State.INACTIVE
+					&& freeCols > 0) {
+				pf.activate();
+				freeCols--;
+			}
+		}
+		return freeCols;
+	}
+
+	private int distributeColonistsToBuildings(int freeColonists) {
+		int freeCols = freeColonists;
+
+		List<BuildingField> buildings = player.ownedBuildingsAsField();
+		for (int i = buildings.size() - 1; i >= 0; i--) {
+			BuildingField building = buildings.get(i); 
+			while (building.emptyPlaces() > 0 && freeCols > 0) {
+				building.addColonist();
+				freeCols--;
+			}
+		}
+		
+		return freeCols;
+	}
+
+	private int distributeColonistsToQuarries(int freeColonists) {
+		int freeCols = freeColonists;
+		for (PlantationField pf : player.ownedPlantations()) {
+			if (pf.type() == PlantationType.QUARRY 
+					&& pf.state() == State.INACTIVE
+					&& freeCols > 0) {
+				pf.activate();
+				freeCols--;
+			}
+		}
+		return freeCols;
+	}
+
+	private int distributeColonistsForProduct(int freeColonists, BuildingField building, BuildingTypeList buildingType) {
+		// FIXME: SUGAR and INDIGO do not recognize small and large buildings
+		
+		int freeCols = freeColonists;
+		PlantationType pType;
+		switch (buildingType) {
+		case KAFFEE: pType = PlantationType.COFFEE; break;
+		case TABAK: pType = PlantationType.TOBACCO; break;
+		case GR_ZUCKER: pType = PlantationType.SUGAR; break;
+		case KL_ZUCKER: pType = PlantationType.SUGAR; break;
+		case GR_INDIGO: pType = PlantationType.INDIGO; break;
+		case KL_INDIGO: pType = PlantationType.INDIGO; break;
+		default: pType = PlantationType.NONE;
+		}
+		
+		if (building.type() == buildingType) {
+			int colMax = building.type().getPlaces();
+			int colCur = building.colonists();
+			int plantTotal = countPlantations(pType, true);
+			int plantAct = countPlantations(pType, false);
+			
+			if (colCur == plantAct) {
+				while (colMax > colCur && plantTotal > plantAct && freeCols > 1) {
+					building.addColonist();
+					player.addColonistToPlantation(pType);
+					freeCols -= 2;
+				}
+			} else if (colCur > plantAct) {
+				if (plantTotal > plantAct) { 
+					player.addColonistToPlantation(pType);
+					freeCols--;
+				} else {
+					building.removeColonist();
+					freeCols++;
+				}
+			} else /* colCur < plantAct*/ {
+				if (colMax > colCur) {
+					building.addColonist();
+					freeCols--;
+				} else {
+					player.removeColonistFromPlantation(pType);
+					freeCols++;
+				}
+			}
+		}
+		return freeCols;
+	}
+	
+	private int countPlantations(PlantationType type, boolean all) {
+		int cnt = 0;
+		
+		for (PlantationField pf : player.ownedPlantations())
+			if (pf.type() == type
+					&& all || pf.state() == State.ACTIVE)
+				cnt++;
+		return cnt;
 	}
 
 	@Override
