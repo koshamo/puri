@@ -95,7 +95,8 @@ public class Player extends Region {
 	}
 	
 	public void activatePlayer() {
-		stats.activatePlayer();
+		if (!hasAi())
+			stats.activatePlayer();
 	}
 	
 	public void deactivatePlayer() {
