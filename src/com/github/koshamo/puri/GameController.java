@@ -235,7 +235,7 @@ public class GameController {
 		if (activePlayerCount == NUM_PLAYERS - 1) {
 			int emptyPlaces = 0;
 			for (Player p : players)
-				emptyPlaces += p.calcEmptyPlaces();
+				emptyPlaces += p.calcEmptyBuildingPlaces();
 			int left = gameBoard.refreshColonists(emptyPlaces);
 			if (left == 0)
 				gameEnd = true;

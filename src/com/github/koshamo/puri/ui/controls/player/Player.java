@@ -140,7 +140,7 @@ public class Player extends Region {
 		stats.addColonists(num);
 	}
 
-	public int calcEmptyPlaces() {
+	public int calcEmptyBuildingPlaces() {
 		return buildings.calcEmptyPlaces();
 	}
 	
