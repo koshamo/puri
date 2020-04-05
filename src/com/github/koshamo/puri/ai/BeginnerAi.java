@@ -857,8 +857,61 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public void trade() {
-		System.out.println("AI: trade");
+		boolean kontor = player.hasActiveBuilding(BuildingTypeList.KONTOR);
+		boolean market = player.hasActiveBuilding(BuildingTypeList.KL_MARKT) 
+				|| player.hasActiveBuilding(BuildingTypeList.GR_MARKT);
+		List<PlantationType> inMarket = gameBoard.listProductsInMarket();
+		
+		PlantationType type = PlantationType.NONE;
+		if (player.availableProducts(PlantationType.COFFEE) > 0
+			&& kontor 
+			|| !inMarket.contains(PlantationType.COFFEE)) {
+			type = PlantationType.COFFEE;
+		} else if (player.availableProducts(PlantationType.TOBACCO) > 0
+				&& kontor 
+				|| !inMarket.contains(PlantationType.TOBACCO)) {
+			type = PlantationType.TOBACCO;
+		} else if (player.availableProducts(PlantationType.SUGAR) > 0
+				&& kontor 
+				|| !inMarket.contains(PlantationType.SUGAR)) {
+			type = PlantationType.SUGAR;
+		} else if (player.availableProducts(PlantationType.INDIGO) > 0
+				&& kontor 
+				|| !inMarket.contains(PlantationType.INDIGO)) {
+			type = PlantationType.INDIGO;
+		} else if (player.availableProducts(PlantationType.CORN) > 0
+				&& market
+				&& kontor 
+				|| !inMarket.contains(PlantationType.CORN)) {
+				type = PlantationType.CORN;
+		}
+
+		sellProduct(type);
+
+		System.out.println(player.name() + " trade " + type);
 		propagateTrading();
+	}
+
+	private void sellProduct(PlantationType type) {
+		int extra = 0;
+		if (player.hasActiveBuilding(BuildingTypeList.KL_MARKT))
+			extra += 1;
+		if (player.hasActiveBuilding(BuildingTypeList.GR_MARKT))
+			extra += 2;
+
+		int amount = 0;
+		switch (type) {
+		case INDIGO: amount = 1; break;
+		case SUGAR: amount = 2; break;
+		case CORN: amount = 0; break;
+		case TOBACCO: amount = 3; break;
+		case COFFEE: amount = 4; break;
+		default: amount = 0;
+		}
+		
+		player.reduceProduct(type, 1);
+		player.addGulden(amount + extra);
+		gameBoard.addProductToMarket(type);
 	}
 
 }

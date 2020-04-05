@@ -241,6 +241,10 @@ public class Board extends Region {
 		return market.getProducts();
 	}
 	
+	public void addProductToMarket(PlantationType type) {
+		market.addProduct(type);
+	}
+	
 	public boolean checkAndClearMarket() {
 		if (!market.hasEmptyPlace()) {
 			clearMarket();
