@@ -695,8 +695,22 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public Optional<List<PlantationType>> chooseProductionExtra(int[] possibleExtras) {
-		System.out.println("AI: choose Production Extra");
-		return Optional.empty();
+		List<PlantationType> extra = new LinkedList<>(); 
+		PlantationType type = PlantationType.NONE;
+		if (possibleExtras[4] > 0)
+			type = PlantationType.COFFEE;
+		else if (possibleExtras[3] > 0)
+			type = PlantationType.TOBACCO;
+		else if (possibleExtras[2] > 0)
+			type = PlantationType.CORN;
+		else if (possibleExtras[1] > 0)
+			type = PlantationType.SUGAR;
+		else if (possibleExtras[0] > 0)
+			type = PlantationType.INDIGO;
+		
+		System.out.println(player.name() + " choose Production Extra: " + type);
+		extra.add(type);
+		return Optional.of(extra);
 	}
 
 	@Override
