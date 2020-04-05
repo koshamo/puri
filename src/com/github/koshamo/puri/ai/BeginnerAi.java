@@ -751,22 +751,75 @@ public class BeginnerAi extends AbstractAi {
 	@Override
 	public void shipProduct() {
 		PlantationType type = calcMaxShippableProdcutType();
+		
+		int toShip; 
+		if (type == PlantationType.NONE && player.hasActiveBuilding(BuildingTypeList.WERFT)) {
+			toShip = shipProductsWithWerft();
+		} else 
+			toShip = shipProducts(type);
+
+		player.reduceProduct(type, toShip);
+		player.addVictoryPoints(toShip);
+		gameBoard.reduceVictoryPoints(toShip);
+
+		System.out.println(player.name() + " ship Products: " + toShip + " " + type);
+		propagateShipping();
+	}
+
+	private int shipProductsWithWerft() {
+		PlantationType type = calcMaxAvailableProductType();
 		int playerAmount = player.availableProducts(type);
 		
+		player.useWerft();
+		
+		return playerAmount;
+	}
+
+	private int shipProducts(PlantationType type) {
+		int playerAmount = player.availableProducts(type);
+
 		int amount = 0;
 		if (gameBoard.hasShip(type)) 
 			amount = gameBoard.freePlacesOnShipWith(type);
 		else if (gameBoard.numShipsWithNone() > 0) 
 			amount = gameBoard.freePlacesOnShipWith(PlantationType.NONE);
 		int toShip = Math.min(playerAmount, amount);
-		
-		player.reduceProduct(type, toShip);
-		player.addVictoryPoints(toShip);
-		gameBoard.autoShipProduct(type, toShip);
-		gameBoard.reduceVictoryPoints(toShip);
 
-		System.out.println(player.name() + " ship Products: " + toShip + " " + type);
-		propagateShipping();
+		gameBoard.autoShipProduct(type, toShip);
+		
+		return toShip;
+	}
+	
+	private PlantationType calcMaxAvailableProductType() {
+		PlantationType type = PlantationType.NONE;
+		int max = 0;
+		
+		int cur = player.availableProducts(PlantationType.INDIGO); 
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.INDIGO;
+		}
+		cur = player.availableProducts(PlantationType.SUGAR); 
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.SUGAR;
+		}
+		cur = player.availableProducts(PlantationType.CORN); 
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.CORN;
+		}
+		cur = player.availableProducts(PlantationType.TOBACCO); 
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.TOBACCO;
+		}
+		cur = player.availableProducts(PlantationType.COFFEE); 
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.COFFEE;
+		}
+		return type;
 	}
 	
 	private PlantationType calcMaxShippableProdcutType() {
