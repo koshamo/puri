@@ -166,7 +166,7 @@ public class BeginnerAi extends AbstractAi {
 
 	private int calcGainGouvernor() {
 		int colonistsToGet = calcDrawableColonists();
-		int[] plantations = calcPlantationsColonists();
+		int[] plantations = calcColonistsOnPlantations();
 		int[] productions = calcProductionBuildingsColonists();
 		int inactiveBuildings = calcEmptyBuildings();
 		
@@ -194,7 +194,7 @@ public class BeginnerAi extends AbstractAi {
 		return colonistsToGet;
 	}
 
-	private int[] calcPlantationsColonists() {
+	private int[] calcColonistsOnPlantations() {
 		int[] plantations = new int[12]; // active, inactive,...
 										 // corn = 8, quarry = 10
 		
@@ -451,23 +451,21 @@ public class BeginnerAi extends AbstractAi {
 	public Optional<BuildingTypeList> purchaseBuilding(boolean privilege) {
 		int availableGulden = privilege ? player.availableGulden() + 1
 				: player.availableGulden();
-		int quarries = player.activeQuarries();
-		List<BuildingTypeList> ownedBuildings = player.ownedBuildings();
 		
-		List<BuildingTypeList> buyableBuildings = new ArrayList<>();
-		for (BuildingsModel bm : gameBoard.availableBuildings()) {
-			int cost = bm.type().getCost();
-			int vp = bm.type().getVictoryPoints();
-			int quarryGain = vp < quarries ? vp : quarries; 
-			if (!ownedBuildings.contains(bm.type()) 
-					&& !(cost - quarryGain > availableGulden)
-					&& Integer.valueOf(bm.getLeft()).intValue() > 0)
-				buyableBuildings.add(bm.type());
-		}
+		List<BuildingTypeList> buyableBuildings = calcBuyableBuildings(availableGulden);
 		
 		if (buyableBuildings.size() == 0)
 			return Optional.empty();
 		
+		BuildingTypeList toPurchase = calcBuildingToPurchase(buyableBuildings);
+			
+		System.out.println(player.name() + " choose Building: " + toPurchase);
+		return toPurchase == BuildingTypeList.NONE 
+				? Optional.empty() 
+				: Optional.of(toPurchase);
+	}
+
+	private BuildingTypeList calcBuildingToPurchase(List<BuildingTypeList> buyableBuildings) {
 		int n = buyableBuildings.size() - 1;
 		BuildingTypeList toPurchase = buyableBuildings.get(n);
 		
@@ -505,11 +503,24 @@ public class BeginnerAi extends AbstractAi {
 				break;
 			}
 		}
-			
-		System.out.println(player.name() + " choose Building: " + toPurchase);
-		return toPurchase == BuildingTypeList.NONE 
-				? Optional.empty() 
-				: Optional.of(toPurchase);
+		return toPurchase;
+	}
+
+	private List<BuildingTypeList> calcBuyableBuildings(int availableGulden) {
+		int quarries = player.activeQuarries();
+		List<BuildingTypeList> ownedBuildings = player.ownedBuildings();
+		
+		List<BuildingTypeList> buyableBuildings = new ArrayList<>();
+		for (BuildingsModel bm : gameBoard.availableBuildings()) {
+			int cost = bm.type().getCost();
+			int vp = bm.type().getVictoryPoints();
+			int quarryGain = vp < quarries ? vp : quarries; 
+			if (!ownedBuildings.contains(bm.type()) 
+					&& !(cost - quarryGain > availableGulden)
+					&& Integer.valueOf(bm.getLeft()).intValue() > 0)
+				buyableBuildings.add(bm.type());
+		}
+		return buyableBuildings;
 	}
 
 	@Override
@@ -522,23 +533,16 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public void choosePlantation(boolean canQuarry) {
-		int[] rawMaterials = calcOwnedPlantationsPerType();
-		int[] products = calcProductionCapacityPerType();
+		List<Pair<PlantationType, Integer>> mostNeeded = 
+				calcMostNeededPlantation(canQuarry);
 		
-		List<Pair<PlantationType,Integer>> mostNeeded = new ArrayList<>();
-		if (products[0] > rawMaterials[0]) 
-			mostNeeded.add(new Pair<>(PlantationType.INDIGO, Integer.valueOf(products[0] - rawMaterials[0])));
-		if (products[1] > rawMaterials[1]) 
-			mostNeeded.add(new Pair<>(PlantationType.SUGAR, Integer.valueOf(products[1] - rawMaterials[1])));
-		if (products[0] > rawMaterials[2]) 
-			mostNeeded.add(new Pair<>(PlantationType.TOBACCO, Integer.valueOf(products[2] - rawMaterials[2])));
-		if (products[0] > rawMaterials[3]) 
-			mostNeeded.add(new Pair<>(PlantationType.COFFEE, Integer.valueOf(products[3] - rawMaterials[3])));
-		mostNeeded.add(new Pair<>(PlantationType.CORN, Integer.valueOf(4 - rawMaterials[4])));
-		if (canQuarry)
-			mostNeeded.add(new Pair<>(PlantationType.QUARRY, Integer.valueOf(4 - rawMaterials[5])));
+		PlantationType toDraw = calcPlantationToDraw(mostNeeded);
 
-		mostNeeded.sort((p1,p2) -> {return p2.second().compareTo(p1.second());});
+		System.out.println(player.name() + " choose Plantation " + toDraw);
+		propagatePlantation(toDraw);
+	}
+
+	private PlantationType calcPlantationToDraw(List<Pair<PlantationType, Integer>> mostNeeded) {
 		List<PlantationType> drawable = Arrays.asList(gameBoard.plantations().drawablePlantations());
 		drawable.sort((p1,p2) -> {return p2.compareTo(p1);});
 		
@@ -558,26 +562,35 @@ public class BeginnerAi extends AbstractAi {
 					toDraw = pt;
 					break;
 				}
+		return toDraw;
+	}
 
-		System.out.println(player.name() + " choose Plantation " + toDraw);
-		propagatePlantation(toDraw);
+	private List<Pair<PlantationType, Integer>> calcMostNeededPlantation(boolean canQuarry) {
+		int[] rawMaterials = calcOwnedPlantationsPerType();
+		int[] products = calcProductionCapacityPerType();
+		
+		List<Pair<PlantationType,Integer>> mostNeeded = new ArrayList<>();
+		if (products[0] > rawMaterials[0]) 
+			mostNeeded.add(new Pair<>(PlantationType.INDIGO, Integer.valueOf(products[0] - rawMaterials[0])));
+		if (products[1] > rawMaterials[1]) 
+			mostNeeded.add(new Pair<>(PlantationType.SUGAR, Integer.valueOf(products[1] - rawMaterials[1])));
+		if (products[0] > rawMaterials[2]) 
+			mostNeeded.add(new Pair<>(PlantationType.TOBACCO, Integer.valueOf(products[2] - rawMaterials[2])));
+		if (products[0] > rawMaterials[3]) 
+			mostNeeded.add(new Pair<>(PlantationType.COFFEE, Integer.valueOf(products[3] - rawMaterials[3])));
+		mostNeeded.add(new Pair<>(PlantationType.CORN, Integer.valueOf(4 - rawMaterials[4])));
+		if (canQuarry)
+			mostNeeded.add(new Pair<>(PlantationType.QUARRY, Integer.valueOf(4 - rawMaterials[5])));
+
+		mostNeeded.sort((p1,p2) -> {return p2.second().compareTo(p1.second());});
+		return mostNeeded;
 	}
 
 	@Override
 	public void distributeColonists() {
 		int freeCols = player.getColonistsFromPool();
 
-		List<BuildingField> buildings = player.ownedBuildingsAsField();
-		for (int i = buildings.size() - 1; i >= 0; i--) {
-			BuildingField building = buildings.get(i); 
-			
-			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KAFFEE);
-			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.TABAK);
-			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.GR_ZUCKER);
-			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KL_ZUCKER);
-			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.GR_INDIGO);
-			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KL_INDIGO);
-		}
+		freeCols = distributeColonistsToProductionChain(freeCols);
 		
 		if (freeCols > 0) {
 			freeCols = distributeColonistsToQuarries(freeCols);
@@ -593,6 +606,22 @@ public class BeginnerAi extends AbstractAi {
 		
 		System.out.println("AI: distribute Colonists");
 		propagateColonistDistribution();
+	}
+
+	private int distributeColonistsToProductionChain(int freeColonists) {
+		int freeCols = freeColonists;
+		List<BuildingField> buildings = player.ownedBuildingsAsField();
+		for (int i = buildings.size() - 1; i >= 0; i--) {
+			BuildingField building = buildings.get(i); 
+			
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KAFFEE);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.TABAK);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.GR_ZUCKER);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KL_ZUCKER);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.GR_INDIGO);
+			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KL_INDIGO);
+		}
+		return freeCols;
 	}
 
 	private int distributeColonistsToPlantations(int freeColonists) {
@@ -639,16 +668,7 @@ public class BeginnerAi extends AbstractAi {
 		// FIXME: SUGAR and INDIGO do not recognize small and large buildings
 		
 		int freeCols = freeColonists;
-		PlantationType pType;
-		switch (buildingType) {
-		case KAFFEE: pType = PlantationType.COFFEE; break;
-		case TABAK: pType = PlantationType.TOBACCO; break;
-		case GR_ZUCKER: pType = PlantationType.SUGAR; break;
-		case KL_ZUCKER: pType = PlantationType.SUGAR; break;
-		case GR_INDIGO: pType = PlantationType.INDIGO; break;
-		case KL_INDIGO: pType = PlantationType.INDIGO; break;
-		default: pType = PlantationType.NONE;
-		}
+		PlantationType pType = mapBuildingToPlantation(buildingType);
 		
 		if (building.type() == buildingType) {
 			int colMax = building.type().getPlaces();
@@ -681,6 +701,20 @@ public class BeginnerAi extends AbstractAi {
 			}
 		}
 		return freeCols;
+	}
+
+	private static PlantationType mapBuildingToPlantation(BuildingTypeList buildingType) {
+		PlantationType pType;
+		switch (buildingType) {
+		case KAFFEE: pType = PlantationType.COFFEE; break;
+		case TABAK: pType = PlantationType.TOBACCO; break;
+		case GR_ZUCKER: pType = PlantationType.SUGAR; break;
+		case KL_ZUCKER: pType = PlantationType.SUGAR; break;
+		case GR_INDIGO: pType = PlantationType.INDIGO; break;
+		case KL_INDIGO: pType = PlantationType.INDIGO; break;
+		default: pType = PlantationType.NONE;
+		}
+		return pType;
 	}
 	
 	private int countPlantations(PlantationType type, boolean all) {
