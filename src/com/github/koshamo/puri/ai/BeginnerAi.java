@@ -394,6 +394,7 @@ public class BeginnerAi extends AbstractAi {
 				amount = gameBoard.freePlacesOnShipWith(type);
 			else if (gameBoard.numShipsWithNone() > 0) 
 				amount = gameBoard.freePlacesOnShipWith(PlantationType.NONE);
+			if (player.hasActiveBuilding(BuildingTypeList.WERFT))
 			return Math.min(playerAmount, amount);
 		}
 		return 0;
@@ -749,8 +750,57 @@ public class BeginnerAi extends AbstractAi {
 
 	@Override
 	public void shipProduct() {
-		System.out.println("AI: ship Products");
+		PlantationType type = calcMaxShippableProdcutType();
+		int playerAmount = player.availableProducts(type);
+		
+		int amount = 0;
+		if (gameBoard.hasShip(type)) 
+			amount = gameBoard.freePlacesOnShipWith(type);
+		else if (gameBoard.numShipsWithNone() > 0) 
+			amount = gameBoard.freePlacesOnShipWith(PlantationType.NONE);
+		int toShip = Math.min(playerAmount, amount);
+		
+		// TODO: autoshipping uses smallest free ship, calculation uses largest free ship. verfify!
+		player.reduceProduct(type, toShip);
+		player.addVictoryPoints(toShip);
+		gameBoard.autoShipProduct(type, toShip);
+		gameBoard.reduceVictoryPoints(toShip);
+
+		System.out.println(player.name() + " ship Products: " + toShip + " " + type);
 		propagateShipping();
+	}
+	
+	private PlantationType calcMaxShippableProdcutType() {
+		int max = 0;
+		PlantationType type = PlantationType.NONE;
+		
+		int cur = calcShippableProductsPerType(PlantationType.INDIGO);
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.INDIGO;
+		}
+		cur = calcShippableProductsPerType(PlantationType.SUGAR);
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.SUGAR;
+		}
+		cur = calcShippableProductsPerType(PlantationType.CORN);
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.CORN;
+		}
+		cur = calcShippableProductsPerType(PlantationType.TOBACCO);
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.TOBACCO;
+		}
+		cur = calcShippableProductsPerType(PlantationType.COFFEE);
+		if (cur > max) {
+			max = cur;
+			type = PlantationType.COFFEE;
+		}
+		
+		return type;
 	}
 
 	@Override

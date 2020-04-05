@@ -149,7 +149,6 @@ public class Board extends Region {
 	}
 	
 	public int freePlacesOnShipWith(PlantationType type) {
-		// TODO: is there a need for small Ship to be the first?
 		if (largeGoodsShip.type() == type)
 			return largeGoodsShip.storageLeft();
 		if (mediumGoodsShip.type() == type)
@@ -184,11 +183,19 @@ public class Board extends Region {
 	}
 
 	private void shipIfEmptyShip(PlantationType type, int amount) {
-		if (smallGoodsShip.type() == PlantationType.NONE) {
+		/* 
+		 * As freePlacesOnShipWith calcs the maximum shippable amount
+		 * we need to check amount for small and medium ship.
+		 * Amount should never be larger than largest ship
+		 * with type NONE.
+		 */ 
+		if (smallGoodsShip.type() == PlantationType.NONE
+				&& !(amount > smallGoodsShip.size())) {
 			smallGoodsShip.addGoods(type, amount);
 			return;
 		}
-		if (mediumGoodsShip.type() == PlantationType.NONE) {
+		if (mediumGoodsShip.type() == PlantationType.NONE
+				 && !(amount > mediumGoodsShip.size())) {
 			mediumGoodsShip.addGoods(type, amount);
 			return;
 		}
