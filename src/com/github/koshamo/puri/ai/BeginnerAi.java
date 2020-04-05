@@ -760,7 +760,6 @@ public class BeginnerAi extends AbstractAi {
 			amount = gameBoard.freePlacesOnShipWith(PlantationType.NONE);
 		int toShip = Math.min(playerAmount, amount);
 		
-		// TODO: autoshipping uses smallest free ship, calculation uses largest free ship. verfify!
 		player.reduceProduct(type, toShip);
 		player.addVictoryPoints(toShip);
 		gameBoard.autoShipProduct(type, toShip);
