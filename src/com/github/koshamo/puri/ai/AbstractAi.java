@@ -97,4 +97,6 @@ public abstract class AbstractAi {
 	protected final void propagateTrading() {
 		controller.handleTraderDone();
 	}
+
+	public abstract Optional<List<PlantationType>> chooseProductsToKeep();
 }

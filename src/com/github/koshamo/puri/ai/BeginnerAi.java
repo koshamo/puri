@@ -928,4 +928,74 @@ public class BeginnerAi extends AbstractAi {
 		gameBoard.addProductToMarket(type);
 	}
 
+	@Override
+	public Optional<List<PlantationType>> chooseProductsToKeep() {
+		List<PlantationType> toStore;
+		int extraStorage = calcExtraStorage();
+		
+		if (extraStorage == 0)
+			toStore = calcSingleStorage();
+		else
+			toStore = calcMultipleStorage(extraStorage);
+		
+		return Optional.of(toStore);
+	}
+
+	private List<PlantationType> calcSingleStorage() {
+		List<PlantationType> toStore = new LinkedList<>();
+		PlantationType mostValuable = calcMostValuableProductAvailable();
+		
+		toStore.add(mostValuable);
+		return toStore;
+	}
+
+	private PlantationType calcMostValuableProductAvailable() {
+		PlantationType mostValuable = PlantationType.NONE;
+		
+		if (player.availableProducts(PlantationType.COFFEE) > 0)
+			mostValuable = PlantationType.COFFEE;
+		else if (player.availableProducts(PlantationType.TOBACCO) > 0)
+			mostValuable = PlantationType.TOBACCO;
+		else if (player.availableProducts(PlantationType.SUGAR) > 0)
+			mostValuable = PlantationType.SUGAR;
+		else if (player.availableProducts(PlantationType.INDIGO) > 0)
+			mostValuable = PlantationType.INDIGO;
+		else if (player.availableProducts(PlantationType.CORN) > 0)
+			mostValuable = PlantationType.CORN;
+		
+		return mostValuable;
+	}
+
+	private List<PlantationType> calcMultipleStorage(int extraStorage) {
+		List<PlantationType> toStore = new LinkedList<>();
+
+		List<Pair<PlantationType,Integer>> availableProducts = new ArrayList<>();
+		availableProducts.add(new Pair<>(PlantationType.INDIGO, Integer.valueOf(player.availableProducts(PlantationType.INDIGO))));
+		availableProducts.add(new Pair<>(PlantationType.SUGAR, Integer.valueOf(player.availableProducts(PlantationType.SUGAR))));
+		availableProducts.add(new Pair<>(PlantationType.CORN, Integer.valueOf(player.availableProducts(PlantationType.CORN))));
+		availableProducts.add(new Pair<>(PlantationType.TOBACCO, Integer.valueOf(player.availableProducts(PlantationType.TOBACCO))));
+		availableProducts.add(new Pair<>(PlantationType.COFFEE, Integer.valueOf(player.availableProducts(PlantationType.COFFEE))));
+
+		availableProducts.sort((p1,p2) -> {
+			int amountCheck = p2.second().compareTo(p1.second());
+			if (amountCheck != 0)
+				return amountCheck;
+			return p2.first().compareTo(p1.first());
+			});
+				
+		for (int i = extraStorage; i >= 0; i--)
+			toStore.add(availableProducts.get(i).first());
+		
+		return toStore;
+	}
+
+	private int calcExtraStorage() {
+		int extraStorage = 0;
+		if (player.hasActiveBuilding(BuildingTypeList.KL_LAGER))
+			extraStorage += 1;
+		if (player.hasActiveBuilding(BuildingTypeList.GR_LAGER))
+			extraStorage += 2;
+		return extraStorage;
+	}
+
 }

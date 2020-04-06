@@ -271,8 +271,13 @@ import javafx.scene.text.FontWeight;
 		if (one && cnt == storage + 1)
 			return;
 		
-		ProductDialog dialog = new ProductDialog(name, products, State.STORAGE, storage);
-		Optional<List<PlantationType>> toKeep = dialog.showAndWait();
+		Optional<List<PlantationType>> toKeep;
+		if (player.hasAi())
+			toKeep = player.ai().chooseProductsToKeep();
+		else {
+			ProductDialog dialog = new ProductDialog(name, products, State.STORAGE, storage);
+			toKeep = dialog.showAndWait();
+		}
 		
 		if (toKeep.isPresent()) {
 			clearStorageExcept(toKeep.get());
