@@ -198,29 +198,28 @@ public class BeginnerAi extends AbstractAi {
 		int[] plantations = new int[12]; // active, inactive,...
 										 // corn = 8, quarry = 10
 		
-		for (PlantationField pf : player.ownedPlantations())
-			if (pf.state() == State.INACTIVE) 
-				switch (pf.type()) {
-				case INDIGO: 
-					addPointPerState(plantations, pf.state(), 0);
-					break;
-				case SUGAR: 
-					addPointPerState(plantations, pf.state(), 2);
-					break;
-				case TOBACCO: 
-					addPointPerState(plantations, pf.state(), 4);
-					break;
-				case COFFEE: 
-					addPointPerState(plantations, pf.state(), 6);
-					break;
-				case CORN: 
-					addPointPerState(plantations, pf.state(), 8);
-					break;
-				case QUARRY: 
-					addPointPerState(plantations, pf.state(), 10);
-					break;
-				default: break;
-				}
+		for (PlantationField pf : player.ownedPlantations()) 
+			switch (pf.type()) {
+			case INDIGO: 
+				addPointPerState(plantations, pf.state(), 0);
+				break;
+			case SUGAR: 
+				addPointPerState(plantations, pf.state(), 2);
+				break;
+			case TOBACCO: 
+				addPointPerState(plantations, pf.state(), 4);
+				break;
+			case COFFEE: 
+				addPointPerState(plantations, pf.state(), 6);
+				break;
+			case CORN: 
+				addPointPerState(plantations, pf.state(), 8);
+				break;
+			case QUARRY: 
+				addPointPerState(plantations, pf.state(), 10);
+				break;
+			default: break;
+			}
 		
 		return plantations;
 	}
