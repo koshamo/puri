@@ -600,6 +600,10 @@ public class BeginnerAi extends AbstractAi {
 		}
 		
 		if (freeCols > 0) {
+			freeCols = distributeColonistsToCorn(freeCols);
+		}
+		
+		if (freeCols > 0) {
 			freeCols = distributeColonistsToBuildings(freeCols);
 		}
 		
@@ -623,6 +627,45 @@ public class BeginnerAi extends AbstractAi {
 			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KL_ZUCKER);
 			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.GR_INDIGO);
 			freeCols = distributeColonistsForProduct(freeCols, building, BuildingTypeList.KL_INDIGO);
+		}
+		return freeCols;
+	}
+
+	private int distributeColonistsForProduct(int freeColonists, BuildingField building, BuildingTypeList buildingType) {
+		// FIXME: SUGAR and INDIGO do not recognize small and large buildings
+		
+		int freeCols = freeColonists;
+		PlantationType pType = mapBuildingToPlantation(buildingType);
+		
+		if (building.type() == buildingType) {
+			int colMax = building.type().getPlaces();
+			int colCur = building.colonists();
+			int plantTotal = countPlantations(pType, true);
+			int plantAct = countPlantations(pType, false);
+			
+			if (colCur == plantAct) {
+				while (colMax > colCur && plantTotal > plantAct && freeCols > 1) {
+					building.addColonist();
+					player.addColonistToPlantation(pType);
+					freeCols -= 2;
+				}
+			} else if (colCur > plantAct) {
+				if (plantTotal > plantAct) { 
+					player.addColonistToPlantation(pType);
+					freeCols--;
+				} else {
+					building.removeColonist();
+					freeCols++;
+				}
+			} else /* colCur < plantAct*/ {
+				if (colMax > colCur) {
+					building.addColonist();
+					freeCols--;
+				} else {
+					player.removeColonistFromPlantation(pType);
+					freeCols++;
+				}
+			}
 		}
 		return freeCols;
 	}
@@ -667,40 +710,14 @@ public class BeginnerAi extends AbstractAi {
 		return freeCols;
 	}
 
-	private int distributeColonistsForProduct(int freeColonists, BuildingField building, BuildingTypeList buildingType) {
-		// FIXME: SUGAR and INDIGO do not recognize small and large buildings
-		
+	private int distributeColonistsToCorn(int freeColonists) {
 		int freeCols = freeColonists;
-		PlantationType pType = mapBuildingToPlantation(buildingType);
-		
-		if (building.type() == buildingType) {
-			int colMax = building.type().getPlaces();
-			int colCur = building.colonists();
-			int plantTotal = countPlantations(pType, true);
-			int plantAct = countPlantations(pType, false);
-			
-			if (colCur == plantAct) {
-				while (colMax > colCur && plantTotal > plantAct && freeCols > 1) {
-					building.addColonist();
-					player.addColonistToPlantation(pType);
-					freeCols -= 2;
-				}
-			} else if (colCur > plantAct) {
-				if (plantTotal > plantAct) { 
-					player.addColonistToPlantation(pType);
-					freeCols--;
-				} else {
-					building.removeColonist();
-					freeCols++;
-				}
-			} else /* colCur < plantAct*/ {
-				if (colMax > colCur) {
-					building.addColonist();
-					freeCols--;
-				} else {
-					player.removeColonistFromPlantation(pType);
-					freeCols++;
-				}
+		for (PlantationField pf : player.ownedPlantations()) {
+			if (pf.type() == PlantationType.CORN 
+					&& pf.state() == State.INACTIVE
+					&& freeCols > 0) {
+				pf.activate();
+				freeCols--;
 			}
 		}
 		return freeCols;
@@ -725,7 +742,7 @@ public class BeginnerAi extends AbstractAi {
 		
 		for (PlantationField pf : player.ownedPlantations())
 			if (pf.type() == type
-					&& all || pf.state() == State.ACTIVE)
+					&& (all || pf.state() == State.ACTIVE))
 				cnt++;
 		return cnt;
 	}
