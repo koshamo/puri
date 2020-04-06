@@ -395,6 +395,7 @@ public class BeginnerAi extends AbstractAi {
 			else if (gameBoard.numShipsWithNone() > 0) 
 				amount = gameBoard.freePlacesOnShipWith(PlantationType.NONE);
 			if (player.hasActiveBuilding(BuildingTypeList.WERFT))
+				return playerAmount;
 			return Math.min(playerAmount, amount);
 		}
 		return 0;
@@ -864,25 +865,20 @@ public class BeginnerAi extends AbstractAi {
 		
 		PlantationType type = PlantationType.NONE;
 		if (player.availableProducts(PlantationType.COFFEE) > 0
-			&& kontor 
-			|| !inMarket.contains(PlantationType.COFFEE)) {
+			&& (kontor || !inMarket.contains(PlantationType.COFFEE))) {
 			type = PlantationType.COFFEE;
 		} else if (player.availableProducts(PlantationType.TOBACCO) > 0
-				&& kontor 
-				|| !inMarket.contains(PlantationType.TOBACCO)) {
+				&& (kontor || !inMarket.contains(PlantationType.TOBACCO))) {
 			type = PlantationType.TOBACCO;
 		} else if (player.availableProducts(PlantationType.SUGAR) > 0
-				&& kontor 
-				|| !inMarket.contains(PlantationType.SUGAR)) {
+				&& (kontor || !inMarket.contains(PlantationType.SUGAR))) {
 			type = PlantationType.SUGAR;
 		} else if (player.availableProducts(PlantationType.INDIGO) > 0
-				&& kontor 
-				|| !inMarket.contains(PlantationType.INDIGO)) {
+				&& (kontor || !inMarket.contains(PlantationType.INDIGO))) {
 			type = PlantationType.INDIGO;
 		} else if (player.availableProducts(PlantationType.CORN) > 0
 				&& market
-				&& kontor 
-				|| !inMarket.contains(PlantationType.CORN)) {
+				&& (kontor || !inMarket.contains(PlantationType.CORN))) {
 				type = PlantationType.CORN;
 		}
 
