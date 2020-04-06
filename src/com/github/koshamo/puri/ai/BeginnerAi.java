@@ -403,14 +403,8 @@ public class BeginnerAi extends AbstractAi {
 
 	private int calcGainTrader() {
 		int maxGain = calcMaxTradingGain();
-		int extra = 0;
 		
-		if (player.hasActiveBuilding(BuildingTypeList.KL_MARKT))
-			extra += 1;
-		if (player.hasActiveBuilding(BuildingTypeList.GR_MARKT))
-			extra += 2;
-		
-		return maxGain + extra;
+		return maxGain;
 	}
 
 	private int calcMaxTradingGain() {
@@ -418,30 +412,37 @@ public class BeginnerAi extends AbstractAi {
 		int gain = 0;
 		List<PlantationType> productsInMarket = gameBoard.listProductsInMarket();
 		
-		gain = calcTradingGainPerProductWithPrivilege(productsInMarket, PlantationType.INDIGO);
+		gain = calcTradingGainPerProduct(productsInMarket, PlantationType.INDIGO);
 		if (gain > maxGain)
 			maxGain = gain;
-		gain = calcTradingGainPerProductWithPrivilege(productsInMarket, PlantationType.SUGAR);
+		gain = calcTradingGainPerProduct(productsInMarket, PlantationType.SUGAR);
 		if (gain > maxGain)
 			maxGain = gain;
-		gain = calcTradingGainPerProductWithPrivilege(productsInMarket, PlantationType.CORN);
+		gain = calcTradingGainPerProduct(productsInMarket, PlantationType.CORN);
 		if (gain > maxGain)
 			maxGain = gain;
-		gain = calcTradingGainPerProductWithPrivilege(productsInMarket, PlantationType.TOBACCO);
+		gain = calcTradingGainPerProduct(productsInMarket, PlantationType.TOBACCO);
 		if (gain > maxGain)
 			maxGain = gain;
-		gain = calcTradingGainPerProductWithPrivilege(productsInMarket, PlantationType.COFFEE);
+		gain = calcTradingGainPerProduct(productsInMarket, PlantationType.COFFEE);
 		if (gain > maxGain)
 			maxGain = gain;
 
 		return maxGain;
 	}
 	
-	private int calcTradingGainPerProductWithPrivilege(List<PlantationType> productsInMarket, PlantationType type) {
-		if (player.availableProducts(type) > 0)
-			if (!productsInMarket.contains(type)
-					|| player.hasActiveBuilding(BuildingTypeList.KONTOR))
-				return type.getPrice() + 1;
+	private int calcTradingGainPerProduct(List<PlantationType> productsInMarket, PlantationType type) {
+		int extra = 0;
+		
+		if (player.hasActiveBuilding(BuildingTypeList.KL_MARKT))
+			extra += 1;
+		if (player.hasActiveBuilding(BuildingTypeList.GR_MARKT))
+			extra += 2;
+
+		if (player.availableProducts(type) > 0
+				&& (!productsInMarket.contains(type)
+					|| player.hasActiveBuilding(BuildingTypeList.KONTOR)))
+				return type.getPrice() + extra;
 		return 0;
 	}
 
@@ -882,7 +883,8 @@ public class BeginnerAi extends AbstractAi {
 				type = PlantationType.CORN;
 		}
 
-		sellProduct(type);
+		if (type != PlantationType.NONE)
+			sellProduct(type);
 
 		System.out.println(player.name() + " trade " + type);
 		propagateTrading();
