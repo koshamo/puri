@@ -22,9 +22,9 @@ import javafx.scene.control.ButtonType;
 
 public class BeginnerAi extends AbstractAi {
 
-	private final int POINTS_GULDEN_ON_ROLE = 5;
-	private final int POINTS_FOR_CORN = 5;
-	private final int DIVIDER_FOR_SETTLER = 10;
+	private final int POINTS_GULDEN_ON_ROLE = 3;
+	private final int POINTS_FOR_CORN = 2;
+	private final int DIVIDER_FOR_SETTLER = 11;
 	private final int DIVIDER_FOR_GOUVERNOR = 3;
 	
 	public BeginnerAi(List<Player> players, 
