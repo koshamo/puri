@@ -26,6 +26,8 @@ public class BeginnerAi extends AbstractAi {
 	private final int POINTS_FOR_CORN = 2;
 	private final int DIVIDER_FOR_SETTLER = 11;
 	private final int DIVIDER_FOR_GOUVERNOR = 3;
+	private final int NUM_OF_PRODUCTS_TO_REDUCE_PRODUCER = 4;
+	private final int DIVIDER_FOR_PRODUCER = 3;
 	
 	public BeginnerAi(List<Player> players, 
 			Board gameBoard, RoleBoard roleBoard) {
@@ -288,6 +290,15 @@ public class BeginnerAi extends AbstractAi {
 		if (player.hasActiveBuilding(BuildingTypeList.MANUFAKTUR))
 			production += calcNumOfDifferentProducts(
 					producableMaterials, producableProducts) - 1;
+		int availableProducts = player.availableProducts(PlantationType.INDIGO)
+				+ player.availableProducts(PlantationType.SUGAR)
+				+ player.availableProducts(PlantationType.CORN)
+				+ player.availableProducts(PlantationType.TOBACCO)
+				+ player.availableProducts(PlantationType.COFFEE);
+		
+		if (availableProducts > NUM_OF_PRODUCTS_TO_REDUCE_PRODUCER)
+			production /= DIVIDER_FOR_PRODUCER;
+		
 		return production;
 	}
 
