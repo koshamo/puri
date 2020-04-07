@@ -84,6 +84,9 @@ public class BeginnerAi extends AbstractAi {
 					maxPoints = bm.type().getVictoryPoints();
 			}
 		}
+		
+		if (ownedBuildings.size() > 4 && maxPoints < 2)
+			return 0;
 
 		return maxPoints;
 	}
@@ -460,6 +463,13 @@ public class BeginnerAi extends AbstractAi {
 			return Optional.empty();
 		
 		BuildingTypeList toPurchase = calcBuildingToPurchase(buyableBuildings);
+		
+		if (toPurchase != BuildingTypeList.NONE
+				&& player.ownedBuildings().size() > 4 
+				&& toPurchase.getCost() < 3 
+				&& (toPurchase.getType() != BuildingType.SMALL_PRODUCTION 
+				|| toPurchase.getType() != BuildingType.PRODUCTION))
+			toPurchase = BuildingTypeList.NONE;
 			
 		System.out.println(player.name() + " choose Building: " + toPurchase);
 		return toPurchase == BuildingTypeList.NONE 
