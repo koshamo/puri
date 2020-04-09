@@ -800,6 +800,7 @@ public class BeginnerAi extends AbstractAi {
 		player.reduceProduct(type, toShip);
 		player.addVictoryPoints(toShip);
 		gameBoard.reduceVictoryPoints(toShip);
+		gameBoard.moveProductBackToPool(type, toShip);
 
 		System.out.println(player.name() + " ship Products: " + toShip + " " + type);
 		propagateShipping();
