@@ -461,6 +461,8 @@ public class Board extends Region {
 				ClipboardContent cc = new ClipboardContent();
 				cc.putString(String.valueOf(product[0] + " " + playerAmount + " WERFT"));
 				db.setContent(cc);
+				PlantationType type = PlantationType.getByString(product[0]);
+				moveProductBackToPool(type, playerAmount);
 		    }
 		    ev.setDropCompleted(success);
 		    ev.consume();
