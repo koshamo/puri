@@ -1,0 +1,6 @@
+"JavaFX": {
+        "language": "Java"
+		"imports": ["openjfx"],
+		"technologies": ["MVC", "GUI Development"],
+		"description": "OpenJFX is an open source, next generation client application platform for desktop, mobile and embedded systems built on Java.",
+	}
